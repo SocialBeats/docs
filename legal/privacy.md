@@ -57,8 +57,6 @@ Se comparten datos como detalles de facturación, información de tarjetas de cr
 ### **Servicios de Correo Electrónico**
 Se procesan direcciones de correo electrónico y datos relacionados para enviar recordatorios, notificaciones y otras comunicaciones relevantes.
 
-### **APIs de Clima**
-Se utiliza información limitada sobre la ubicación únicamente para ofrecer funcionalidades contextuales, como actualizaciones meteorológicas en zonas relacionadas con el usuario.
 
 SocialBeats garantiza que todos los proveedores externos cumplen con estándares adecuados de seguridad y privacidad.
 
@@ -75,4 +73,5 @@ Aplicando medidas de seguridad avanzadas para prevenir accesos no autorizados, b
 Cumpliendo con los principios de limitación del propósito y minimización de datos en todas sus actividades de tratamiento.
 
 ### **Facilitar el Ejercicio de Derechos**
+
 Proporcionando mecanismos claros y accesibles para que Clientes y Usuarios puedan ejercer sus derechos conforme a la legislación aplicable.
