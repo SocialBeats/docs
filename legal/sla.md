@@ -10,9 +10,9 @@ En todos los casos establecidos a continuación, se excluyen los problemas deriv
 
 ### 1.1 Garantía de tiempo de actividad por plan
 
-- **Plan Free:** 90.0% de tiempo de actividad mensual  
-- **Plan Pro:** 93.0% de tiempo de actividad mensual  
-- **Plan Studio:** 97.9% de tiempo de actividad mensual  
+- **Plan Free:** 80.0% de tiempo de actividad mensual  
+- **Plan Pro:** 85.0% de tiempo de actividad mensual  
+- **Plan Studio:** 89.9% de tiempo de actividad mensual  
 
 ### 1.2 Definición de tiempo de inactividad
 El tiempo de inactividad se refiere a la incapacidad de acceder a las funcionalidades principales de la plataforma debido a problemas dentro del control de SocialBeats.
@@ -73,9 +73,9 @@ El cálculo de disponibilidad excluye:
 
 | Tiempo de actividad alcanzado | Plan Free      | Plan Pro | Plan Studio |
 |------------------------------|----------------|----------|-------------|
-| Menos del 93.0%             | No aplicable   | 5%       | 10%         |
-| Menos del 97.0%             | No aplicable   | N/A      | 5%          |
-| Menos del 98.9%             | No aplicable   | N/A      | N/A         |
+| Menos del 83.0%             | No aplicable   | 5%       | 10%         |
+| Menos del 87.0%             | No aplicable   | N/A      | 5%          |
+| Menos del 95.0%             | No aplicable   | N/A      | N/A         |
 
 ### **Crédito máximo**
 
@@ -122,4 +122,5 @@ Aplica a todos los planes por igual y se lleva a cabo solo cuando es necesario p
 Los cambios requieren acuerdo mutuo y aviso previo de 30 días.
 
 ### 7.2 Resolución de disputas
+
 Las disputas se resolverán conforme a lo establecido en el **Acuerdo de Cliente**.
