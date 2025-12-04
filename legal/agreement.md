@@ -1,18 +1,18 @@
 # Acuerdo de Cliente (Customer Agreement)
 
-Este Acuerdo de Cliente ("Acuerdo") es celebrado entre **SocialBeats** ("Compañía"), una empresa registrada en España, y la entidad o individuo ("Cliente") que se suscribe a los servicios de SocialBeats. Al firmar este acuerdo con los servicios de SocialBeats ("Servicios"), el Cliente acepta cumplir y estar sujeto a los términos y condiciones establecidos en este Acuerdo.
+Este Acuerdo de Cliente ("Acuerdo") es celebrado entre **SocialBeats** ("Compañía") y la entidad o individuo ("Cliente"). Este Acuerdo constituye el contrato principal e incorpora por referencia los siguientes documentos vinculantes: (i) el Acuerdo de Nivel de Servicio (**SLA**), (ii) la Política de Privacidad, y (iii) los Planes de Precios vigentes.
 
 ---
 
-## 1. Información General
+## 1. Definiciones y Ámbito
 
-**1.1** "Servicios" se refiere a las ofertas de plataforma social proporcionadas por SocialBeats, que permiten a los productores de música compartir sus beats, conectar con otros artistas y recibir retroalimentación.
+**1.1** "Servicios" se refiere a la plataforma SaaS proporcionada por SocialBeats, incluyendo todas las funcionalidades descritas en el plan suscrito.
 
-**1.2** "Datos del Cliente" hace referencia a toda la información, datos y materiales proporcionados o enviados por el Cliente o sus usuarios a través de los Servicios.
+**1.2** "Documentación Vinculante": El uso de los Servicios implica la aceptación total de este Acuerdo, así como del SLA y la Política de Privacidad disponibles en la web de la Compañía. En caso de conflicto entre documentos, prevalecerá este Acuerdo de Cliente.
 
-**1.3** "Usuarios" se refiere a las personas autorizadas por el Cliente para usar los Servicios, incluyendo artistas, productores y cualquier otro usuario registrado en la plataforma.
+**1.3** "Datos del Cliente" y "Usuarios": Se mantienen las definiciones estándar de propiedad y acceso autorizados.
 
-**1.4** Este Acuerdo no otorga a ninguna de las partes derechos u obligaciones más allá de los expresamente establecidos.
+**1.4** Naturaleza del Servicio: SocialBeats proporciona un servicio estandarizado (SaaS). Este Acuerdo no implica desarrollos a medida salvo que se estipule en un contrato de Servicios Profesionales separado.
 
 ---
 
@@ -26,9 +26,9 @@ Este Acuerdo de Cliente ("Acuerdo") es celebrado entre **SocialBeats** ("Compañ
 
 **2.4** El incumplimiento en el pago de las tarifas podrá resultar en la suspensión temporal de los Servicios hasta que se reciba el pago, transcurridos 30 días desde la fecha de pago.
 
-**2.5** SocialBeats se reserva el derecho de modificar sus planes de precios y tarifas en cualquier momento, con al menos 30 días de aviso al Cliente, quien podrá elegir aceptar los nuevos términos o continuar sujeto a los anteriores.
+**2.5 Modificación de Tarifas:** SocialBeats se reserva el derecho de actualizar las tarifas de suscripción. Cualquier incremento será notificado al Cliente por escrito (correo electrónico o aviso en plataforma) con al menos **30 días de antelación** a su entrada en vigor.
 
-**2.6** Si el Cliente decide no aceptar los nuevos términos, los Servicios seguirán siendo proporcionados, pero no se podrá garantizar el soporte al nivel originalmente acordado.
+**2.6 Derecho de Cancelación:** Si el Cliente no está de acuerdo con la modificación de tarifas, tendrá derecho a terminar este Acuerdo y cancelar su suscripción sin penalización antes de que el cambio sea efectivo. El uso continuado de los Servicios tras el periodo de aviso constituirá la aceptación tácita de las nuevas tarifas.
 
 ---
 
@@ -58,13 +58,17 @@ SocialBeats podrá suspender, limitar o eliminar cuentas que violen estas normas
 
 ---
 
-## 5. Modificaciones de los Términos, Terminación y Cumplimiento
+## 5. Vigencia, Terminación y Modificaciones del Acuerdo
 
-**5.1** Este Acuerdo comienza en la Fecha de Entrada en Vigor y permanecerá en vigor hasta que sea terminado por cualquiera de las partes.
+**5.1 Vigencia:** Este Acuerdo comienza en la fecha de registro o suscripción y se renueva automáticamente según el ciclo de facturación elegido hasta su terminación.
 
-**5.2** Cualquiera de las partes podrá terminar el Acuerdo por conveniencia con un preaviso por escrito de 30 días. SocialBeats se asegurará de que las tarifas prepagadas para períodos no utilizados sean reembolsadas proporcionalmente.
+**5.2 Terminación:**
+- **Por el Cliente:** Puede terminar el acuerdo en cualquier momento a través de su panel de control. La terminación será efectiva al finalizar el ciclo de facturación actual. No se realizarán reembolsos por períodos parciales no utilizados (conforme a la Política de Precios).
+- **Por SocialBeats:** La Compañía puede terminar el acuerdo por conveniencia con un preaviso de 30 días. En este caso exclusivo, SocialBeats reembolsará proporcionalmente las tarifas prepagadas por el tiempo de servicio no prestado.
 
-**5.3** SocialBeats no alterará unilateralmente los términos de este Acuerdo sin el consentimiento explícito por escrito del Cliente.
+**5.3 Modificaciones del Acuerdo:** SocialBeats puede actualizar los términos de este Acuerdo (incluyendo SLA y Privacidad) para cumplir con leyes o mejorar el servicio.
+- **Cambios Materiales:** Se notificarán con 30 días de antelación. Si el cambio perjudica sustancialmente los derechos del Cliente, este podrá terminar el contrato y recibir un reembolso prorrateado.
+- **Aceptación:** El uso continuado tras la notificación implica aceptación.
 
 ---
 
@@ -77,6 +81,8 @@ SocialBeats podrá suspender, limitar o eliminar cuentas que violen estas normas
 **6.3** El Cliente otorga a SocialBeats una licencia mundial, no exclusiva, libre de regalías, transferible y sublicenciable para almacenar, reproducir, transmitir, distribuir y mostrar el contenido únicamente con el propósito de proporcionar los Servicios.
 
 **6.4** Los enlaces a servicios de terceros proporcionados dentro de la plataforma son solo para conveniencia. SocialBeats no es responsable por la precisión, privacidad o funcionalidad de los servicios de terceros.
+
+**6.5 Sugerencias y Feedback:** Si el Cliente proporciona sugerencias o ideas de mejora para los Servicios, SocialBeats podrá utilizar dicho feedback libremente para el desarrollo de su plataforma sin obligación de compensación o reconocimiento.
 
 ---
 
@@ -136,3 +142,4 @@ SocialBeats podrá suspender, limitar o eliminar cuentas que violen estas normas
 
 
 **11.3** Este Acuerdo, incluidas sus anexos y formularios de pedido, constituye el entendimiento completo entre las partes.
+
