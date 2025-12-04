@@ -1,36 +1,27 @@
 # Declaración de Cumplimiento con las Leyes de Protección de Datos
 
-## Introducción
+## 1. Introducción y Responsabilidad
 
-**SocialBeats** ("Compañía") se compromete a proteger la privacidad y los datos personales de sus Clientes y Usuarios.  
-Esta Declaración de Cumplimiento con las Leyes de Protección de Datos describe el marco legal aplicable que rige los Servicios de SocialBeats, así como los derechos de los individuos y las obligaciones de la Compañía bajo las leyes internacionales y españolas de protección de datos, incluyendo:
+**SocialBeats** ("Compañía") se compromete a proteger la privacidad de sus Clientes y Usuarios. Esta Declaración cumple con el **Reglamento General de Protección de Datos (GDPR)** y la **Ley Orgánica 3/2018 (LOPDGDD)**.
 
-- El **Reglamento General de Protección de Datos (GDPR)** de la Unión Europea  
-- La **Ley Orgánica 3/2018 (LOPDGDD)**, de Protección de Datos Personales y garantía de los derechos digitales
-
----
-
-## Cumplimiento con las Leyes Europeas de Protección de Datos
-
-SocialBeats asegura que sus operaciones están alineadas con los requisitos del **GDPR** y la **LOPDGDD**, que regulan el tratamiento de datos personales de individuos dentro de la Unión Europea (UE) y el Espacio Económico Europeo (EEE).
-
-Las disposiciones clave incluyen:
-
-### **Legalidad, Equidad y Transparencia**
-Todas las actividades de tratamiento se realizan de forma transparente, con fines explícitos y bases legales claras.
-
-### **Minimización de Datos**
-Solo se recopilan y procesan los datos estrictamente necesarios para el propósito para el cual fueron obtenidos.
-
-### **Seguridad**
-Se implementan medidas técnicas y organizativas robustas para garantizar la integridad, disponibilidad y confidencialidad de los datos personales.
-
-### **Notificación de Brechas de Seguridad**
-Los Clientes serán informados de forma oportuna en caso de una violación de seguridad que afecte sus datos personales.
+A efectos de esta política, es importante distinguir nuestro rol:
+- **Como Responsable del Tratamiento:** SocialBeats decide cómo usar los datos de registro, facturación y uso del servicio del Cliente para gestionar la relación comercial.
+- **Como Encargado del Tratamiento:** SocialBeats procesa el contenido (beats, comentarios, imágenes) subido por el Usuario únicamente para prestar el Servicio contratado, siguiendo las instrucciones del Cliente conforme al Acuerdo de Cliente.
 
 ---
 
-## Derechos del Cliente y del Usuario
+## 2. Bases Legales para el Tratamiento
+
+SocialBeats trata sus datos personales basándose en las siguientes bases legales (Art. 6 GDPR):
+
+1.  **Ejecución del Contrato:** Necesario para registrar su cuenta, procesar pagos y entregar los Servicios definidos en el Acuerdo de Cliente.
+2.  **Obligación Legal:** Para cumplir con leyes fiscales, contables y de seguridad.
+3.  **Interés Legítimo:** Para mejorar la seguridad de la plataforma, prevenir fraudes y enviar comunicaciones comerciales relacionadas con servicios similares (salvo que se oponga).
+4.  **Consentimiento:** Para el uso de cookies no esenciales o suscripciones a newsletters específicas.
+
+---
+
+## 3. Derechos del Cliente y del Usuario
 
 De acuerdo con las leyes de protección de datos aplicables, los Clientes y Usuarios de SocialBeats tienen los siguientes derechos respecto a sus datos personales:
 
@@ -47,7 +38,7 @@ SocialBeats respeta y garantiza todos estos derechos en el marco de sus operacio
 
 ---
 
-## Uso de los Datos del Cliente con Servicios de Terceros
+## 4. Uso de los Datos del Cliente con Servicios de Terceros
 
 SocialBeats utiliza terceros proveedores para ciertas funcionalidades de la plataforma. Los datos compartidos se limitan estrictamente a lo necesario para la prestación de los Servicios.
 
@@ -62,7 +53,17 @@ SocialBeats garantiza que todos los proveedores externos cumplen con estándares
 
 ---
 
-## Compromiso con la Seguridad de los Datos y Obligaciones Legales
+## 5. Período de Conservación de Datos
+
+Conservaremos sus datos personales solo durante el tiempo necesario:
+
+- **Datos de Cuenta y Facturación:** Mientras la cuenta esté activa y, posteriormente, durante los plazos legales obligatorios (ej. 5 años para obligaciones tributarias).
+- **Contenido del Usuario (Beats/Archivos):** Se eliminarán 30 días después de la terminación del contrato, salvo las copias de seguridad.
+- **Copias de Seguridad:** Se retendrán según el plan contratado (14 días para Free, 30 para Pro, 60 para Studio), tras lo cual se sobrescribirán de forma segura, tal como se detalla en el SLA.
+
+---
+
+## 6. Compromiso con la Seguridad de los Datos y Obligaciones Legales
 
 SocialBeats se compromete a:
 
@@ -75,3 +76,4 @@ Cumpliendo con los principios de limitación del propósito y minimización de d
 ### **Facilitar el Ejercicio de Derechos**
 
 Proporcionando mecanismos claros y accesibles para que Clientes y Usuarios puedan ejercer sus derechos conforme a la legislación aplicable.
+
