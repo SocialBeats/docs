@@ -5,36 +5,42 @@ Este Acuerdo de Nivel de Servicio ("SLA") describe los compromisos de servicio p
 En todos los casos establecidos a continuación, se excluyen los problemas derivados de la infraestructura del cliente, servicios de terceros o eventos de fuerza mayor.
 
 ---
+## 1. Definiciones
 
-## 1. Disponibilidad del Servicio
+Para asegurar la claridad en la medición de los niveles de servicio:
 
-### 1.1 Garantía de tiempo de actividad por plan
+- **"Tiempo de Actividad" (Uptime):** Es el porcentaje de minutos totales en un mes de facturación en los que los Servicios principales estuvieron disponibles.
+- **"Tiempo de Inactividad" (Downtime):** Período en el que el Servicio no está disponible para el Cliente, medido por los sistemas de monitoreo de SocialBeats (ej. tasas de error del servidor superiores al 5% o imposibilidad de acceso total).
+- **"Incidencia":** Cualquier evento que no forma parte del funcionamiento estándar del servicio y que causa una interrupción o una reducción de la calidad del mismo.
+- **"Tiempo de Respuesta":** El lapso de tiempo transcurrido desde que el Cliente notifica una incidencia válida hasta que SocialBeats acusa recibo y comienza a trabajar en ella.
 
-- **Plan Free:** 80.0% de tiempo de actividad mensual  
-- **Plan Pro:** 85.0% de tiempo de actividad mensual  
-- **Plan Studio:** 89.9% de tiempo de actividad mensual  
+## 2. Disponibilidad del Servicio
 
-### 1.2 Definición de tiempo de inactividad
-El tiempo de inactividad se refiere a la incapacidad de acceder a las funcionalidades principales de la plataforma debido a problemas dentro del control de SocialBeats.
+### 2.1 Garantía de tiempo de actividad por plan (Objetivo SLO)
 
-### 1.3 Exclusiones
-El cálculo de disponibilidad excluye:
+- **Plan Free:** No garantizado ("Best Effort").
+- **Plan Pro:** 85.0% de tiempo de actividad mensual.
+- **Plan Studio:** 89.9% de tiempo de actividad mensual.
 
-- Mantenimiento programado (con un preaviso de 48 horas)  
-- Problemas de infraestructura del cliente o servicios de terceros  
-- Eventos de fuerza mayor (por ejemplo, desastres naturales)  
+### 2.2 Exclusiones
+El cálculo de disponibilidad excluye los tiempos de inactividad derivados de:
+
+- Mantenimiento programado (con un preaviso de 48 horas).
+- Problemas de infraestructura del cliente o servicios de terceros.
+- Eventos de fuerza mayor (desastres naturales, ataques terroristas, etc.).
+- Suspensión de la cuenta del Cliente conforme a los términos del Acuerdo de Cliente.
 
 ---
 
-## 2. Soporte y Tiempos de Respuesta
+## 3. Soporte y Tiempos de Respuesta
 
-### 2.1 Canales de soporte por plan
+### 3.1 Canales de soporte por plan
 
 - **Plan Free:** Soporte por correo electrónico  
 - **Plan Pro:** Soporte por correo electrónico y chat en vivo durante horario comercial  
 - **Plan Studio:** Soporte por correo electrónico, chat en vivo y teléfono durante horario extendido  
 
-### 2.2 Tiempos de respuesta por prioridad y plan
+### 3.2 Tiempos de respuesta por prioridad y plan
 
 | Prioridad | Plan Free        | Plan Pro        | Plan Studio     |
 |-----------|------------------|------------------|------------------|
@@ -45,9 +51,9 @@ El cálculo de disponibilidad excluye:
 
 ---
 
-## 3. Tiempo de Resolución de Incidencias
+## 4. Tiempo de Resolución de Incidencias
 
-### 3.1 Corrección de errores por prioridad
+### 4.1 Corrección de errores por prioridad
 
 | Prioridad | Plan Free          | Plan Pro          | Plan Studio       |
 |-----------|--------------------|--------------------|--------------------|
@@ -56,7 +62,7 @@ El cálculo de disponibilidad excluye:
 | Media     | 15 días hábiles    | 10 días hábiles    | 5 días hábiles     |
 | Baja      | 20 días hábiles    | 15 días hábiles    | 10 días hábiles    |
 
-### 3.2 Fallas de seguridad por prioridad
+### 4.2 Fallas de seguridad por prioridad
 
 | Prioridad | Plan Free        | Plan Pro        | Plan Studio     |
 |-----------|------------------|------------------|------------------|
@@ -67,9 +73,9 @@ El cálculo de disponibilidad excluye:
 
 ---
 
-## 4. Créditos por Incumplimiento de SLA
+## 5. Créditos por Incumplimiento de SLA
 
-### 4.1 Créditos por incumplimiento de la garantía de disponibilidad
+### 5.1 Créditos por incumplimiento de la garantía de disponibilidad
 
 | Tiempo de actividad alcanzado | Plan Free      | Plan Pro | Plan Studio |
 |------------------------------|----------------|----------|-------------|
@@ -83,32 +89,32 @@ El cálculo de disponibilidad excluye:
 - **Plan Pro:** Hasta el 20% de la tarifa mensual  
 - **Plan Studio:** Hasta el 50% de la tarifa mensual  
 
-### 4.2 Proceso de reclamación
+### 5.2 Proceso de reclamación
 Las reclamaciones deben presentarse dentro de los **30 días posteriores al incidente**, incluyendo documentación detallada del impacto.
 
 ---
 
-## 5. Mantenimiento y Actualizaciones
+## 6. Mantenimiento y Actualizaciones
 
-### 5.1 Mantenimiento programado
+### 6.1 Mantenimiento programado
 
 - **Plan Free y Pro:** Se realiza durante los fines de semana, con aviso de 48 horas  
 - **Plan Studio:** Optimizado para minimizar impacto, realizado en horas no pico  
 
-### 5.2 Mantenimiento de emergencia
+### 6.2 Mantenimiento de emergencia
 Aplica a todos los planes por igual y se lleva a cabo solo cuando es necesario para garantizar estabilidad y seguridad.
 
 ---
 
-## 6. Respaldo y Recuperación de Datos
+## 7. Respaldo y Recuperación de Datos
 
-### 6.1 Frecuencia de respaldo
+### 7.1 Frecuencia de respaldo
 
 - **Plan Free:** Semanal, retenido por 14 días  
 - **Plan Pro:** Diario, retenido por 30 días  
 - **Plan Studio:** Horario, retenido por 60 días  
 
-### 6.2 Objetivo de Tiempo de Recuperación (RTO)
+### 7.2 Objetivo de Tiempo de Recuperación (RTO)
 
 - **Plan Free:** 12 horas  
 - **Plan Pro:** 8 horas  
@@ -116,11 +122,12 @@ Aplica a todos los planes por igual y se lleva a cabo solo cuando es necesario p
 
 ---
 
-## 7. Disposiciones Generales
+## 8. Disposiciones Generales
 
-### 7.1 Cambios en el SLA
+### 8.1 Cambios en el SLA
 Los cambios requieren acuerdo mutuo y aviso previo de 30 días.
 
 ### 7.2 Resolución de disputas
 
 Las disputas se resolverán conforme a lo establecido en el **Acuerdo de Cliente**.
+
