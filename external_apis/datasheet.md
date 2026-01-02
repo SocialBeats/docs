@@ -72,13 +72,15 @@ Notes: Al ser un servicio público y mantenido como proyecto OSS, no existe un S
 
 ---
 
-### Azure AI Translator (Tier F0)
+### Azure AI Translator
+
+Esta ficha muestra únicamente las características del plan F0 (plan gratuito).
 
 - **Associated SaaS**
   - Type: Partial SaaS (Cloud API)
   - (\*) Pricing Configurations: Multiple (Free F0, S1, etc.) — https://azure.microsoft.com/es-es/pricing/details/cognitive-services/translator/
 - **Segmentation:**
-  - Authenticated: Yes (API Key required / Subscription scope)
+  - Authenticated: Yes (API Key required)
 - **Capacity (Quota):**
   - Value: 2,000,000 characters / month (Tier F0 sample quota)
   - Window: Monthly
@@ -92,8 +94,6 @@ Notes: Al ser un servicio público y mantenido como proyecto OSS, no existe un S
 - **Cooling period:**
   - 1 Month (si se excede la cuota mensual — se espera al siguiente ciclo) / 1 Minute (si se excede el rate limit en ventana deslizante)
 - **Shared limits:** Subscription scope (los límites y la cuota aplican por suscripción/resource)
-
-Notes: Azure ofrece límites estrictos y monitorización a nivel de suscripción; para producción recomendamos usar un plan pagado (S1 o superior) y configurar alertas de uso.
 
 ---
 
