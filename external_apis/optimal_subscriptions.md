@@ -20,8 +20,6 @@ La API de **OpenRouter** se utiliza dentro del microservicio **Beats-interaction
 
 OpenRouter actúa como un *gateway* unificado que da acceso a **más de 400 modelos** (número que se actualiza constantemente), permitiendo seleccionar dinámicamente el modelo más adecuado según coste, latencia y calidad.
 
----
-
 ##### Planes de suscripción disponibles
 
 OpenRouter ofrece tres planes principales adaptados a distintos niveles de uso y madurez del proyecto.
