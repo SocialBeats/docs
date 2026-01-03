@@ -5,14 +5,107 @@
 ## 2. Nivel de acabado
 
 **Nivel objetivo**: 10 - Se opta a máxima puntuación porque el microservicio implementa:
-- API REST completa (CRUD + endpoints de agregación/consulta).
-- Autenticación JWT (bearer).
-- Persistencia MongoDB.
-- Integración con Kafka y Materialized Views (usuarios y beats).
-- Integración con API externa (OpenRouter) + rate limiting + estrategia de “deferred moderation” con CronJob.
-- Healthchecks (API/Kafka/Moderation).
-- Mecanismos de moderación y reporting (ModerationReports).
-- Control de errores, validaciones, y códigos HTTP coherentes.
+
+### MICROSERVICIO BÁSICO QUE GESTIONE UN RECURSO
+
+- El backend debe ser una API REST tal como se ha visto en clase implementando al menos los métodos GET, POST, PUT y DELETE y devolviendo un conjunto de códigos de estado adecuado: **REALIZADO**.
+    - Donde se ha hecho.
+
+- La API debe tener un mecanismo de autenticación: **REALIZADO**.
+    - Donde se ha hecho.
+
+- Debe tener un frontend que permita hacer todas las operaciones de la API (este frontend puede ser individual o estar integrado con el resto de frontends): **REALIZADO**.
+    - Donde se ha hecho.
+
+- Debe estar desplegado y ser accesible desde la nube (ya sea de forma individual o como parte de la aplicación): **REALIZADO**.
+    - Donde se ha hecho.
+
+- La API que gestione el recurso también debe ser accesible en una dirección bien versionada: **REALIZADO**.
+    - Donde se ha hecho.
+
+- Se debe tener una documentación de todas las operaciones de la API incluyendo las posibles peticiones y las respuestas recibidas: **REALIZADO**.
+    - Tenemos el archivo `spec/oas.yaml` donde aparrece completamente definida todas las operaciones del microservicio peticiones y todas las posibles respuestas que pueden darse.
+- Debe tener persistencia utilizando *MongoDB* u otra base de datos no SQL: **REALIZADO**.
+    - Tenemos la conexión a la base de datos en el archivo `src/db.js`.
+
+- Deben validarse los datos antes de almacenarlos en la base de datos (por ejemplo, haciendo uso de *mongoose*): **REALIZADO**.
+    - En todos los modelos se hacen validaaciones de la propia entidad y esto puede encontrarse en los archivos de `src/models/`. Además en los servicios también se hacen más validaciones y estás pueden enconttrarsse en  los aarchivos  de `src/services/`.
+
+- Debe haber definida una imagen Docker del proyecto: **REALIZADO**.
+    - La última imagen disponible del microservicio se encuentra en [https://hub.docker.com/repository/docker/socialbeats/beats-interaction](https://hub.docker.com/repository/docker/socialbeats/beats-interaction). La última imagen disponible de todos los micrroservicios se encuentran en [https://hub.docker.com/repositories/socialbeats](https://hub.docker.com/repositories/socialbeats).
+
+- Gestión del código fuente: El código debe estar subido a un repositorio de Github siguiendo Github Flow: **REALIZADO**.
+    - El código del microservicio se encuentra accesible en la siguiente ruta: [https://github.com/SocialBeats/beats-interaction](https://github.com/SocialBeats/beats-interaction).
+
+- Integración continua: El código debe compilarse, probarse y generar la imagen de Docker automáticamente usando GitHub Actions u otro sistema de integración continua en cada commit: **REALIZADO**.
+    - Todos lo archivos que se encuentran dentro de la carpeta `githu/workflows/` sirven para la integración continua. En concreto son:
+        - `conventional-commits.yml`: se encarga de verificar que se sigue conventional commits.
+        - `create-releases.yml`: siempre que se hace *push* de una *tag* a la rama *main* se crea y pública una versión del microservicio en Docker.
+        - `linter.yml`: verificar, al crear una pull o hacer push a main o develop, que todos los archivos siguen ESLint.
+        - `run-tests.yml`: ejecuta los tests, al crear una pull o hacer push a main o develop, para comprobar que no se ha roto ninguna funcionalidad.
+
+- Debe haber pruebas de componente implementadas en Javascript para el código del backend utilizando Jest o similar. Como norma general debe haber tests para todas las funciones del API no triviales de la aplicación. Probando tanto escenarios positivos como negativos. Las pruebas deben ser tanto *in-process* como *out-of-process*: **REALIZADO**.
+    - Todos los archivos que se encuentran dentro de la carpeta `tests/` del proyecto.
+
+### MICROSERVICIO AVANZADO QUE GESTIONE UN RECURSO
+
+- Usar el patrón materialized view para mantener internamente el estado de otros microservicios: **REALIZADO**.
+    - Se puede encontra dentro del microservicio en los archivos `src\models\BeatMaterialized.js` y `src\models\UserMaterialized.js`. Ahí se definen las propiedades que guardamos de las bases de datos de user-auth y de beats-upload. Con los eventos de Kafka mantenemos actualizada la materialized view y usamos sus datos para enriquecer nuestras respuestas en todos los servicios, ya que referenciamos usuarios y beats constantemente. También usamos el MaterializedView para validar la existencia de recursos antes de referenciarlos de modo que no existan inconsistencias.
+
+- Implementar cachés o algún mecanismo para optimizar el acceso a datos de otros recursos: **REALIZADO**.
+    - Se usa Redis para tener cacheadas las llamadas a la API de OpenRouter y para emplear el rate-limit y nunca exceder los límites de uso de la misma. El uso de redis se encuentra en `src\cache.js`, y su uso está sobre todo en el archivo `src\utils\moderationEngine.js` pero también en `src\utils\rateLimit.js`
+
+- Consumir alguna API externa (distinta de las de los grupos de práctica) a través del backend o algún otro
+tipo de almacenamiento de datos en cloud como Amazon S3: **REALIZADO**.
+    - Se ha integrado la API de OpenRouter para moderar el contendo de los comentarios, las playlists y los ratings. Esto se puede ver en el archivo `src\utils\openRouterClient.js`, que es donde se conecta nuestro microservicio con la API externa.
+
+- Implementar el patrón “rate limit” al hacer uso de servicios externos: **REALIZADO**.
+    - Se encuentra en el archivo `src\utils\rateLimit.js`. Se usa la caché de redis para controlar las llamadas a la API de OpenRouter y adaptarlas al plan gratuito. En nuestro caso como queremos evitar ser baneados hacemos un uso conservador, es decir, no aprovechamos la capacidad máxima de la API por si acaso, estableciendo límites ligeramente por debajo de los reales (18 en vez de 20 y 45 en vez de 50).
+    
+- Implementar un mecanismo de autenticación basado en JWT o equivalente: **REALIZADO**.
+    - Se valid el JWT en el API Gateway, donde se iintroducen unas cabeceras especiales (x-gateway-authenticated y x-user-id) y éstas se validan en el nuestro middleware. Esto se puede encontrar en el archivo `src\middlewares\authMiddlewares.js`.
+    
+- Implementar el patrón “circuit breaker” en las comunicaciones con otros servicios: **REALIZADO**.
+    - Se aplica "circuit breaker" para reintentar las conexiones tanto con Redis como con Kafka, de modo que si se desconectan nuestro microservicio no crashea. Además se pueden habilitar y deshabilitar dichas conexiones con las variables de entorno ENABLE_KAFKA y ENABLE_REDIS. El circuit breaker puede observarse en `src\cache.js` para Redis y `src\services\kafkaConsumer.js` para Kafka
+
+- Implementar un microservicio adicional haciendo uso de una arquitectura serverless (Functions-as-a-Service): **NO REALIZADO**.
+    
+- Implementar mecanismos de gestión de la capacidad como throttling o feature toggles para rendimiento: **NO REALIZADO**.
+
+- Cualquier otra extensión al microservicio básico acordada previamente con el profesor: **REALIZADO**.
+    - Se han añadido características adicionales como un logger en `logger.js`, la gestión de githooks con husky, que se ve en la carpeta `.husky` y además se autoinstala al instalar las dependencias, el soporte a varios entornos de desarrollo, teniendo varios .env.example y varios Dockerfiles y docker-compose. Además tenemos la posibilidad de activar o desactivar redis, kafka, el pricing con variables de entorno.
+
+### NIVEL HASTA 5 PUNTOS
+
+- Microservicio básico completamente implementado. **REALIZADO**
+    - Explicado anteriormente
+- Diseño de un customer agreement para la aplicación en su conjunto con, al menos, tres planes de precios
+que consideren características funcionales y extrafuncionales. **REALIZADO**
+    - Tarea grupal, explicado en el documento de nivel de acabado de la aplicación.
+- Ficha técnica normalizada del modelo de consumo de las APIs externas utilizadas en la aplicación y que
+debe incluir al menos algún servicio externo de envío de correos electrónicos con un plan de precios múltiple
+como SendGrid. **REALIZADO**
+    - Tarea grupal, explicado en el documento de nivel de acabado de la aplicación. Nuestra parte de la ficha técnica es la de OpenRouter.
+- Documento incluido en el repositorio del microservicio (o en el wiki del repositorio en Github) por cada pareja **REALIZADO**
+    - Es este mismo documento. Además está explicado en el documento de nivel de acabado de la aplicación.
+- Vídeo de demostración del microservicio o aplicación funcionando. **REALIZADO**
+    - Es el video de nuestro microservicio y el video demo de la presentación.
+- Presentación preparada para ser presentada en 30 minutos por cada equipo de 8/10 personas. **REALIZADO**
+    - Tarea grupal, explicado en el documento de nivel de acabado de la aplicación.
+
+### NIVEL HASTA 7 PUNTOS
+
+- Debe incluir todos los requisitos del nivel hasta 5 puntos: **REALIZADO**
+    - Explicado anteriormente
+- Aplicación basada en microservicios básica implementada: **REALIZADO**
+    -   
+Análi  justificativo de la suscripción óptima de las APIs del proyecto: **REALIZADO**
+- Al menos 3 de las características del microservicio avanzado implementados: **REALIZADO**
+
+
+### NIVEL HASTA 9 PUNTOS
+
+### NIVEL HASTA 10 PUNTOS
 
 ## 3. Descripción del microservicio en la aplicación
 
@@ -426,4 +519,4 @@ Ejemplos:
     - reglas de negocio (no reportar propio contenido)
     - kafka enabled y `userId` no existe en materialized store
 - **500 Internal Server Error**: errores inesperados.
-- **503 Service unavailable**: cuando el microservicio está caído, en proceso de actualización o creandose y el API-Gateway no puede comunicarse con él..
+- **503 Service unavailable**: cuando el microservicio está caído, en proceso de actualización o creandose y el API-Gateway no puede comunicarse con él.
