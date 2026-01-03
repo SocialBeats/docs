@@ -45,6 +45,141 @@ Además, para minimizar latencia entre microservicios y evitar lecturas directas
 
 ## 4. Arquitectura y componentes relevantes
 
+### Arquitectura
+
+```
+.
+├── .dockerignore
+├── .env
+├── .env.development.example
+├── .env.docker-compose.example
+├── .env.docker.example
+├── .env.example
+├── .eslintrc.json
+├── .gitignore
+├── .markdownlint.json
+├── .prettierrc.json
+├── .version
+├── CHANGELOG.md
+├── commitlint.config.cjs
+├── docker-compose-dev.yml
+├── docker-compose-test.yml
+├── docker-compose.yml
+├── Dockerfile
+├── Dockerfile-dev
+├── LICENSE
+├── logger.js
+├── main.js
+├── package-lock.json
+├── package.json
+├── README.md
+├── vitest.config.js
+├── vitest.integration.config.js
+│
+├── .github             # Plantillas de issues y workflows de Github
+│   ├── ISSUE_TEMPLATE
+│   │   ├── bug-report.yml
+│   │   ├── issue-template.yml
+│   │   └── security-vulnerability.yml
+│   └── workflows
+│       ├── conventional-commits.yml
+│       ├── create-releases.yml
+│       ├── linter.yml
+│       └── run-tests.yml
+│
+├── .husky              # Husky para la gestión de githooks
+│   ├── commit-msg
+│   ├── pre-commit
+│   └── _
+│       ├── .gitignore
+│       ├── applypatch-msg
+│       ├── commit-msg
+│       ├── h
+│       ├── husky.sh
+│       ├── post-applypatch
+│       ├── post-checkout
+│       ├── post-commit
+│       ├── post-merge
+│       ├── post-rewrite
+│       ├── pre-applypatch
+│       ├── pre-auto-gc
+│       ├── pre-commit
+│       ├── pre-merge-commit
+│       ├── pre-push
+│       ├── pre-rebase
+│       └── prepare-commit-msg
+│
+├── .vscode             # Configuración del entorno de desarrollo
+│   └── settings.json
+│
+├── scripts             # Scripts para preparar el entorno de desarrollo
+│   └── copyEnv.cjs
+│
+├── spec                # Especificación de la API
+│   └── oas.yaml
+│
+├── src
+│   ├── cache.js        # Conexión con Redis
+│   ├── db.js           # Conexión con Mongo
+│   ├── middlewares     # Midlewares para la autenticación
+│   │   └── authMiddlewares.js
+│   ├── models          # Modelo de datos
+│   │   ├── BeatMaterialized.js
+│   │   ├── Comment.js
+│   │   ├── ModerationReport.js
+│   │   ├── Playlist.js
+│   │   ├── Rating.js
+│   │   ├── UserMaterialized.js
+│   │   ├── OASSchemas.js
+│   │   └── models.js
+│   ├── routes          # Documentación de las rutas y definición de endpoints
+│   │   ├── aboutRoutes.js
+│   │   ├── commentRoutes.js
+│   │   ├── healthRoutes.js
+│   │   ├── moderationReportRoutes.js
+│   │   ├── playlistRoutes.js
+│   │   └── ratingRoutes.js
+│   ├── services        # Lógica de gestión de peticiones
+│   │   ├── commentService.js
+│   │   ├── kafkaConsumer.js
+│   │   ├── moderationReportService.js
+│   │   ├── playlistService.js
+│   │   └── ratingService.js
+│   └── utils           # Métodos útiles y conexiones a OpenRouter
+│       ├── moderationCron.js
+│       ├── moderationEngine.js
+│       ├── moderationWorker.js
+│       ├── openRouterClient.js
+│       ├── rateLimit.js
+│       ├── spaceConnection.js
+│       └── versionUtils.js
+│
+└── tests
+    ├── integration     # Tests outproc
+    │   ├── integration.comment.test.js
+    │   ├── integration.health.test.js
+    │   ├── integration.playlist.test.js
+    │   └── integration.rating.test.js
+    ├── setup           # Configuración de tests inproc y outproc
+    │   ├── setup-integration.js
+    │   └── setup.js
+    └── unit            # Tests unitarios
+        ├── entities.comment.test.js
+        ├── entities.ModerationReport.test.js
+        ├── entities.playlist.test.js
+        ├── entities.rating.test.js
+        ├── routes.comment.test.js
+        ├── routes.health.test.js
+        ├── routes.moderationReport.test.js
+        ├── routes.playlist.test.js
+        ├── routes.rating.test.js
+        ├── services.comment.test.js
+        ├── services.kafkaConsumer.test.js
+        ├── services.moderationReport.test.js
+        ├── services.playlist.test.js
+        └── services.rating.test.js
+```
+
 ### Persistencia (MongoDB)
 
 Colecciones principales:
@@ -63,16 +198,22 @@ Colecciones principales:
     - Solo el autor del rating puede editar/eliminar su rating.
     - Solo el owner puede editar/eliminar playlist (colaboradores pueden añadir/quitar beats si está permitido).
     - Reportes: un usuario no puede reportar su propio contenido.
+- **Comunicación con otros microservicios**: Existe una variable de entorno llama INTERNAL_API_KEY que sive para comunicarse con el servicio de usuarios de forma síncrona (para realizar un command que solicita la eliminación de un usuario tras 5 denuncias aceptadas)
 
 ### Kafka + Materialized View
 
-- **Objetivo**: disponer de datos “cacheados”/materializados para validar y enriquecer respuestas sin depender de llamadas runtime a otros microservicios.
-- **Eventos consumidos típicos**:
-    - `UserCreated` / `UserUpdated` / `UserDeleted`: actualizar `UserMaterialized`
-    - `BeatCreated` / `BeatUpdated` / `BeatDeleted`: actualizar `BeatMaterialized`
-- Uso en endpoints:
-    - Comprobación de existencia de `userId` cuando Kafka/materialized está habilitado.
-    - Respuestas enriquecidas como `DetailedPlaylist` (incluye `collaboratorsData` y `beatsData`).
+- **Eventos consumidos**: Nuestro objetivo es tener datos “cacheados”/materializados para validar y enriquecer respuestas sin depender de llamadas runtime a otros microservicios. Este "caché" es persistente, por lo cual se actualiza con los eventos de eliminado y actualización de los recursos.
+
+    - `USER_CREATED` / `USER_UPDATED` / `USER_DELETED`: actualizar `UserMaterialized`
+    - `BEAT_CREATED` / `BEAT_UPDATED` / `BEAT_DELETED`: actualizar `BeatMaterialized`
+    - Uso en endpoints:
+        - Comprobación de existencia de `userId` cuando Kafka/materialized está habilitado.
+        - Respuestas enriquecidas como `DetailedPlaylist` (incluye `collaboratorsData` y `beatsData`).
+
+- **Eventos creados**: Nos comunicamos con el microservicio de social y enviar eventos sociales para el feed de la aplicación.
+
+    - Creación de un comentario
+    - Creación de un rating
 
 ## 5. Descripción del API REST del microservicio
 
@@ -260,6 +401,7 @@ Actualmente se modera:
 - Texto de ratings
 
 ### API externa integrada
+
 - **Proveedor**: OpenRouter
 - **Modelo**: `meta-llama/llama-3.2-3b-instruct:free`
 - **Motivo**: opción gratuita suficiente para moderación básica y rápida.
@@ -275,6 +417,7 @@ Para evitar bloqueos del provider y mantener estabilidad:
 
 Ejemplos:
 - **401 Unauthorized**: token missing/invalid o no-owner en acciones sensibles (editar/borrar).
+- **402 Payment Required**: cuando se excede el SLA de nuestra API.
 - **403 Forbidden**: acceso denegado (p.ej. playlist privada sin permisos).
 - **404 Not found**: beat/playlist/comment/rating inexistente.
 - **409 Conflict**: ya existe moderation report en revisión.
@@ -283,3 +426,4 @@ Ejemplos:
     - reglas de negocio (no reportar propio contenido)
     - kafka enabled y `userId` no existe en materialized store
 - **500 Internal Server Error**: errores inesperados.
+- **503 Service unavailable**: cuando el microservicio está caído, en proceso de actualización o creandose y el API-Gateway no puede comunicarse con él..
