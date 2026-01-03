@@ -53,7 +53,7 @@
     - Se puede encontra dentro del microservicio en los archivos `src/models/BeatMaterialized.js` y `src/models/UserMaterialized.js`. Ahí se definen las propiedades que guardamos de las bases de datos de los microservicios *user-auth* y de *beats-upload*. Con los eventos de Kafka mantenemos actualizada la materialized view y usamos sus datos para enriquecer nuestras respuestas en todos los servicios, ya que referenciamos usuarios y beats constantemente. También usamos el materialized view para validar la existencia de recursos antes de referenciarlos de modo que no existan inconsistencias.
 
 - Implementar cachés o algún mecanismo para optimizar el acceso a datos de otros recursos: **REALIZADO**.
-    - Se usa *Redis* para tener cacheadas las llamadas a la API de *OpenRouter* y para emplear el rate-limit y nunca exceder los límites de uso de la misma. El uso de *Redis* se encuentra en `src/cache.js`, y su uso está sobre todo en el archivo `src/utils/moderationEngine.js` pero también en `src/utils/rateLimit.js`
+    - Se usa *Redis* para tener cacheadas las llamadas a la API de *OpenRouter* y para emplear el rate-limit y nunca exceder los límites de uso de la misma. El uso de *Redis* se encuentra en `src/cache.js`, y su uso está sobre todo en el archivo `src/utils/moderationEngine.js` pero también en `src/utils/rateLimit.js`. Si el materialized view se considera una caché permanente, entonces también se aplica caché con usuarios y beats tal y como se explica en el punto anterior.
 
 - Consumir alguna API externa (distinta de las de los grupos de práctica) a través del backend o algún otro
 tipo de almacenamiento de datos en cloud como Amazon S3: **REALIZADO**.
@@ -66,14 +66,14 @@ tipo de almacenamiento de datos en cloud como Amazon S3: **REALIZADO**.
     - Se valida el JWT en el API Gateway, donde se introducen unas cabeceras especiales (*x-gateway-authenticated* y *x-user-id*) y éstas se validan en nuestro middleware. Esto se puede encontrar en el archivo `src/middlewares/authMiddlewares.js`.
     
 - Implementar el patrón “circuit breaker” en las comunicaciones con otros servicios: **REALIZADO**.
-    - Se aplica *circuit breaker* para reintentar las conexiones tanto con *Redis* como con Kafka, de modo que si se desconectan nuestro microservicio no crashea. Además se pueden habilitar y deshabilitar dichas conexiones con las variables de entorno ENABLE_KAFKA y ENABLE_REDIS. El *circuit breaker* puede observarse en `src/cache.js` para *Redis* y `src/services/kafkaConsumer.js` para Kafka
+    - Se aplica *circuit breaker* para reintentar las conexiones tanto con *Redis* como con *Kafka*, de modo que si se desconectan nuestro microservicio no crashea y trata de reconectarse. Además se pueden habilitar y deshabilitar dichas conexiones con las variables de entorno `ENABLE_KAFKA` y `ENABLE_REDIS`. El *circuit breaker* puede observarse en `src/cache.js` para *Redis* y `src/services/kafkaConsumer.js` para *Kafka*
 
 - Implementar un microservicio adicional haciendo uso de una arquitectura serverless (Functions-as-a-Service): **NO REALIZADO**.
 
 - Implementar mecanismos de gestión de la capacidad como throttling o feature toggles para rendimiento: **NO REALIZADO**.
 
 - Cualquier otra extensión al microservicio básico acordada previamente con el profesor: **REALIZADO**.
-    - Se han añadido características adicionales como un logger en `logger.js`, la gestión de githooks con *husky*, que se ve en la carpeta `.husky` y además se autoinstala al instalar las dependencias, el soporte a varios entornos de desarrollo, teniendo varios .env.example y varios Dockerfiles y docker-compose. Además tenemos la posibilidad de activar o desactivar redis, kafka, el pricing con variables de entorno.
+    - Se han añadido características adicionales como un logger en `logger.js`, la gestión de githooks con *husky*, que se ve en la carpeta `.husky` y además se autoinstala al instalar las dependencias, el soporte a varios entornos de desarrollo, teniendo varios .env.example y varios Dockerfiles y docker-compose. Además tenemos la posibilidad de activar o desactivar redis, kafka, el pricing con variables de entorno. hay endpoints de salud que usamos para ver el estado de las conexiones con redis, kafka y la base de datos (disponible en `src/routes/healthRoutes.js`), y hay endpoints de versionado y changelog (disponible en `src/routes\/aboutRoutes.js`). Por último, se ha implementado un mecanismo de apagado del contenedor para que se cierren las conexiones, se finalicen las solicitudes que se estén gestionando en ese momento y se apague el contenedor de forma correcta. Todo esto se puede observar en `main.js`.
 
 ### NIVEL HASTA 5 PUNTOS
 
@@ -101,37 +101,38 @@ tipo de almacenamiento de datos en cloud como Amazon S3: **REALIZADO**.
     - Explicado anteriormente.
 
 - Aplicación basada en microservicios básica implementada: **REALIZADO**.
-    - .
+    - Tarea grupal, explicado en el documento de nivel de acabado de la aplicación.
 
 - Análisis justificativo de la suscripción óptima de las APIs del proyecto: **REALIZADO**.
-    - .
+    - Tarea grupal, explicado en el documento de nivel de acabado de la aplicación. Nuestra parte es el análisis de la suscripción óptima de *OpenRouter* y también nos encargamos de hacer la plantilla de ese documento.
 
 - Al menos 3 de las características del microservicio avanzado implementados: **REALIZADO**.
-    - .
-
+    - Explicado anteriormente
 
 ### NIVEL HASTA 9 PUNTOS
 
 - Un mínimo de 20 pruebas de componente implementadas incluyendo escenarios positivos y negativos: **REALIZADO**.
-    - .
+    - Sí. Se especifica en el documento de uso de IA, pero hemos hecho un test suite muy rígido. Existen pruebas para todos los campos y todas las validaciones de errores controlados en nuestras entidades, rutas y servicios. Todo esto se puede ver fácilmente en los archivos de `test/`. Por ejemplo, sólo para el método de crear una playlit, existen 13 casos de pruebas (incluyendo negativos). Esto se ve en el describe llamado `create playlist test` del archivo `tests/unit/services.playlist.test.js`. Como se ha comentado, usamos IA generativa para validar todos los escenarios posibles.
 
 - Tener el API REST documentado con swagger (OpenAPI): **REALIZADO**.
-    - .
+    - Se puede ver en el `spec/oas.yaml`. Ese archivo se autogenera gracias al *js-doc* de los archivos en `src/routes`. Ese contenido lo utiliza la librería *swagger-jsdoc* para crear el oas.yaml. Además tenemos definidos los schemas de nuestras entidades en `src/models/OASSchemas.js`. El microservicio dispone de una UI de Swagger que se renderiza gracias lo anterior y a la librería *swagger-ui-express*.
 
 - Al menos 5 de las características del microservicio avanzado implementados: **REALIZADO**.
-    - .
+    - Explicado anteriormente
 
 - Al menos 3 de las características de la aplicación basada en microservicios avanzada implementados: **REALIZADO**.
-    - .
+    - Tarea grupal, explicado en el documento de nivel de acabado de la aplicación.
 
 ### NIVEL HASTA 10 PUNTOS
 
 - Al menos 6 características del microservicio avanzado implementados: **REALIZADO**.
-    - .
+    - Explicado anteriormente
 
 - Al menos 4 características de la aplicación basada en microservicios avanzada implementados: **REALIZADO**.
-    - .
-    
+    - Tarea grupal, explicado en el documento de nivel de acabado de la aplicación.
+
+- Documento de uso de IA
+    - Incluimos aquí esta sección porque al no aparecer en el documento `Proyecto.pdf` con las instrucciones del trabajo creemos que era opcional. De igual modo se ha contribuido a ese documento con las explicaciones de las herramientas de IA utilizadas y del uso que se les dió por nuestra parte.
 
 ## 3. Descripción del microservicio en la aplicación
 
@@ -302,6 +303,7 @@ Además, para minimizar latencia entre microservicios y evitar lecturas directas
 ### Persistencia (MongoDB)
 
 Colecciones principales:
+
 - `comments`
 - `ratings`
 - `playlists`
@@ -331,12 +333,12 @@ Colecciones principales:
 
 - **Eventos creados**: Nos comunicamos con el microservicio de social y enviar eventos sociales para el feed de la aplicación.
 
-    - Creación de un comentario
-    - Creación de un rating
+    - `COMMENT_CREATED`: Creación de un comentario
+    - `RATING_CREATED`: Creación de un rating
 
 ## 5. Descripción del API REST del microservicio
 
-La especificación OpenAPI (OAS) define rutas, request/response y ejemplos. Aquí se resume por grupos funcionales.
+La especificación OpenAPI (OAS) define rutas, request/response y ejemplos. Aquí se resume por grupos funcionales aunque recomendamos revisar el archivo `oas.yaml`.
 
 ### 5.1 Documentation & meta
 
@@ -473,10 +475,8 @@ La especificación OpenAPI (OAS) define rutas, request/response y ejemplos. Aqu�
     Actualiza playlist (solo owner): name/description/isPublic/collaborators/items.
 
 - DELETE `/api/v1/playlists/{id}`
-    
-    Elimina playlist (solo owner).
 
-#### Items
+    Elimina playlist (solo owner).
 
 - POST `/api/v1/playlists/{id}/items`
 
