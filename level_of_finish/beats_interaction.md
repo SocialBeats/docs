@@ -23,10 +23,10 @@
     - Se ha desplegado el microservicio en un clusted de Kubernetes de Digital Ocean y se ha usado Ionos para el DNS. Está explicado en el documento de nivel de acabado de la aplicación.
 
 - La API que gestione el recurso también debe ser accesible en una dirección bien versionada: **REALIZADO**.
-    - Todos nuestros endpoints están disponibles a través de la api-gateway de nuestra aplicación, y están correctamente versionados bajo el prefijo de `/api/v1`. El prefijo se puede ver en todos los archivos de la carpeta `src/routes`
+    - Todos nuestros endpoints están disponibles a través de la api-gateway de nuestra aplicación, y están correctamente versionados bajo el prefijo de `/api/v1`. El prefijo se puede ver en todos los archivos de la carpeta `src/routes`.
 
 - Se debe tener una documentación de todas las operaciones de la API incluyendo las posibles peticiones y las respuestas recibidas: **REALIZADO**.
-    - Tenemos el archivo `spec/oas.yaml` donde aparrece completamente definida todas las operaciones del microservicio peticiones y todas las posibles respuestas que pueden darse.
+    - Tenemos el archivo `spec/oas.yaml` donde aparece completamente definida todas las operaciones del microservicio peticiones y todas las posibles respuestas que pueden darse.
 - Debe tener persistencia utilizando *MongoDB* u otra base de datos no SQL: **REALIZADO**.
     - Tenemos la conexión a la base de datos en el archivo `src/db.js`.
 
@@ -173,6 +173,110 @@ Además, para minimizar latencia entre microservicios y evitar lecturas directas
 
 ```fs
 .
+│
+├── .github                             # Plantillas de issues y workflows de Github
+│   ├── ISSUE_TEMPLATE
+│   │   ├── bug-report.yml
+│   │   ├── issue-template.yml
+│   │   └── security-vulnerability.yml
+│   └── workflows
+│       ├── conventional-commits.yml
+│       ├── create-releases.yml
+│       ├── linter.yml
+│       └── run-tests.yml
+│
+├── .husky                              # Husky para la gestión de githooks
+│   ├── commit-msg
+│   ├── pre-commit
+│   └── _
+│       ├── .gitignore
+│       ├── applypatch-msg
+│       ├── commit-msg
+│       ├── h
+│       ├── husky.sh
+│       ├── post-applypatch
+│       ├── post-checkout
+│       ├── post-commit
+│       ├── post-merge
+│       ├── post-rewrite
+│       ├── pre-applypatch
+│       ├── pre-auto-gc
+│       ├── pre-commit
+│       ├── pre-merge-commit
+│       ├── pre-push
+│       ├── pre-rebase
+│       └── prepare-commit-msg
+│
+├── .vscode                             # Configuración del entorno de desarrollo
+│   └── settings.json
+│
+├── scripts                             # Scripts para preparar el entorno de desarrollo
+│   └── copyEnv.cjs
+│
+├── spec                                # Especificación de la API
+│   └── oas.yaml
+│
+├── src
+│   ├── cache.js                        # Conexión con Redis
+│   ├── db.js                           # Conexión con Mongo
+│   ├── middlewares                     # Midlewares para la autenticación
+│   │   └── authMiddlewares.js
+│   ├── models                          # Modelo de datos
+│   │   ├── BeatMaterialized.js
+│   │   ├── Comment.js
+│   │   ├── ModerationReport.js
+│   │   ├── Playlist.js
+│   │   ├── Rating.js
+│   │   ├── UserMaterialized.js
+│   │   ├── OASSchemas.js
+│   │   └── models.js
+│   ├── routes                          # Documentación de las rutas y definición de endpoints
+│   │   ├── aboutRoutes.js
+│   │   ├── commentRoutes.js
+│   │   ├── healthRoutes.js
+│   │   ├── moderationReportRoutes.js
+│   │   ├── playlistRoutes.js
+│   │   └── ratingRoutes.js
+│   ├── services                        # Lógica de gestión de peticiones
+│   │   ├── commentService.js
+│   │   ├── kafkaConsumer.js
+│   │   ├── moderationReportService.js
+│   │   ├── playlistService.js
+│   │   └── ratingService.js
+│   └── utils                           # Métodos útiles y conexiones a OpenRouter
+│       ├── moderationCron.js
+│       ├── moderationEngine.js
+│       ├── moderationWorker.js
+│       ├── openRouterClient.js
+│       ├── rateLimit.js
+│       ├── spaceConnection.js
+│       └── versionUtils.js
+│
+├── tests
+│   ├── integration                     # Tests outproc
+│   │   ├── integration.comment.test.js
+│   │   ├── integration.health.test.js
+│   │   ├── integration.playlist.test.js
+│   │   └── integration.rating.test.js
+│   ├── setup                           # Configuración de tests inproc y outproc
+│   │   ├── setup-integration.js
+│   │   └── setup.js
+│   └── unit                            # Tests unitarios
+│       ├── entities.comment.test.js
+│       ├── entities.ModerationReport.test.js
+│       ├── entities.playlist.test.js
+│       ├── entities.rating.test.js
+│       ├── routes.comment.test.js
+│       ├── routes.health.test.js
+│       ├── routes.moderationReport.test.js
+│       ├── routes.playlist.test.js
+│       ├── routes.rating.test.js
+│       ├── services.comment.test.js
+│       ├── services.kafkaConsumer.test.js
+│       ├── services.moderationReport.test.js
+│       ├── services.playlist.test.js
+│       └── services.rating.test.js
+│
 ├── .dockerignore
 ├── .env
 ├── .env.development.example
@@ -198,110 +302,7 @@ Además, para minimizar latencia entre microservicios y evitar lecturas directas
 ├── package.json
 ├── README.md
 ├── vitest.config.js
-├── vitest.integration.config.js
-│
-├── .github             # Plantillas de issues y workflows de Github
-│   ├── ISSUE_TEMPLATE
-│   │   ├── bug-report.yml
-│   │   ├── issue-template.yml
-│   │   └── security-vulnerability.yml
-│   └── workflows
-│       ├── conventional-commits.yml
-│       ├── create-releases.yml
-│       ├── linter.yml
-│       └── run-tests.yml
-│
-├── .husky              # Husky para la gestión de githooks
-│   ├── commit-msg
-│   ├── pre-commit
-│   └── _
-│       ├── .gitignore
-│       ├── applypatch-msg
-│       ├── commit-msg
-│       ├── h
-│       ├── husky.sh
-│       ├── post-applypatch
-│       ├── post-checkout
-│       ├── post-commit
-│       ├── post-merge
-│       ├── post-rewrite
-│       ├── pre-applypatch
-│       ├── pre-auto-gc
-│       ├── pre-commit
-│       ├── pre-merge-commit
-│       ├── pre-push
-│       ├── pre-rebase
-│       └── prepare-commit-msg
-│
-├── .vscode             # Configuración del entorno de desarrollo
-│   └── settings.json
-│
-├── scripts             # Scripts para preparar el entorno de desarrollo
-│   └── copyEnv.cjs
-│
-├── spec                # Especificación de la API
-│   └── oas.yaml
-│
-├── src
-│   ├── cache.js        # Conexión con Redis
-│   ├── db.js           # Conexión con Mongo
-│   ├── middlewares     # Midlewares para la autenticación
-│   │   └── authMiddlewares.js
-│   ├── models          # Modelo de datos
-│   │   ├── BeatMaterialized.js
-│   │   ├── Comment.js
-│   │   ├── ModerationReport.js
-│   │   ├── Playlist.js
-│   │   ├── Rating.js
-│   │   ├── UserMaterialized.js
-│   │   ├── OASSchemas.js
-│   │   └── models.js
-│   ├── routes          # Documentación de las rutas y definición de endpoints
-│   │   ├── aboutRoutes.js
-│   │   ├── commentRoutes.js
-│   │   ├── healthRoutes.js
-│   │   ├── moderationReportRoutes.js
-│   │   ├── playlistRoutes.js
-│   │   └── ratingRoutes.js
-│   ├── services        # Lógica de gestión de peticiones
-│   │   ├── commentService.js
-│   │   ├── kafkaConsumer.js
-│   │   ├── moderationReportService.js
-│   │   ├── playlistService.js
-│   │   └── ratingService.js
-│   └── utils           # Métodos útiles y conexiones a OpenRouter
-│       ├── moderationCron.js
-│       ├── moderationEngine.js
-│       ├── moderationWorker.js
-│       ├── openRouterClient.js
-│       ├── rateLimit.js
-│       ├── spaceConnection.js
-│       └── versionUtils.js
-│
-└── tests
-    ├── integration     # Tests outproc
-    │   ├── integration.comment.test.js
-    │   ├── integration.health.test.js
-    │   ├── integration.playlist.test.js
-    │   └── integration.rating.test.js
-    ├── setup           # Configuración de tests inproc y outproc
-    │   ├── setup-integration.js
-    │   └── setup.js
-    └── unit            # Tests unitarios
-        ├── entities.comment.test.js
-        ├── entities.ModerationReport.test.js
-        ├── entities.playlist.test.js
-        ├── entities.rating.test.js
-        ├── routes.comment.test.js
-        ├── routes.health.test.js
-        ├── routes.moderationReport.test.js
-        ├── routes.playlist.test.js
-        ├── routes.rating.test.js
-        ├── services.comment.test.js
-        ├── services.kafkaConsumer.test.js
-        ├── services.moderationReport.test.js
-        ├── services.playlist.test.js
-        └── services.rating.test.js
+└── vitest.integration.config.js
 ```
 
 ### Persistencia (MongoDB)
