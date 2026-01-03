@@ -72,6 +72,10 @@ los microservicios. Si no es para todos, debe justificarse de forma razonada: **
 - Presentación preparada para ser presentada en 30 minutos por cada equipo de 8/10 personas. **REALIZADO**.
     - La presentación está disponible en []() así como en [Github](https://github.com/SocialBeats/docs/tree/main/presentation)
 
+- Análisis de los esfuerzos (en horas) dedicadas por cada uno. Para esto se recomienda utilizar una 
+herramienta de time tracking como Clockify o Toggl: **REALIZADO**
+    - Están disponibles en [https://github.com/SocialBeats/docs/tree/main/time_efforts](https://github.com/SocialBeats/docs/tree/main/time_efforts)
+
 ### NIVEL HASTA 7 PUNTOS
 
 - Debe incluir todos los requisitos del nivel hasta 5 puntos: **REALIZADO**.
