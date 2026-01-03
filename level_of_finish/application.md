@@ -25,7 +25,7 @@ El customer Agreement se encuentra definido [aquí](https://github.com/SocialBea
 add-ons utilizados: **REALIZADO**
     - Donde se ha hecho
 - Incluir en el plan de precios límites de uso y aplicarlos automáticamente según la suscripción del usuario:
-    - Donde se ha hecho
+    - Se ha integrado Space en los microservicios que tienen limitaciones del pricing asociadas. El plan de precios en formato YAML se puede encontrar en [https://sphere.score.us.es/pricings/collections/69527907641bc8e6c0f7397d/FIS-2526-Socialbeats](https://sphere.score.us.es/pricings/collections/69527907641bc8e6c0f7397d/FIS-2526-Socialbeats)  En beats-interactions se puede ver la adaptación a los límites del pricing usando space en el archivo `src/utils/spaceConnection.js` y en los métodos *createPlaylist* y *deletePlaylist* del archivo `src/services/playlistService.js`. En el frontend, se limita esta característica en el archivo `src/pages/app/beats-interaction/playlist/CreatePlaylist.jsx` en las lineas de la 237 a la 251.
 - Realizar pruebas de integración automatizadas con los otros microservicios utilizando el sistema de
 integración continua: **NO REALIZADO**
 - Hacer uso de un API Gateway con funcionalidad avanzada como un mecanismo de throttling o de autenticación: **REALIZADO**
