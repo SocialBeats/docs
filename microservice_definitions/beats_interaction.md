@@ -50,62 +50,88 @@
 ### MICROSERVICIO AVANZADO QUE GESTIONE UN RECURSO
 
 - Usar el patrón materialized view para mantener internamente el estado de otros microservicios: **REALIZADO**.
-    - Se puede encontra dentro del microservicio en los archivos `src\models\BeatMaterialized.js` y `src\models\UserMaterialized.js`. Ahí se definen las propiedades que guardamos de las bases de datos de user-auth y de beats-upload. Con los eventos de Kafka mantenemos actualizada la materialized view y usamos sus datos para enriquecer nuestras respuestas en todos los servicios, ya que referenciamos usuarios y beats constantemente. También usamos el MaterializedView para validar la existencia de recursos antes de referenciarlos de modo que no existan inconsistencias.
+    - Se puede encontra dentro del microservicio en los archivos `src\models\BeatMaterialized.js` y `src\models\UserMaterialized.js`. Ahí se definen las propiedades que guardamos de las bases de datos de los microservicios *user-auth* y de *beats-upload*. Con los eventos de Kafka mantenemos actualizada la materialized view y usamos sus datos para enriquecer nuestras respuestas en todos los servicios, ya que referenciamos usuarios y beats constantemente. También usamos el materialized view para validar la existencia de recursos antes de referenciarlos de modo que no existan inconsistencias.
 
 - Implementar cachés o algún mecanismo para optimizar el acceso a datos de otros recursos: **REALIZADO**.
-    - Se usa Redis para tener cacheadas las llamadas a la API de OpenRouter y para emplear el rate-limit y nunca exceder los límites de uso de la misma. El uso de redis se encuentra en `src\cache.js`, y su uso está sobre todo en el archivo `src\utils\moderationEngine.js` pero también en `src\utils\rateLimit.js`
+    - Se usa *Redis* para tener cacheadas las llamadas a la API de *OpenRouter* y para emplear el rate-limit y nunca exceder los límites de uso de la misma. El uso de *Redis* se encuentra en `src\cache.js`, y su uso está sobre todo en el archivo `src\utils\moderationEngine.js` pero también en `src\utils\rateLimit.js`
 
 - Consumir alguna API externa (distinta de las de los grupos de práctica) a través del backend o algún otro
 tipo de almacenamiento de datos en cloud como Amazon S3: **REALIZADO**.
-    - Se ha integrado la API de OpenRouter para moderar el contendo de los comentarios, las playlists y los ratings. Esto se puede ver en el archivo `src\utils\openRouterClient.js`, que es donde se conecta nuestro microservicio con la API externa.
+    - Se ha integrado la API de *OpenRouter* para moderar el contendo de los comentarios, las playlists y los ratings. Esto se puede ver en el archivo `src\utils\openRouterClient.js`, que es donde se conecta nuestro microservicio con la API externa.
 
 - Implementar el patrón “rate limit” al hacer uso de servicios externos: **REALIZADO**.
-    - Se encuentra en el archivo `src\utils\rateLimit.js`. Se usa la caché de redis para controlar las llamadas a la API de OpenRouter y adaptarlas al plan gratuito. En nuestro caso como queremos evitar ser baneados hacemos un uso conservador, es decir, no aprovechamos la capacidad máxima de la API por si acaso, estableciendo límites ligeramente por debajo de los reales (18 en vez de 20 y 45 en vez de 50).
+    - Se encuentra en el archivo `src\utils\rateLimit.js`. Se usa la caché de *Redis* para controlar las llamadas a la API de *OpenRouter* y adaptarlas al plan gratuito. En nuestro caso como queremos evitar ser baneados hacemos un uso conservador, es decir, no aprovechamos la capacidad máxima de la API, estableciendo límites ligeramente por debajo de los reales (18 en vez de 20 y 45 en vez de 50).
     
 - Implementar un mecanismo de autenticación basado en JWT o equivalente: **REALIZADO**.
-    - Se valid el JWT en el API Gateway, donde se iintroducen unas cabeceras especiales (x-gateway-authenticated y x-user-id) y éstas se validan en el nuestro middleware. Esto se puede encontrar en el archivo `src\middlewares\authMiddlewares.js`.
+    - Se valida el JWT en el API Gateway, donde se introducen unas cabeceras especiales (*x-gateway-authenticated* y *x-user-id*) y éstas se validan en nuestro middleware. Esto se puede encontrar en el archivo `src\middlewares\authMiddlewares.js`.
     
 - Implementar el patrón “circuit breaker” en las comunicaciones con otros servicios: **REALIZADO**.
-    - Se aplica "circuit breaker" para reintentar las conexiones tanto con Redis como con Kafka, de modo que si se desconectan nuestro microservicio no crashea. Además se pueden habilitar y deshabilitar dichas conexiones con las variables de entorno ENABLE_KAFKA y ENABLE_REDIS. El circuit breaker puede observarse en `src\cache.js` para Redis y `src\services\kafkaConsumer.js` para Kafka
+    - Se aplica *circuit breaker* para reintentar las conexiones tanto con *Redis* como con Kafka, de modo que si se desconectan nuestro microservicio no crashea. Además se pueden habilitar y deshabilitar dichas conexiones con las variables de entorno ENABLE_KAFKA y ENABLE_REDIS. El *circuit breaker* puede observarse en `src\cache.js` para *Redis* y `src\services\kafkaConsumer.js` para Kafka
 
 - Implementar un microservicio adicional haciendo uso de una arquitectura serverless (Functions-as-a-Service): **NO REALIZADO**.
     
 - Implementar mecanismos de gestión de la capacidad como throttling o feature toggles para rendimiento: **NO REALIZADO**.
 
 - Cualquier otra extensión al microservicio básico acordada previamente con el profesor: **REALIZADO**.
-    - Se han añadido características adicionales como un logger en `logger.js`, la gestión de githooks con husky, que se ve en la carpeta `.husky` y además se autoinstala al instalar las dependencias, el soporte a varios entornos de desarrollo, teniendo varios .env.example y varios Dockerfiles y docker-compose. Además tenemos la posibilidad de activar o desactivar redis, kafka, el pricing con variables de entorno.
+    - Se han añadido características adicionales como un logger en `logger.js`, la gestión de githooks con *husky*, que se ve en la carpeta `.husky` y además se autoinstala al instalar las dependencias, el soporte a varios entornos de desarrollo, teniendo varios .env.example y varios Dockerfiles y docker-compose. Además tenemos la posibilidad de activar o desactivar redis, kafka, el pricing con variables de entorno.
 
 ### NIVEL HASTA 5 PUNTOS
 
-- Microservicio básico completamente implementado. **REALIZADO**
-    - Explicado anteriormente
-- Diseño de un customer agreement para la aplicación en su conjunto con, al menos, tres planes de precios
-que consideren características funcionales y extrafuncionales. **REALIZADO**
+- Microservicio básico completamente implementado. **REALIZADO**.
+    - Explicado anteriormente.
+
+- Diseño de un customer agreement para la aplicación en su conjunto con, al menos, tres planes de precios que consideren características funcionales y extrafuncionales. **REALIZADO**.
     - Tarea grupal, explicado en el documento de nivel de acabado de la aplicación.
-- Ficha técnica normalizada del modelo de consumo de las APIs externas utilizadas en la aplicación y que
-debe incluir al menos algún servicio externo de envío de correos electrónicos con un plan de precios múltiple
-como SendGrid. **REALIZADO**
-    - Tarea grupal, explicado en el documento de nivel de acabado de la aplicación. Nuestra parte de la ficha técnica es la de OpenRouter.
-- Documento incluido en el repositorio del microservicio (o en el wiki del repositorio en Github) por cada pareja **REALIZADO**
+
+- Ficha técnica normalizada del modelo de consumo de las APIs externas utilizadas en la aplicación y que debe incluir al menos algún servicio externo de envío de correos electrónicos con un plan de precios múltiple como SendGrid. **REALIZADO**.
+    - Tarea grupal, explicado en el documento de nivel de acabado de la aplicación. Nuestra parte de la ficha técnica es la de *OpenRouter*.
+
+- Documento incluido en el repositorio del microservicio (o en el wiki del repositorio en Github) por cada pareja **REALIZADO**.
     - Es este mismo documento. Además está explicado en el documento de nivel de acabado de la aplicación.
-- Vídeo de demostración del microservicio o aplicación funcionando. **REALIZADO**
+
+- Vídeo de demostración del microservicio o aplicación funcionando. **REALIZADO**.
     - Es el video de nuestro microservicio y el video demo de la presentación.
-- Presentación preparada para ser presentada en 30 minutos por cada equipo de 8/10 personas. **REALIZADO**
+
+- Presentación preparada para ser presentada en 30 minutos por cada equipo de 8/10 personas. **REALIZADO**.
     - Tarea grupal, explicado en el documento de nivel de acabado de la aplicación.
 
 ### NIVEL HASTA 7 PUNTOS
 
-- Debe incluir todos los requisitos del nivel hasta 5 puntos: **REALIZADO**
-    - Explicado anteriormente
-- Aplicación basada en microservicios básica implementada: **REALIZADO**
-    -   
-Análi  justificativo de la suscripción óptima de las APIs del proyecto: **REALIZADO**
-- Al menos 3 de las características del microservicio avanzado implementados: **REALIZADO**
+- Debe incluir todos los requisitos del nivel hasta 5 puntos: **REALIZADO**.
+    - Explicado anteriormente.
+
+- Aplicación basada en microservicios básica implementada: **REALIZADO**.
+    - .
+
+- Análisis justificativo de la suscripción óptima de las APIs del proyecto: **REALIZADO**.
+    - .
+
+- Al menos 3 de las características del microservicio avanzado implementados: **REALIZADO**.
+    - .
 
 
 ### NIVEL HASTA 9 PUNTOS
 
+- Un mínimo de 20 pruebas de componente implementadas incluyendo escenarios positivos y negativos: **REALIZADO**.
+    - .
+
+- Tener el API REST documentado con swagger (OpenAPI): **REALIZADO**.
+    - .
+
+- Al menos 5 de las características del microservicio avanzado implementados: **REALIZADO**.
+    - .
+
+- Al menos 3 de las características de la aplicación basada en microservicios avanzada implementados: **REALIZADO**.
+    - .
+
 ### NIVEL HASTA 10 PUNTOS
+
+- Al menos 6 características del microservicio avanzado implementados: **REALIZADO**.
+    - .
+
+- Al menos 4 características de la aplicación basada en microservicios avanzada implementados: **REALIZADO**.
+    - .
+    
 
 ## 3. Descripción del microservicio en la aplicación
 
