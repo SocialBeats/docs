@@ -9,13 +9,13 @@
 ### MICROSERVICIO BÁSICO QUE GESTIONE UN RECURSO
 
 - El backend debe ser una API REST tal como se ha visto en clase implementando al menos los métodos GET, POST, PUT y DELETE y devolviendo un conjunto de códigos de estado adecuado: **REALIZADO**.
-    - Donde se ha hecho.
+    - Tenemos hechos tres CRUD al completo (para las playlist, comentarios y puntuaciones) y tenemos algunos métodos (`create` y `post`) para la moderación de contenido. Todo el código se encuentra en los archivos de las carpetas `src/routes` y `src/services`.
 
 - La API debe tener un mecanismo de autenticación: **REALIZADO**.
-    - Donde se ha hecho.
+    - La autenticación se encuentra en `src/middlewares/authMiddlewares.js`.
 
 - Debe tener un frontend que permita hacer todas las operaciones de la API (este frontend puede ser individual o estar integrado con el resto de frontends): **REALIZADO**.
-    - Donde se ha hecho.
+    - El frontend se encuentra integrado con el resto de frontend. Las carpetas que contienen todos los archivos referido con nuestro microservicio son: `src/pages/app/beats-interaction/*` y `src/services/beats-interaction/`. Además, en algunos componentes como `src/pages/app/beats/BeatDetailPage.jsx` podemos encontrar la insercción de componentes desarrollados por nosotros.
 
 - Debe estar desplegado y ser accesible desde la nube (ya sea de forma individual o como parte de la aplicación): **REALIZADO**.
     - Donde se ha hecho.
