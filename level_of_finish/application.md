@@ -2,7 +2,18 @@
 
 ## 1. Descripción de la aplicación
 
+El proyecto consiste en hacer una red social parecida a Spotify o SoundCloud para la subida de beats. Incluye la gestión de los mismos, un módulo de estadísticas y amistades, playlists y mucho más.
+
 ## 1.1 Descomposición en microservicios
+
+Existen varios microservicios, siendo estos los siguientes:
+
++ user-auth:
++ beats-upload:
++ beats-interactions: Se encarga de la lógica de las playlists, los comentarios, los ratings y la moderación de los mismos. Desarrollado por Daniel Galván y Jaime Linares.
++ analytics-and-dashboards:
++ social:
++ payments-and-suscriptions: Se encarga de gestionar los pagos y los cambios en el plan de precios
 
 ## Customer Agreement
 
