@@ -12,16 +12,16 @@
     - Tenemos hechos tres CRUD al completo (para las playlist, comentarios y puntuaciones) y tenemos algunos métodos (`create` y `post`) para la moderación de contenido. Todo el código se encuentra en los archivos de las carpetas `src/routes` y `src/services`.
 
 - La API debe tener un mecanismo de autenticación: **REALIZADO**.
-    - La autenticación se encuentra en `src/middlewares/authMiddlewares.js`.
+    - La autenticación se encuentra en `src/middlewares/authMiddlewares.js`. En la API-Gateway se valida la sesión del usuario y se le introducen unas cabeceras especiales y en nuestro microservicio se hacen comprobaciones sobre esas cabeceras. La autenticación se hace con JWT.
 
 - Debe tener un frontend que permita hacer todas las operaciones de la API (este frontend puede ser individual o estar integrado con el resto de frontends): **REALIZADO**.
-    - El frontend se encuentra integrado con el resto de frontend. Las carpetas que contienen todos los archivos referido con nuestro microservicio son: `src/pages/app/beats-interaction/*` y `src/services/beats-interaction/`. Además, en algunos componentes como `src/pages/app/beats/BeatDetailPage.jsx` podemos encontrar la insercción de componentes desarrollados por nosotros.
+    - El frontend se encuentra integrado con el resto de microservicios en un repositorio de frontend común. Las carpetas que contienen todos los archivos referido con nuestro microservicio son: `src/pages/app/beats-interaction/*` y `src/services/beats-interaction/`. Además, en algunos componentes como `src/pages/app/beats/BeatDetailPage.jsx` podemos encontrar la insercción de componentes desarrollados por nosotros, o algunos botones como el de `ver playlists del usuario` de la vista de perfil de usuario.
 
 - Debe estar desplegado y ser accesible desde la nube (ya sea de forma individual o como parte de la aplicación): **REALIZADO**.
-    - Donde se ha hecho.
+    - Se ha desplegado el microservicio en un clusted de Kubernetes de Digital Ocean y se ha usado Ionos para el DNS. Está explicado en el documento de nivel de acabado de la aplicación.
 
 - La API que gestione el recurso también debe ser accesible en una dirección bien versionada: **REALIZADO**.
-    - Donde se ha hecho.
+    - Todos nuestros endpoints están disponibles a través de la api-gateway de nuestra aplicación, y están correctamente versionados bajo el prefijo de `/api/v1`. El prefijo se puede ver en todos los archivos de la carpeta `src/routes`
 
 - Se debe tener una documentación de todas las operaciones de la API incluyendo las posibles peticiones y las respuestas recibidas: **REALIZADO**.
     - Tenemos el archivo `spec/oas.yaml` donde aparrece completamente definida todas las operaciones del microservicio peticiones y todas las posibles respuestas que pueden darse.
@@ -29,7 +29,7 @@
     - Tenemos la conexión a la base de datos en el archivo `src/db.js`.
 
 - Deben validarse los datos antes de almacenarlos en la base de datos (por ejemplo, haciendo uso de *mongoose*): **REALIZADO**.
-    - En todos los modelos se hacen validaaciones de la propia entidad y esto puede encontrarse en los archivos de `src/models/`. Además en los servicios también se hacen más validaciones y estás pueden enconttrarsse en  los aarchivos  de `src/services/`.
+    - En todos los modelos se hacen validaaciones de la propia entidad y esto puede encontrarse en los archivos de `src/models/` (eso usa mongoose). Además en los servicios también se hacen más validaciones y estás pueden enconttrarsse en  los aarchivos  de `src/services/`.
 
 - Debe haber definida una imagen Docker del proyecto: **REALIZADO**.
     - La última imagen disponible del microservicio se encuentra en [https://hub.docker.com/repository/docker/socialbeats/beats-interaction](https://hub.docker.com/repository/docker/socialbeats/beats-interaction). La última imagen disponible de todos los micrroservicios se encuentran en [https://hub.docker.com/repositories/socialbeats](https://hub.docker.com/repositories/socialbeats).
@@ -38,38 +38,38 @@
     - El código del microservicio se encuentra accesible en la siguiente ruta: [https://github.com/SocialBeats/beats-interaction](https://github.com/SocialBeats/beats-interaction).
 
 - Integración continua: El código debe compilarse, probarse y generar la imagen de Docker automáticamente usando GitHub Actions u otro sistema de integración continua en cada commit: **REALIZADO**.
-    - Todos lo archivos que se encuentran dentro de la carpeta `githu/workflows/` sirven para la integración continua. En concreto son:
+    - Todos lo archivos que se encuentran dentro de la carpeta `github/workflows/` sirven para la integración continua. En concreto son:
         - `conventional-commits.yml`: se encarga de verificar que se sigue conventional commits.
-        - `create-releases.yml`: siempre que se hace *push* de una *tag* a la rama *main* se crea y pública una versión del microservicio en Docker.
-        - `linter.yml`: verificar, al crear una pull o hacer push a main o develop, que todos los archivos siguen ESLint.
-        - `run-tests.yml`: ejecuta los tests, al crear una pull o hacer push a main o develop, para comprobar que no se ha roto ninguna funcionalidad.
+        - `create-releases.yml`: siempre que se hace *push* de una *tag* a la rama *main* se crea y pública una versión del microservicio en Docker. Es el workflow más importante porque integra el ciclo de CD.
+        - `linter.yml`: verificar, al crear una pull o hacer push a main o develop, que todos los archivos siguen ESLint. En caso de fallar por incumplimiento de lint, se aplica un `npm run lint:fix` para hacer que todos los archivos sigan con el estilo definido.
+        - `run-tests.yml`: ejecuta los tests inproc, al crear una pull o hacer push a main o develop, para comprobar que no se ha roto ninguna funcionalidad.
 
 - Debe haber pruebas de componente implementadas en Javascript para el código del backend utilizando Jest o similar. Como norma general debe haber tests para todas las funciones del API no triviales de la aplicación. Probando tanto escenarios positivos como negativos. Las pruebas deben ser tanto *in-process* como *out-of-process*: **REALIZADO**.
-    - Todos los archivos que se encuentran dentro de la carpeta `tests/` del proyecto.
+    - Todos los archivos que se encuentran dentro de la carpeta `tests/` del proyecto. Los tests in-process se encuentran en `tests/unit` y los test out-of-process se encuentran en `test/integration`. Para la ejecución de los in-process se puede hacer cualquiera de los siguientes comandos: `npm run test`, `npm test`, `npm run test:unit`, `npm run test:inproc`, `npm run test:watch`. Se puede ver la cobertura de pruebas con `npm run test:coverage`. Para los tests out-of-process basta con hacer `npm run test:outproc`. Esto levanta una imagen de la aplicación usando el docker-compose de tests (que no levanta kafka, redis ni el pricing) y ejecuta los tests de las rutas para validar el correcto funcinoamiento de los endpoints. Estos tests no añaden cobertura de pruebas.
 
 ### MICROSERVICIO AVANZADO QUE GESTIONE UN RECURSO
 
 - Usar el patrón materialized view para mantener internamente el estado de otros microservicios: **REALIZADO**.
-    - Se puede encontra dentro del microservicio en los archivos `src\models\BeatMaterialized.js` y `src\models\UserMaterialized.js`. Ahí se definen las propiedades que guardamos de las bases de datos de los microservicios *user-auth* y de *beats-upload*. Con los eventos de Kafka mantenemos actualizada la materialized view y usamos sus datos para enriquecer nuestras respuestas en todos los servicios, ya que referenciamos usuarios y beats constantemente. También usamos el materialized view para validar la existencia de recursos antes de referenciarlos de modo que no existan inconsistencias.
+    - Se puede encontra dentro del microservicio en los archivos `src/models/BeatMaterialized.js` y `src/models/UserMaterialized.js`. Ahí se definen las propiedades que guardamos de las bases de datos de los microservicios *user-auth* y de *beats-upload*. Con los eventos de Kafka mantenemos actualizada la materialized view y usamos sus datos para enriquecer nuestras respuestas en todos los servicios, ya que referenciamos usuarios y beats constantemente. También usamos el materialized view para validar la existencia de recursos antes de referenciarlos de modo que no existan inconsistencias.
 
 - Implementar cachés o algún mecanismo para optimizar el acceso a datos de otros recursos: **REALIZADO**.
-    - Se usa *Redis* para tener cacheadas las llamadas a la API de *OpenRouter* y para emplear el rate-limit y nunca exceder los límites de uso de la misma. El uso de *Redis* se encuentra en `src\cache.js`, y su uso está sobre todo en el archivo `src\utils\moderationEngine.js` pero también en `src\utils\rateLimit.js`
+    - Se usa *Redis* para tener cacheadas las llamadas a la API de *OpenRouter* y para emplear el rate-limit y nunca exceder los límites de uso de la misma. El uso de *Redis* se encuentra en `src/cache.js`, y su uso está sobre todo en el archivo `src/utils/moderationEngine.js` pero también en `src/utils/rateLimit.js`
 
 - Consumir alguna API externa (distinta de las de los grupos de práctica) a través del backend o algún otro
 tipo de almacenamiento de datos en cloud como Amazon S3: **REALIZADO**.
-    - Se ha integrado la API de *OpenRouter* para moderar el contendo de los comentarios, las playlists y los ratings. Esto se puede ver en el archivo `src\utils\openRouterClient.js`, que es donde se conecta nuestro microservicio con la API externa.
+    - Se ha integrado la API de *OpenRouter* para moderar el contendo de los comentarios, las playlists y los ratings. Esto se puede ver en el archivo `src/utils/openRouterClient.js`, que es donde se conecta nuestro microservicio con la API externa.
 
 - Implementar el patrón “rate limit” al hacer uso de servicios externos: **REALIZADO**.
-    - Se encuentra en el archivo `src\utils\rateLimit.js`. Se usa la caché de *Redis* para controlar las llamadas a la API de *OpenRouter* y adaptarlas al plan gratuito. En nuestro caso como queremos evitar ser baneados hacemos un uso conservador, es decir, no aprovechamos la capacidad máxima de la API, estableciendo límites ligeramente por debajo de los reales (18 en vez de 20 y 45 en vez de 50).
+    - Se encuentra en el archivo `src/utils/rateLimit.js`. Se usa la caché de *Redis* para controlar las llamadas a la API de *OpenRouter* y adaptarlas al plan gratuito. En nuestro caso como queremos evitar ser baneados hacemos un uso conservador, es decir, no aprovechamos la capacidad máxima de la API, estableciendo límites ligeramente por debajo de los reales (18 en vez de 20 y 45 en vez de 50).
     
 - Implementar un mecanismo de autenticación basado en JWT o equivalente: **REALIZADO**.
-    - Se valida el JWT en el API Gateway, donde se introducen unas cabeceras especiales (*x-gateway-authenticated* y *x-user-id*) y éstas se validan en nuestro middleware. Esto se puede encontrar en el archivo `src\middlewares\authMiddlewares.js`.
+    - Se valida el JWT en el API Gateway, donde se introducen unas cabeceras especiales (*x-gateway-authenticated* y *x-user-id*) y éstas se validan en nuestro middleware. Esto se puede encontrar en el archivo `src/middlewares/authMiddlewares.js`.
     
 - Implementar el patrón “circuit breaker” en las comunicaciones con otros servicios: **REALIZADO**.
-    - Se aplica *circuit breaker* para reintentar las conexiones tanto con *Redis* como con Kafka, de modo que si se desconectan nuestro microservicio no crashea. Además se pueden habilitar y deshabilitar dichas conexiones con las variables de entorno ENABLE_KAFKA y ENABLE_REDIS. El *circuit breaker* puede observarse en `src\cache.js` para *Redis* y `src\services\kafkaConsumer.js` para Kafka
+    - Se aplica *circuit breaker* para reintentar las conexiones tanto con *Redis* como con Kafka, de modo que si se desconectan nuestro microservicio no crashea. Además se pueden habilitar y deshabilitar dichas conexiones con las variables de entorno ENABLE_KAFKA y ENABLE_REDIS. El *circuit breaker* puede observarse en `src/cache.js` para *Redis* y `src/services/kafkaConsumer.js` para Kafka
 
 - Implementar un microservicio adicional haciendo uso de una arquitectura serverless (Functions-as-a-Service): **NO REALIZADO**.
-    
+
 - Implementar mecanismos de gestión de la capacidad como throttling o feature toggles para rendimiento: **NO REALIZADO**.
 
 - Cualquier otra extensión al microservicio básico acordada previamente con el profesor: **REALIZADO**.
