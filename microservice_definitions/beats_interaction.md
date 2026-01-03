@@ -61,10 +61,10 @@ tipo de almacenamiento de datos en cloud como Amazon S3: **REALIZADO**.
 
 - Implementar el patrón “rate limit” al hacer uso de servicios externos: **REALIZADO**.
     - Se encuentra en el archivo `src/utils/rateLimit.js`. Se usa la caché de *Redis* para controlar las llamadas a la API de *OpenRouter* y adaptarlas al plan gratuito. En nuestro caso como queremos evitar ser baneados hacemos un uso conservador, es decir, no aprovechamos la capacidad máxima de la API, estableciendo límites ligeramente por debajo de los reales (18 en vez de 20 y 45 en vez de 50).
-    
+
 - Implementar un mecanismo de autenticación basado en JWT o equivalente: **REALIZADO**.
     - Se valida el JWT en el API Gateway, donde se introducen unas cabeceras especiales (*x-gateway-authenticated* y *x-user-id*) y éstas se validan en nuestro middleware. Esto se puede encontrar en el archivo `src/middlewares/authMiddlewares.js`.
-    
+
 - Implementar el patrón “circuit breaker” en las comunicaciones con otros servicios: **REALIZADO**.
     - Se aplica *circuit breaker* para reintentar las conexiones tanto con *Redis* como con *Kafka*, de modo que si se desconectan nuestro microservicio no crashea y trata de reconectarse. Además se pueden habilitar y deshabilitar dichas conexiones con las variables de entorno `ENABLE_KAFKA` y `ENABLE_REDIS`. El *circuit breaker* puede observarse en `src/cache.js` para *Redis* y `src/services/kafkaConsumer.js` para *Kafka*
 
@@ -131,7 +131,7 @@ tipo de almacenamiento de datos en cloud como Amazon S3: **REALIZADO**.
 - Al menos 4 características de la aplicación basada en microservicios avanzada implementados: **REALIZADO**.
     - Tarea grupal, explicado en el documento de nivel de acabado de la aplicación.
 
-- Documento de uso de IA
+- Documento de uso de IA: **REALIZADO**
     - Incluimos aquí esta sección porque al no aparecer en el documento `Proyecto.pdf` con las instrucciones del trabajo creemos que era opcional. De igual modo se ha contribuido a ese documento con las explicaciones de las herramientas de IA utilizadas y del uso que se les dió por nuestra parte.
 
 ## 3. Descripción del microservicio en la aplicación
@@ -139,6 +139,7 @@ tipo de almacenamiento de datos en cloud como Amazon S3: **REALIZADO**.
 ### Resumen funcional
 
 El microservicio **beats-interaction** gestiona las **interacciones sociales** de los usuarios sobre beats y playlists dentro de la aplicación:
+
 - **Comentarios** sobre beats y playlists.
 - **Ratings** (puntuación + comentario opcional) sobre beats y playlists.
 - **Playlists**: creación, edición, visibilidad (pública/privada), colaboradores, e items (beats añadidos).
@@ -149,6 +150,7 @@ El microservicio **beats-interaction** gestiona las **interacciones sociales** d
     - Healthcheck del subsistema de moderación (Redis/Cron/pending reports).
 
 Además, para minimizar latencia entre microservicios y evitar lecturas directas a servicios externos, utiliza Materialized Views de:
+
 - `users` (desde user-auth)
 - `beats` (desde beats-upload)
 
@@ -167,7 +169,7 @@ Además, para minimizar latencia entre microservicios y evitar lecturas directas
 
 ### Arquitectura
 
-```
+```fs
 .
 ├── .dockerignore
 ├── .env
@@ -343,7 +345,7 @@ La especificación OpenAPI (OAS) define rutas, request/response y ejemplos. Aqu�
 ### 5.1 Documentation & meta
 
 - GET `/api/v1/about`
-    
+
     Devuelve el README renderizado en HTML.
 
 - GET `/api/v1/version`
@@ -489,11 +491,13 @@ La especificación OpenAPI (OAS) define rutas, request/response y ejemplos. Aqu�
 ### 5.6 Moderation Reports
 
 Creación de reportes (el `authorId` se infiere según el recurso reportado):
+
 - POST `/api/v1/comments/{commentId}/moderationReports`
 - POST `/api/v1/ratings/{ratingId}/moderationReports`
 - POST `/api/v1/playlists/{playlistId}/moderationReports`
 
 Consultas:
+
 - `GET /api/v1/moderationReports`
 
     Lista completa de reports (sin paginación, orden desc).
@@ -515,6 +519,7 @@ Consultas:
 ### Qué se modera
 
 Actualmente se modera:
+
 - Título y descripción de playlists
 - Comentarios
 - Texto de ratings
@@ -528,6 +533,7 @@ Actualmente se modera:
 ### Rate limit aplicado en beats-interaction (capa interna)
 
 Para evitar bloqueos del provider y mantener estabilidad:
+
 - **Máx. 18 requests/minuto**
 - **Máx. 45 requests/día**
 - Si se excede, el contenido queda pendiente y lo procesa un **CronJob** cuando “haya hueco”.
@@ -535,6 +541,7 @@ Para evitar bloqueos del provider y mantener estabilidad:
 ## 7. Gestión de errores y validación (criterios comunes)
 
 Ejemplos:
+
 - **401 Unauthorized**: token missing/invalid o no-owner en acciones sensibles (editar/borrar).
 - **402 Payment Required**: cuando se excede el SLA de nuestra API.
 - **403 Forbidden**: acceso denegado (p.ej. playlist privada sin permisos).
