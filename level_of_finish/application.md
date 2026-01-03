@@ -6,93 +6,91 @@
 
 ## Customer Agreement
 
+El customer Agreement se encuentra definido [aquí](https://github.com/SocialBeats/docs/blob/main/legal/agreement.md). Tras haber analizado el documento en busca de cláusulas abusivas, encontramos que...
+
 ## 2. Nivel de acabado
 
 ### APLICACIÓN BASADA EN MICROSERVICIOS BÁSICA
 
-- Interacción completa entre todos los microservicios de la aplicación integrando información. La integración debe realizarse a través del backend.
-    - Donde se ha hecho
-- Tener un frontend común que integre los frontends de cada uno de los microservicios. Cada pareja debe ocuparse, al menos, de la parte específica de su microservicio en el frontend común.
-    - Donde se ha hecho
-- Permitir la suscripción del usuario a un plan de precios y adaptar automáticamente la funcionalidad de la aplicación según el plan de precios seleccionado.
-    - Donde se ha hecho
+- Interacción completa entre todos los microservicios de la aplicación integrando información. La integración debe realizarse a través del backend: **REALIZADO**
+    - Se puede observar por la existencia de commands, la gestión de eventos de kafka y el frontend en común.
+- Tener un frontend común que integre los frontends de cada uno de los microservicios. Cada pareja debe ocuparse, al menos, de la parte específica de su microservicio en el frontend común: **REALIZADO**
+    - Está especificado en los detalles del nivel de acabado de cada microservicio, pero el frontend común puede encontrarse en [https://github.com/SocialBeats/frontend](https://github.com/SocialBeats/frontend)
+- Permitir la suscripción del usuario a un plan de precios y adaptar automáticamente la funcionalidad de la aplicación según el plan de precios seleccionado: **REALIZADO**
+    - Se ha usado Space para la gestión de planes de precio en nuestros microservicios. Además, existe un microservicio dedicado a los planes de precios y suscripciones, que está disponible en [https://github.com/SocialBeats/payments-and-suscriptions](https://github.com/SocialBeats/payments-and-suscriptions)
 
 ### APLICACIÓN BASADA EN MICROSERVICIOS AVANZADA
 
 - Incluir add-ons al plan de precios y adaptar automáticamente la funcionalidad de la aplicación según los
-add-ons utilizados.  
+add-ons utilizados: **REALIZADO**
     - Donde se ha hecho
-- Incluir en el plan de precios límites de uso y aplicarlos automáticamente según la suscripción del usuario.
+- Incluir en el plan de precios límites de uso y aplicarlos automáticamente según la suscripción del usuario:
     - Donde se ha hecho
 - Realizar pruebas de integración automatizadas con los otros microservicios utilizando el sistema de
-integración continua.
-    - Donde se ha hecho
-- Hacer uso de un API Gateway con funcionalidad avanzada como un mecanismo de throttling o de 
-autenticación.
-    - Donde se ha hecho
+integración continua: **NO REALIZADO**
+- Hacer uso de un API Gateway con funcionalidad avanzada como un mecanismo de throttling o de autenticación: **REALIZADO**
+    - El api-gateway está disponible en [https://github.com/SocialBeats/api-gateway](https://github.com/SocialBeats/api-gateway). La autenticación se puede encontrar en `src/services/aggregationService.js` y `src/services/tokenValidationService.js`. El throttling en `src/middleware/rateLimiter.js`
 - Hacer uso de un sistema de comunicación asíncrono mediante un sistema de cola de mensajes para todos
-los microservicios. Si no es para todos, debe justificarse de forma razonada.
-    - Donde se ha hecho
-- Implementación de un mecanismo para poder deshacer transacciones distribuidas.
-    - Donde se ha hecho
-- Cualquier otra extensión a la aplicación basada en microservicios básica acordada previamente con el 
-profesor
-    - Donde se ha hecho
+los microservicios. Si no es para todos, debe justificarse de forma razonada: **REALIZADO**
+    - Se ha usado Kafka para la gestión de eventos en los microservicios. Todos los microservicios consumen o crean eventos. Recomendamos consultar individualmente el uso de kafka en cada microservicio. Un ejemplo se puede ver el archivo `src/services/kafkaConsumer.js` del microservicio de beats-interaction.
+- Implementación de un mecanismo para poder deshacer transacciones distribuidas: **NO REALIZADO**
+- Cualquier otra extensión a la aplicación basada en microservicios básica acordada previamente con el profesor: **REALIZADO**
+    - Se ha hecho un repositorio .github de la organización (accesible en [https://github.com/SocialBeats/.github](https://github.com/SocialBeats/.github)) desde donde se heredan configuraciones comunes, como workflows, el CONTRIBUTING.md, el SECURITY.md o el CODE_OF_CONDUCT.md y donde se le da un aspecto más amigable a la organización del Github. Además, se ha hecho una plantilla de microervicio (disponible en [https://github.com/SocialBeats/microservice-template](https://github.com/SocialBeats/microservice-template)), de la cual todas las parejas han partido para un desarrollo más cómodo y con un flujo de trabajo ya integrado (entorno de pruebas, metodología de commits, conexión a base de datos, etc). Por último, el despliegue se ha hecho en Kubernetes, teniendo un repositorio de infraestructura para el mismo, disponible en [https://github.com/SocialBeats/infrastructure](https://github.com/SocialBeats/infrastructure). El repositorio de la plantilla ha sido realizado por Daniel Galván y Jaime Linares, y el .github así como la infraestructura por Daniel Galván.
 
 ### NIVEL HASTA 5 PUNTOS
 
 - Microservicio básico completamente implementado. **REALIZADO**.
-    - 
+    - Revisar el nivel de acabado de cada microservicio.
 
 - Diseño de un customer agreement para la aplicación en su conjunto con, al menos, tres planes de precios que consideren características funcionales y extrafuncionales. **REALIZADO**.
-    - 
+    - Explicado anteriormente.
 
 - Ficha técnica normalizada del modelo de consumo de las APIs externas utilizadas en la aplicación y que debe incluir al menos algún servicio externo de envío de correos electrónicos con un plan de precios múltiple como SendGrid. **REALIZADO**.
-    - 
+    - Sí. Esta disponible en [https://github.com/SocialBeats/docs/blob/main/external_apis/datasheet.md](https://github.com/SocialBeats/docs/blob/main/external_apis/datasheet.md). Cada pareja ha aportado la información de las APIs externas consumidas. Naturalmente la API de SendGrid está incluida en ese documento.
 
 - Documento incluido en el repositorio del microservicio (o en el wiki del repositorio en Github) por cada pareja **REALIZADO**.
-    - 
+    - El documento de nivel de acabado de cada microserivico así como el de la aplicación se encuentran disponibles en [https://github.com/SocialBeats/docs/tree/main/level_of_finish](https://github.com/SocialBeats/docs/tree/main/level_of_finish).
 
 - Vídeo de demostración del microservicio o aplicación funcionando. **REALIZADO**.
-    - 
+    - 1. Video demo de la aplicación: []()
+      2. Video demo de user-auth: []()
+      3. Video demo de beats-upload: []() 
+      4. Video demo de beats-interaction: []()  
+      5. Video demo de social: []()
 
 - Presentación preparada para ser presentada en 30 minutos por cada equipo de 8/10 personas. **REALIZADO**.
-    - 
+    - La presentación está disponible en []() así como en [Github](https://github.com/SocialBeats/docs/tree/main/presentation)
 
 ### NIVEL HASTA 7 PUNTOS
 
 - Debe incluir todos los requisitos del nivel hasta 5 puntos: **REALIZADO**.
-    - 
+    - Revisar el nivel de acabado de cada microservicio.
 
 - Aplicación basada en microservicios básica implementada: **REALIZADO**.
-    - 
+    - Explicado anteriormente
 
 - Análisis justificativo de la suscripción óptima de las APIs del proyecto: **REALIZADO**.
-    - 
+    - El documento está disponible en [https://github.com/SocialBeats/docs/blob/main/external_apis/optimal_subscriptions.md](https://github.com/SocialBeats/docs/blob/main/external_apis/optimal_subscriptions.md). Cada pareja ha añadido el análisis de la suscripción óptima de su(s) API(s) externa(s) a ese documento.
 
 - Al menos 3 de las características del microservicio avanzado implementados: **REALIZADO**.
-    - 
+    - Revisar el nivel de acabado de cada microservicio.
 
 ### NIVEL HASTA 9 PUNTOS
 
 - Un mínimo de 20 pruebas de componente implementadas incluyendo escenarios positivos y negativos: **REALIZADO**.
-    - 
+    - Revisar el nivel de acabado de cada microservicio.
 - Tener el API REST documentado con swagger (OpenAPI): **REALIZADO**.
-    - 
-
+    - Revisar el nivel de acabado de cada microservicio.
 - Al menos 5 de las características del microservicio avanzado implementados: **REALIZADO**.
-    - 
-
+    - Revisar el nivel de acabado de cada microservicio.
 - Al menos 3 de las características de la aplicación basada en microservicios avanzada implementados: **REALIZADO**.
-    - 
+    - Explicado anteriormente
 
 ### NIVEL HASTA 10 PUNTOS
 
 - Al menos 6 características del microservicio avanzado implementados: **REALIZADO**.
-    - 
-
+    - Revisar el nivel de acabado de cada microservicio.
 - Al menos 4 características de la aplicación basada en microservicios avanzada implementados: **REALIZADO**.
-    - 
-
+    - Explicado anteriormente
 - Documento de uso de IA: **REALIZADO**
-    - 
+    - El documento está disponible en []()
