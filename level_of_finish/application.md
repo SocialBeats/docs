@@ -107,4 +107,4 @@ los microservicios. Si no es para todos, debe justificarse de forma razonada: **
 - Al menos 4 características de la aplicación basada en microservicios avanzada implementados: **REALIZADO**.
     - Explicado anteriormente.
 - Documento de uso de IA: **REALIZADO**.
-    - El documento está disponible en [https://github.com/SocialBeats/docs/blob/main/external_apis/ai_use](https://github.com/SocialBeats/docs/blob/main/external_apis/ai_use).
+    - El documento está disponible en [https://github.com/SocialBeats/docs/blob/main/external_apis/ai_use/ai_use.md](https://github.com/SocialBeats/docs/blob/main/external_apis/ai_use/ai_use.md).
