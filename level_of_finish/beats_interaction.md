@@ -92,7 +92,7 @@ tipo de almacenamiento de datos en cloud como Amazon S3: **REALIZADO**.
     - Es este mismo documento. Además está explicado en el documento de nivel de acabado de la aplicación.
 
 - Vídeo de demostración del microservicio o aplicación funcionando. **REALIZADO**.
-    - Es el video de nuestro microservicio y el video demo de la presentación.
+    - Es el video de nuestro microservicio y el video demo de la presentación. El video está accesible en [Youtube](https://youtu.be/-L0-ZMILihI)
 
 - Presentación preparada para ser presentada en 30 minutos por cada equipo de 8/10 personas. **REALIZADO**.
     - Tarea grupal, explicado en el documento de nivel de acabado de la aplicación.
