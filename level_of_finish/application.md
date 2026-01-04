@@ -24,18 +24,18 @@ El customer Agreement se encuentra definido [aquí](https://github.com/SocialBea
 ### MICROSERVICIO BÁSICO (REQUISITOS GRUPALES)
 
 - Debe estar desplegado y ser accesible desde la nube (ya sea de forma individual o como parte de la 
-aplicación): **REALIZADO**
-    -  El frontend está accesible en [https://socialbeats.es/socialbeats/](https://socialbeats.es/socialbeats/) y la API en [https://api.socialbeats.es/socialbeats-api/health](https://api.socialbeats.es/socialbeats-api/health). Se ha usado Digital Ocean como proveedor Cloud, donde tenemos un cluster de Kubernetes, y se ha usado IONOS para el DNS.
+aplicación): **REALIZADO**.
+    -  El frontend está accesible en [https://socialbeats.es/socialbeats/](https://socialbeats.es/socialbeats/) y la API en [https://api.socialbeats.es/socialbeats-api/health](https://api.socialbeats.es/socialbeats-api/health). Se ha usado *Digital Ocean* como proveedor Cloud, donde tenemos un cluster de Kubernetes, y se ha usado IONOS para el DNS.
 
-- Integración continua: El código debe compilarse, probarse y generar la imagen de Docker automáticamente usando GitHub Actions u otro sistema de integración continua en cada commit: **REALIZADO**
-    - Para la parte de CI/CD revisar el documento de nivel de acabado de cada microservicio (pero se cumple en todos). Las releases se generan a partir de un push a la rama main de cada repositorio, y se suben a Dockerhub. El repositorio con todas las imagenes del proyecto es [https://hub.docker.com/repositories/socialbeats](https://hub.docker.com/repositories/socialbeats)
+- Integración continua: El código debe compilarse, probarse y generar la imagen de Docker automáticamente usando GitHub Actions u otro sistema de integración continua en cada commit: **REALIZADO**.
+    - Para la parte de CI/CD revisar el documento de nivel de acabado de cada microservicio (pero se cumple en todos). Las releases se generan a partir de un push a la rama main de cada repositorio, y se suben a Dockerhub. El repositorio con todas las imagenes del proyecto es [https://hub.docker.com/repositories/socialbeats](https://hub.docker.com/repositories/socialbeats).
 
 ### MICROSERVICIO AVANZADO (REQUISITOS GRUPALES)
 
 - Para las características avanzadas relativas al frontend, si el frontend implementado en el microservicio es parte del
 frontend común (ver más adelante), las características avanzadas relativas al frontend se valorarán únicamente si la
-parte del frontend común que ha implementado la pareja incluye estos aspectos específicamente: **REALIZADO**
-    - El frontend es común para todos los microservicios, y se encuentra en [https://github.com/SocialBeats/frontend](https://github.com/SocialBeats/frontend)
+parte del frontend común que ha implementado la pareja incluye estos aspectos específicamente: **REALIZADO**.
+    - El frontend es común para todos los microservicios, y se encuentra en [https://github.com/SocialBeats/frontend](https://github.com/SocialBeats/frontend).
 
 ### APLICACIÓN BASADA EN MICROSERVICIOS BÁSICA
 
