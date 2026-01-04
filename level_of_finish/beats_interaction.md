@@ -37,7 +37,7 @@
     - La última imagen disponible del microservicio se encuentra en [https://hub.docker.com/repository/docker/socialbeats/beats-interaction](https://hub.docker.com/repository/docker/socialbeats/beats-interaction). La última imagen disponible de todos los micrroservicios se encuentran en [https://hub.docker.com/repositories/socialbeats](https://hub.docker.com/repositories/socialbeats).
 
 - Gestión del código fuente: El código debe estar subido a un repositorio de Github siguiendo Github Flow: **REALIZADO**.
-    - El código del microservicio se encuentra accesible en la siguiente ruta: [https://github.com/SocialBeats/beats-interaction](https://github.com/SocialBeats/beats-interaction). La metodología de ramas y de commits se encuentran en [https://github.com/SocialBeats/docs/tree/main/work_methodology](https://github.com/SocialBeats/docs/tree/main/work_methodology)
+    - El código del microservicio se encuentra accesible en la siguiente ruta: [https://github.com/SocialBeats/beats-interaction](https://github.com/SocialBeats/beats-interaction). La metodología de ramas y de commits se encuentran en [https://github.com/SocialBeats/docs/tree/main/work_methodology/work_methodology.md](https://github.com/SocialBeats/docs/tree/main/work_methodology/work_methodology.md)
 
 - Integración continua: El código debe compilarse, probarse y generar la imagen de Docker automáticamente usando GitHub Actions u otro sistema de integración continua en cada commit: **REALIZADO**.
     - Todos lo archivos que se encuentran dentro de la carpeta `github/workflows/` sirven para la integración continua. En concreto son:
