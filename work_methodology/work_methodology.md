@@ -63,7 +63,7 @@ Las ramas principales del repositorio son:
 
 A partir de la rama `develop`, se han creado **ramas de trabajo** para cada issue, funcionalidad o corrección de bug.
 
-Estas ramas se utilizan para desarrollar de forma aislada cada tarea, facilitando la revisión y evitando conflictos.
+Estas ramas se utilizan para desarrollar de forma aislada cada tarea, facilitando la revisión y evitando conflictos. Cuando se mergean sus cambios a develop en algunas ocasiones son borradas.
 
 #### Convención de nombres
 
