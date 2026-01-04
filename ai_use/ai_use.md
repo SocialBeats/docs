@@ -21,6 +21,64 @@ A continuación se describe el uso de la IA en cada uno de los microservicios de
 
 ### 2.1. User-auth
 
+En el microservicio **user-auth** hemos utilizado la IA como un recurso clave para fortalecer la seguridad y la robustez de la gestión de identidades. A continuación se detallan los usos principales.
+
+#### 2.1.1. Generación de tests unitarios y de integración
+
+Se ha empleado IA para generar y refinar tests, poniendo foco en la lógica crítica de seguridad:
+
+- Cobertura de **flujos de autenticación** (registro, login, logout).
+- Validación de la lógica de **rotación de tokens** (refresh tokens, periodos de gracia y detección de reutilización).
+- Escenarios complejos como la **autenticación de dos factores (2FA)**.
+- Pruebas de integración para asegurar la correcta comunicación con Redis y la publicación de eventos en Kafka.
+
+Los tests propuestos por la IA nos sirvieron de base para identificar casos borde, como la invalidación de sesiones concurrentes, y los ajustamos manualmente para cumplir con los estándares de seguridad del proyecto.
+
+**Ejemplo de prompt utilizado:**
+
+```text
+Genera casos de test con Vitest para el servicio de autenticación (authService.js) cubriendo casos positivos y negativos de:
+- Login exitoso devolviendo tokens
+- Login con 2FA habilitado (debe devolver token temporal)
+- Renovación de access token con refresh token válido
+- Intento de uso de refresh token revocado
+```
+
+#### 2.1.2. Generación y mejora de vistas del frontend
+
+Usamos IA como asistente en el desarrollo de las interfaces de usuario relacionadas con la cuenta:
+
+- Creación de esqueletos para los formularios de **login y registro** con validaciones de cliente.
+- Implementación del asistente de configuración para el **perfil de usuario** y la activación de 2FA.
+- Componentes para la visualización y edición de datos personales.
+
+Todo el código generado fue revisado e integrado en el sistema de diseño de la aplicación para asegurar coherencia visual.
+
+**Ejemplo de prompt utilizado:**
+
+```text
+Ayudame a crear una funcionalidad que permita al usuario poder completar su perfil con pasos, y que se vaya gestionando el progreso visualmente.
+```
+
+#### 2.1.3. Resolución de bugs y problemas técnicos
+
+Se utilizó la IA como herramienta de consulta para resolver incidencias técnicas durante el desarrollo:
+
+- Depuración de errores de conexión con **Redis** y la **API Gateway** en entornos dockerizados.
+- Análisis de **condiciones** en la lógica de renovación de tokens.
+- Correcciones de estilos en la página del **perfil de usuario**.
+
+**Ejemplo de prompt utilizado:**
+
+```text
+Tengo un error de "Connection refused" al intentar conectar a Redis desde los tests de integración en el pipeline de CI, pero funciona en local.
+Aquí está mi configuración de docker-compose y el archivo de workflow de GitHub Actions.
+¿Qué configuración me falta para que el servicio de test vea al contenedor de Redis?
+```
+
+#### 2.1.4. Herramientas de IA utilizadas
+
+Principalmente hemos utilizado **Claude** para la generación de código y tests, y **Gemini** para consultas más específicas sobre seguridad y arquitectura de microservicios. Al igual que en otros módulos, todas las sugerencias han sido validadas por el equipo de desarrollo, comprobando exhustivamente el codigo generado y modificando manualmente aquellas partes que no cumplían con nuestras necesidades.
 
 
 ### 2.2. Beats-upload
