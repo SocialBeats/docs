@@ -177,7 +177,81 @@ De manera **puntual**, también se han utilizado otros modelos como **Claude** y
 
 El uso de múltiples herramientas ha permitido reducir el riesgo de errores derivados de posibles alucinaciones de un único modelo y reforzar la validación de las soluciones propuestas. En todos los casos, las respuestas generadas por estas IAs han sido revisadas críticamente y adaptadas al contexto real del proyecto antes de su aplicación.
 
-20032
+### 2.4. Analytics-and-dashboards
+
+En el microservicio de **analytics-and-dashboards**, la Inteligencia Artificial ha jugado un papel fundamental no solo en la generación de código, sino en la **toma de decisiones arquitectónicas** desde la fase de concepción.
+
+#### 2.4.1. Definición de la arquitectura y stack tecnológico
+
+Antes de escribir una sola línea de código, utilizamos **Gemini Pro** para validar nuestro enfoque. Dado que el resto de microservicios del proyecto estaban planteados en Node.js (Express), nuestra intención inicial era seguir la misma línea por coherencia. Sin embargo, al plantear a la IA los requisitos de este microservicio (cálculo de métricas de audio, análisis de señales, procesamiento de datos), nos recomendó encarecidamente el uso de **Python**.
+
+Esta consulta fue clave: nos permitió evitar un desarrollo en Express que habría sido mucho más complejo y menos eficiente para tareas de procesamiento de audio. Gracias a esta recomendación temprana, optamos por un stack basado en **FastAPI** y librerías científicas, lo que facilitó enormemente la implementación posterior.
+
+**Ejemplo de prompt utilizado (Gemini Pro):**
+
+```text
+Somos un equipo de estudiantes desarrollando una aplicación de música tipo Spotify basada en microservicios.
+Tenemos que implementar un servicio de "Analytics" que debe recibir archivos de audio, analizar sus ondas para extraer BPM, tonalidad, energía y "danceability".
+El resto de compañeros está usando Node.js con Express. ¿Deberíamos usar también Node.js para esto o hay una alternativa mejor?
+Compara las librerías disponibles en Node.js vs Python para análisis de audio (DSP).
+```
+
+#### 2.4.2. Apoyo en el uso de Librosa y análisis de audio
+
+Al enfrentarnos por primera vez a la librería **Librosa**, utilizamos la IA para acelerar la curva de aprendizaje. La documentación de procesamiento de señales digitales (DSP) puede ser densa, y la IA nos ayudó a traducir conceptos teóricos en implementaciones prácticas.
+
+Se utilizó para:
+
+- Entender cómo cargar y procesar segmentos de audio de forma eficiente.
+- Implementar algoritmos para la detección de **beats** y **onset strength**.
+- Extraer características espectrales como el **centroide espectral** o el **rolloff**.
+
+**Ejemplo de prompt utilizado:**
+
+```text
+Necesito una función en Python usando Librosa que reciba la ruta de un archivo MP3 y me devuelva un objeto JSON con:
+- El tempo estimado (BPM).
+- La duración en segundos.
+- Un array con los picos de energía (para visualizar la onda).
+Ten en cuenta que el archivo puede ser grande, así que optimiza la carga si es posible.
+```
+
+#### 2.4.3. Generación de tests (Pytest)
+
+Dado que el cambio a Python implicaba usar un framework de testing diferente al del resto del proyecto (Vitest), nos apoyamos en la IA para generar la estructura base de los tests con **Pytest**.
+
+- Tests unitarios para las funciones de cálculo de métricas (mockeando la lectura de archivos de audio).
+- Tests de integración para los endpoints de FastAPI.
+
+**Ejemplo de prompt utilizado:**
+
+```text
+Genera un test con Pytest para el endpoint POST /analyze de FastAPI.
+El test debe:
+1. Mockear la función de 'librosa.load' para no depender de un archivo real.
+2. Simular el envío de un archivo 'test.mp3'.
+3. Verificar que la respuesta es 200 y devuelve la estructura de métricas correcta.
+4. Verificar que si el archivo no es de audio, devuelve un 400.
+```
+
+#### 2.4.4. Generación y mejora de vistas del frontend
+
+Para la visualización de estos datos en el frontend, utilizamos la IA para mejorar la estética de los dashboards y gráficas, asegurando que la información técnica (como el espectrograma o las barras de energía) fuera comprensible para el usuario final.
+
+**Ejemplo de prompt utilizado:**
+
+```text
+Tengo un componente en React que muestra una lista de métricas (BPM, Key, Energy).
+Quiero que me des estilos CSS (o Tailwind) para mostrarlos como "tarjetas" modernas, con un icono a la izquierda y el valor grande a la derecha.
+Si el valor de "Energy" es alto (>0.8), quiero que el borde de la tarjeta sea rojo, si es medio amarillo, y bajo verde.
+```
+
+#### 2.4.5. Herramientas de IA utilizadas
+
+En este microservicio hemos diferenciado claramente el uso de las herramientas según el propósito:
+
+- **Gemini Pro (Web):** Utilizado principalmente en la fase de **investigación y arquitectura**. Fue la herramienta de consulta para entender conceptos de DSP (Digital Signal Processing) y tomar la decisión de usar Python.
+- **Claude (VS Code Extension):** Utilizado para la **generación de código "in-code"**, refactorización y escritura de tests dentro del propio editor.
 
 ### 2.5. Social
 
