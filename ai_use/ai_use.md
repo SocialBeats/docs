@@ -80,10 +80,7 @@ Aquí está mi configuración de docker-compose y el archivo de workflow de GitH
 
 Principalmente hemos utilizado **Claude** para la generación de código y tests, y **Gemini** para consultas más específicas sobre seguridad y arquitectura de microservicios. Al igual que en otros módulos, todas las sugerencias han sido validadas por el equipo de desarrollo, comprobando exhustivamente el codigo generado y modificando manualmente aquellas partes que no cumplían con nuestras necesidades.
 
-
 ### 2.2. Beats-upload
-
-
 
 ### 2.3. Beats-interaction
 
@@ -180,7 +177,7 @@ De manera **puntual**, también se han utilizado otros modelos como **Claude** y
 
 El uso de múltiples herramientas ha permitido reducir el riesgo de errores derivados de posibles alucinaciones de un único modelo y reforzar la validación de las soluciones propuestas. En todos los casos, las respuestas generadas por estas IAs han sido revisadas críticamente y adaptadas al contexto real del proyecto antes de su aplicación.
 
-### 2.4. Analytics-and-dashboards
+20032
 
 ### 2.5. Social
 
