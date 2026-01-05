@@ -77,8 +77,9 @@ Aquí está mi configuración de docker-compose y el archivo de workflow de GitH
 ```
 
 #### 2.1.4. Herramientas de IA utilizadas
+ 
+Principalmente hemos utilizado el nuevo IDE desarrollado por Google, **Antigravity**, aprovechándonos de su funcionalidad estrella, el modo agente, que nos ha permitido usar **Claude** para la generación de código y tests, y **Gemini** para consultas más específicas sobre seguridad y arquitectura de microservicios. Al igual que en otros módulos, todas las sugerencias han sido validadas por el equipo de desarrollo, comprobando exhustivamente el codigo generado y modificando manualmente aquellas partes que no cumplían con nuestras necesidades. 
 
-Principalmente hemos utilizado **Claude** para la generación de código y tests, y **Gemini** para consultas más específicas sobre seguridad y arquitectura de microservicios. Al igual que en otros módulos, todas las sugerencias han sido validadas por el equipo de desarrollo, comprobando exhustivamente el codigo generado y modificando manualmente aquellas partes que no cumplían con nuestras necesidades.
 
 ### 2.2. Beats-upload
 
