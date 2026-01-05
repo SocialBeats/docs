@@ -256,6 +256,68 @@ En este microservicio hemos diferenciado claramente el uso de las herramientas s
 
 ### 2.5. Social
 
+En el microservicio **social** la Inteligencia Artificial se ha utilizado como apoyo durante el desarrollo. A continuación, se detallan los casos de uso y herramientas concretas utilizadas.
+
+#### 2.5.1. Generación de tests unitarios y de integración
+
+El uso de la IA se centró en la generación inicial de tests unitarios y de integración, concretamente para:
+
+- Identificar casos relevantes a cubrir en controladores y servicios.
+- Proponer escenarios de éxito y error en funcionalidades como amistades, feed y mensajería.
+
+Los tests generados sirvieron como base de trabajo y fueron revisados y refinados manualmente para adaptarlos a la lógica real del microservicio y a los requisitos del proyecto.
+
+**Ejemplo de prompt utilizado:**
+
+```text
+¿Qué casos debería tener en cuenta para los tests de este controlador de gestión de conversaciones?
+```
+
+#### 2.5.2. Generación y mejora de vistas del frontend
+
+La IA se utilizó como asistente en la creación del esqueleto de algunas vistas del frontend relacionadas con:
+
+- Feed de usuario.
+- Lista de amigos.
+- Mensajería entre usuarios.
+
+Estas vistas iniciales permitieron evitar partir desde cero y sirvieron como base sobre la que se realizaron ajustes de estilo, estructura y comportamiento, adaptándolas al diseño final de la aplicación.
+
+**Ejemplo de prompt utilizado:**
+
+```text
+Genera una vista con React para un inbox de conversaciones mostrando el usuario y el último mensaje (contenido, fecha y hora).
+```
+
+#### 2.5.3. Documentación de la API
+
+La IA se utilizó también como apoyo en tareas de documentación, especialmente para la generación de comentarios de **Swagger/OpenAPI** en las rutas, reduciendo el tiempo dedicado a estas tareas repetitivas.
+
+#### 2.5.4. Resolución de bugs y dudas técnicas
+
+Asimismo, se empleó como herramienta de consulta para la resolución de bugs y dudas técnicas, especialmente en:
+
+- Errores en el cliente WebSocket del frontend.
+- Problemas de configuración del **Docker compose**.
+
+Las respuestas de la IA se trataron siempre como orientaciones, siendo contrastadas y validadas manualmente antes de aplicar cualquier solución.
+
+**Ejemplo de prompt utilizado:**
+
+```text
+Estoy implementando un cliente WebSocket en el frontend y tengo el siguiente error en la consola del navegador.
+{{adjunto error}}
+Analiza el error y dime por qué no está funcionando.
+```
+
+#### 2.5.4. Herramientas de IA utilizadas
+
+Durante el desarrollo del microservicio **social** se han utilizado principalmente las siguientes herramientas:
+
+- **GitHub Copilot**, integrado en el editor para sugerencias de código.
+- **ChatGPT**, como herramienta principal para la generación inicial de tests, vistas frontend y consultas técnicas.
+- **Gemini**, de forma puntual para contrastar soluciones técnicas.
+
 ## 3. Conclusión
 
 La Inteligencia Artificial ha sido utilizada en este proyecto como una **herramienta de apoyo responsable**, alineada con buenas prácticas de desarrollo software. Su uso ha permitido:
