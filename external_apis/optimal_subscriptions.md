@@ -8,6 +8,146 @@ En este documento se recogen los análisis justificativos de la suscripciones ó
 
 ### User Auth
 
+#### Persona
+
+#### Resend
+
+La API de **Resend** se utiliza dentro del microservicio **User Auth** para enviar correos electrónicos de confirmación de registro, verificación de email y restablecimiento de contraseña.
+
+##### Planes de suscripción disponibles
+
+Resend ofrece cuatro planes de **Transactional Emails** adaptados a distintos niveles de uso:
+
+###### 1. Plan Free (Gratuito)
+
+- **Precio:** $0/mes
+- **Emails incluidos:** 3.000 emails/mes
+- **Límite diario:** 100 emails/día
+- **Dominios:** 1 dominio personalizado
+- **Rate Limit:** 2 peticiones/segundo
+- **Retención de datos:** 1 día
+- **Soporte:** Ticket
+- **IPs dedicadas:** No disponible
+
+###### 2. Plan Pro
+
+- **Precio:** $20/mes
+- **Emails incluidos:** 50.000 emails/mes
+- **Emails adicionales:** $0.90 por cada 1.000 emails extra
+- **Dominios:** Hasta 10 dominios
+- **Retención de datos:** 3 días
+- **Soporte:** Ticket
+- **IPs dedicadas:** No disponible
+- **Sin límite diario**
+
+###### 3. Plan Scale
+
+- **Precio:** $90/mes
+- **Emails incluidos:** 100.000 emails/mes
+- **Emails adicionales:** $0.90 por cada 1.000 emails extra
+- **Dominios:** Hasta 1.000 dominios
+- **Retención de datos:** 7 días
+- **Soporte:** Slack + Ticket
+- **IPs dedicadas:** Disponible como add-on
+- **Sin límite diario**
+
+###### 4. Plan Enterprise
+
+- **Precio:** Personalizado
+- **Características:**
+  - Volumen de emails adaptado a necesidades específicas
+  - Dominios flexibles
+  - Retención de datos flexible
+  - Soporte prioritario
+  - IPs dedicadas con add-on
+  - Sin límite diario
+
+##### Configuración de dominio personalizado
+
+Una de las ventajas clave de Resend es la posibilidad de **añadir un dominio propio de forma gratuita** incluso en el plan Free. En nuestro caso, hemos configurado el dominio **socialbeats.es** (adquirido en IONOS) como remitente verificado.
+
+**Beneficios de usar dominio propio:**
+
+- **Mayor confianza:** Los emails se envían desde direcciones como `noreply@socialbeats.es`, lo que aumenta la credibilidad.
+- **Mejor entregabilidad:** Al configurar los registros DNS (SPF, DKIM, DMARC), los correos evitan ser marcados como spam.
+- **Imagen profesional:** Refuerza la identidad de marca de la aplicación.
+- **Sin coste adicional:** Resend permite esta configuración en todos los planes, incluido el gratuito.
+
+##### Estimación de uso del proyecto
+
+###### Funcionalidades que generan emails
+
+| Evento | Emails estimados/día |
+|--------|---------------------|
+| Registros nuevos | 10-30 |
+| Verificaciones de email | 10-30 |
+| Recuperación de contraseña | 5-15 |
+| Cambios de contraseña | 2-15 |
+| **Total diario estimado** | **27-90 emails** |
+
+###### Proyección mensual
+
+- **Escenario conservador:** ~800 emails/mes
+- **Escenario de crecimiento:** ~4.000 emails/mes
+
+##### Análisis de costes
+
+| Escenario | Emails/mes | Plan recomendado | Coste |
+|-----------|------------|------------------|-------|
+| Desarrollo/Beta | <1.000 | Free | $0 |
+| Lanzamiento inicial | 1.000-3.000 | Free | $0 |
+| Crecimiento moderado | 3.000-50.000 | Pro | $20/mes |
+| Escala | 50.000-100.000 | Scale | $90/mes |
+
+##### Suscripción óptima: **Plan Free**
+
+###### Justificación
+
+1. **Volumen suficiente para la fase actual**
+   Con 3.000 emails/mes y hasta 100 emails/día, el plan gratuito cubre holgadamente las necesidades del proyecto en su fase de desarrollo y lanzamiento beta.
+
+2. **Dominio personalizado incluido**
+   Podemos enviar emails desde `@socialbeats.es` sin coste adicional, lo que mejora la entregabilidad y la imagen profesional.
+
+3. **Rate limit adecuado**
+   2 peticiones por segundo es suficiente para el volumen actual. Además, hemos implementado un rate limiter interno con `Bottleneck` para respetar este límite.
+
+4. **Circuit breaker implementado**
+   El servicio de emails incluye un circuit breaker que protege contra fallos del proveedor, haciendo el sistema resiliente independientemente del plan.
+
+5. **Migración sencilla**
+   Si el volumen crece, la migración al plan Pro ($20/mes) es inmediata y sin cambios de código.
+
+##### Plan de acción propuesto
+
+###### Fase 1 — Desarrollo y beta
+
+- Uso del **Plan Free**
+- Dominio `socialbeats.es` configurado
+- Monitorización del volumen de envíos
+
+###### Fase 2 — Lanzamiento público
+
+- Evaluación del volumen real
+- Si se superan los 100 emails/día de forma consistente → migrar a **Plan Pro**
+
+###### Fase 3 — Escalado
+
+- Si se superan los 50.000 emails/mes → evaluar **Plan Scale**
+- Considerar IPs dedicadas para máxima entregabilidad
+
+##### Conclusión
+
+El **Plan Free de Resend** es la opción óptima para el microservicio **user-auth**, ofreciendo:
+
+- Coste cero en la fase actual
+- Dominio personalizado con máxima entregabilidad
+- Límites suficientes para desarrollo y beta
+- Escalabilidad transparente hacia planes superiores
+
+La configuración del dominio `socialbeats.es` con los registros DNS apropiados garantiza que los correos transaccionales lleguen a la bandeja de entrada de los usuarios y no sean filtrados como spam.
+
+
 ### Beats Upload
 
 ### Beats-interactions
