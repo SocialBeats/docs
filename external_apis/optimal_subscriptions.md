@@ -202,4 +202,65 @@ Esta estrategia permite crecer de forma sostenible, minimizando riesgos financie
 
 ### Analytics and Dashboards
 
+#### Estudio de Viabilidad Técnica y Económica: Integración de Azure Translator API en Ecosistema de Producción Musical
+
+Esta sección analiza la viabilidad de integrar el servicio de traducción de Microsoft Azure en nuestra plataforma social de *beats*. Se evalúa el impacto del uso de una caché en Redis y la eficiencia de costes bajo distintos escenarios de consumo y planes de usuario.
+
+##### Introducción y Contexto
+En este ecosistema, la API de Azure se utiliza para traducir frases inspiracionales relacionadas con el mundo de la música. Debido a que el proyecto se encuentra en una fase académica, este estudio es fundamental para determinar la suscripción óptima y asegurar que la arquitectura de la aplicación sea escalable antes de enfrentarse a datos reales de tráfico.
+
+##### Definición de Asunciones del Modelo
+Para proyectar el consumo de recursos, he establecido las siguientes asunciones basadas en el diseño técnico del sistema:
+
+* **Estrategia de Caché Asimétrica:** Se ha implementado una capa de persistencia con Redis. La API de origen de las frases actualiza el contenido cada 1 hora, mientras que nuestra caché de traducción en Redis tiene una persistencia de 24 horas.
+* **Carga Operativa Base:** Se estima que el sistema procesará una frase nueva cada hora, resultando en 24 frases únicas al día.
+* **Métrica de Caracteres:** Se estima una longitud media de 150 caracteres por frase.
+* **Direccionalidad Lingüística:** El sistema traduce bidireccionalmente entre inglés y español ($D=2$).
+* **Distribución de Usuarios:** Se contemplan tres planes (FREE, PRO, STUDIO), aunque en el modelo actual el contenido traducido es global y compartido.
+
+##### Análisis de Datos y Resultados
+
+###### Cálculo del Volumen Mensual
+Basado en la configuración de la caché de Redis, el volumen mensual de caracteres ($V_m$) que la API de Azure debe procesar es independiente del número de usuarios, calculándose mediante la siguiente fórmula:
+
+$$V_m = (F \times C \times D) \times T$$
+
+Donde:
+* $F$ (Frases por día) = 24
+* $C$ (Caracteres promedio) = 150
+* $D$ (Direcciones de traducción) = 2
+* $T$ (Días del mes) = 30
+
+Sustituyendo los valores:
+$$V_m = (24 \times 150 \times 2) \times 30 = 216.000 \text{ caracteres/mes}$$
+
+###### Análisis de Sensibilidad: Escenario de Aleatoriedad
+Adicionalmente, se ha considerado un escenario crítico donde la frase inspiracional es aleatoria para cada usuario. Bajo esta premisa, aunque Redis sigue compartiendo traducciones para frases idénticas, la probabilidad de *Cache Miss* aumenta significativamente.
+
+Si suponemos un pool de 5.000 frases y una base de 1.000 usuarios consultando frases distintas, el volumen podría escalar a 1.500 frases únicas diarias:
+$$V_{m(\text{estrés})} = (1.500 \times 150 \times 2) \times 30 = 13.500.000 \text{ caracteres/mes}$$
+
+Este escenario de riesgo demuestra que la arquitectura actual de ''frase global'' es el principal motor de ahorro, manteniendo el consumo dentro de los límites gratuitos.
+
+###### Suscripción Óptima
+A continuación, se compara el consumo estimado con los límites de Azure:
+
+| Plan Azure | Límite Gratuito (F0) | Consumo Estimado |
+| :--- | :--- | :--- |
+| Caracteres / Mes | 2.000.000 | 216.000 |
+| Coste Económico | 0,00 € | 0,00 € |
+| Margen de Seguridad | - | 89,2% |
+
+##### Planes de precios y Evolución del Modelo
+En el estado actual de la aplicación, los planes FREE, PRO y STUDIO no afectan la viabilidad, ya que la traducción es un recurso compartido. Sin embargo, se plantean los siguientes escenarios futuros para ajustar la API a los planes de precios:
+
+1. **Traducción de Usuario (PRO/STUDIO):** Permitir la traducción de perfiles o descripciones de *beats* personales, lo que vincularía el coste al crecimiento de usuarios.
+2. **Personalización de Idiomas (STUDIO):** Acceso a más de dos idiomas de forma simultánea.
+3. **Prioridad de Refresco:** Los usuarios STUDIO podrían forzar la actualización de la frase, saltándose la caché horaria de la API de frases.
+
+##### Conclusiones Finales
+El estudio concluye que la **suscripción óptima es el Plan F0 (Gratuito)**. La implementación de Redis como puente entre la API de frases y la API de traducción permite que el proyecto sea económicamente viable a coste cero. La arquitectura asimétrica diseñada no solo garantiza la gratuidad del servicio en su fase académica, sino que establece una base sólida para escalar a planes de pago (S1) solo cuando se introduzcan funcionalidades de traducción personalizada por usuario.
+
+---
+
 ### Social
