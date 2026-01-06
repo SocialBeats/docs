@@ -316,3 +316,93 @@ Referencias de implementación:
 ## 5. Análisis de esfuerzo
 
 - Hablar de clockify
+
+## 6. Arquitectura del microservicio
+
+Este microservicio se distingue del resto de la arquitectura (construida mayoritariamente en Node.js) por estar desarrollado en **Python** utilizando el framework **FastAPI**. Esta decisión arquitectónica se fundamenta en la amplia disponibilidad de librerías para el procesamiento de datos y análisis de audio (como `librosa` y `numpy`), lo que lo hace idóneo para el dominio de "Analytics".
+
+### Estructura del Proyecto
+
+A continuación se presenta la estructura de carpetas y ficheros principales, siguiendo una arquitectura limpia y modular:
+
+```fs
+analytics-and-dashboards/
+│
+├── .github/workflows/          # CI/CD pipelines (Tests, Release)
+│
+├── app/
+│   ├── core/                   # Configuración global (Vars de entorno, Logging)
+│   │   ├── config.py
+│   │   └── logging.py
+│   │
+│   ├── database/               # Capa de Persistencia
+│   │   └── config.py           # Conexión asíncrona con Motor (MongoDB)
+│   │
+│   ├── endpoints/              # Controladores REST (Routers)
+│   │   ├── beat_metrics.py
+│   │   ├── dashboards.py
+│   │   └── widgets.py
+│   │
+│   ├── middleware/             # Middlewares Globales
+│   │   ├── authentication.py   # Validación de identidad (Gateway)
+│   │   ├── circuit_breaker.py  # Resiliencia HTTP
+│   │   └── rate_limiter.py     # Control de flujo con Redis
+│   │
+│   ├── models/                 # Modelos de BBDD (Estructura interna)
+│   │
+│   ├── schemas/                # Schemas Pydantic (Validación y Serialización)
+│   │
+│   ├── services/               # Lógica de Negocio y comunicación externa
+│   │   ├── audio_analyzer.py   # Lógica "Heavy" de análisis
+│   │   ├── kafka_consumer.py   # Consumidor de eventos
+│   │   ├── quotable_service.py # Integración API Externa 1
+│   │   └── translator_service.py # Integración API Externa 2
+│   │
+│   └── utils/                  # Utilidades transversales
+│
+├── docs/                       # Documentación extendida
+├── tests/                      # Testing con Pytest
+│   ├── conftest.py             # Fixtures y configuración de tests
+│   └── ...                     # Tests unitarios y de integración
+│
+├── main.py                     # Entrypoint de la aplicación FastAPI
+├── docker-compose.yml          # Orquestación local
+├── Dockerfile                  # Empaquetado de producción
+├── pyproject.toml              # Dependencias y configuración (Poetry/Pip)
+└── pytest.ini                  # Configuración de Testing
+```
+
+### Componentes Clave
+
+#### Seguridad (Gateway Offloading)
+
+La seguridad sigue el patrón de **Gateway Offloading**. El microservicio no emite ni firma tokens JWT, sino que confía en las cabeceras inyectadas por el API Gateway (`api-gateway`).
+
+- **Mecanismo**: El middleware de autenticación (`app/middleware/authentication.py`) intercepta cada petición e inspecciona las cabeceras `x-gateway-authenticated` y `x-user-id`.
+- **Validación**: Si las cabeceras no están presentes o son inválidas, se rechaza la petición con un `401 Unauthorized` antes de llegar a la lógica de negocio.
+- **Contexto**: Los datos del usuario se inyectan en el estado de la petición (`request.state.user`), haciéndolos accesibles para audit logs y validación de propiedad en los endpoints.
+
+#### Persistencia en MongoDB (Motor)
+
+Para la persistencia de datos se utiliza **MongoDB**, aprovechando su flexibilidad para almacenar estructuras JSON complejas como las métricas musicales y configuraciones de dashboards dinámicos.
+
+- **Driver Asíncrono**: Se utiliza `motor` (Motor: Async IO for MongoDB) para no bloquear el Event Loop de Python, permitiendo manejar una alta concurrencia.
+- **Validación de Datos**: Aunque MongoDB es _schema-less_, la integridad de los datos se aplica estrictamente en la capa de aplicación mediante modelos de **Pydantic** (`app/schemas/`). Nada entra ni sale de la base de datos sin ser validado previamente.
+- **Colecciones**:
+  - `beat_metrics`: Almacena el resultado del análisis de audio.
+  - `dashboards`: Configuraciones de los paneles de usuario.
+  - `widgets`: Configuración individual de cada widget visual.
+
+#### KAFKA (Event Driven)
+
+El microservicio se integra en la coreografía de eventos del sistema mediante **Apache Kafka**, utilizando la librería `aiokafka`.
+
+- **Consumer**: Escucha eventos de dominio (como `beat.uploaded` o `user.created`) en `app/services/kafka_consumer.py` para reaccionar de forma asíncrona. Por ejemplo, iniciar el cálculo de métricas en segundo plano cuando un usuario sube una nueva canción, desacoplando la subida del archivo del procesamiento pesado.
+- **Resiliencia**: La conexión con Kafka maneja reconexiones automáticas y está supervisada por los endpoints de Health Check.
+
+#### REDIS (Caching & Rate Limiting)
+
+**Redis** actúa como una pieza fundamental para el rendimiento y la estabilidad:
+
+- **Rate Limiting**: El middleware `app/middleware/rate_limiter.py` utiliza Redis para mantener contadores atómicos de peticiones, protegiendo los endpoints públicos de abusos y ataques de denegación de servicio (DDoS).
+- **Caché de APIs Externas**: Para optimizar costes y latencia, las respuestas de servicios de terceros (Quotable API, Azure Translator) se almacenan temporalmente en Redis. Si un dato ya fue solicitado recientemente, se sirve desde la memoria caché instantáneamente, evitando llamadas de red innecesarias y preservando las cuotas de uso de las APIs externas.
