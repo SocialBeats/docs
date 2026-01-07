@@ -38,16 +38,16 @@ En concreto, se garantizan aspectos fundamentales como:
 ### MICROSERVICIO BÁSICO (REQUISITOS GRUPALES)
 
 - Debe estar desplegado y ser accesible desde la nube (ya sea de forma individual o como parte de la
-  aplicación): **REALIZADO**. - El frontend está accesible en [https://socialbeats.es/socialbeats/](https://socialbeats.es/socialbeats/) y la API en [https://api.socialbeats.es/socialbeats-api/health](https://api.socialbeats.es/socialbeats-api/health). Se ha usado _Digital Ocean_ como proveedor Cloud, donde tenemos un cluster de Kubernetes, y se ha usado IONOS para el DNS.
+  aplicación): **REALIZADO**.
+  - El frontend está accesible en [https://socialbeats.es/socialbeats/](https://socialbeats.es/socialbeats/) y la API en [https://api.socialbeats.es/socialbeats-api/health](https://api.socialbeats.es/socialbeats-api/health). Se ha usado _Digital Ocean_ como proveedor Cloud, donde tenemos un cluster de Kubernetes, y se ha usado IONOS para el DNS.
 
 - Integración continua: El código debe compilarse, probarse y generar la imagen de Docker automáticamente usando GitHub Actions u otro sistema de integración continua en cada commit: **REALIZADO**.
   - Para la parte de CI/CD revisar el documento de nivel de acabado de cada microservicio (pero se cumple en todos). Las releases se generan a partir de un push a la rama main de cada repositorio, y se suben a Dockerhub. El repositorio con todas las imagenes del proyecto es [https://hub.docker.com/repositories/socialbeats](https://hub.docker.com/repositories/socialbeats).
 
 ### MICROSERVICIO AVANZADO (REQUISITOS GRUPALES)
 
-- Para las características avanzadas relativas al frontend, si el frontend implementado en el microservicio es parte del
-  frontend común (ver más adelante), las características avanzadas relativas al frontend se valorarán únicamente si la
-  parte del frontend común que ha implementado la pareja incluye estos aspectos específicamente: **REALIZADO**. - El frontend es común para todos los microservicios, y se encuentra en [https://github.com/SocialBeats/frontend](https://github.com/SocialBeats/frontend).
+- Para las características avanzadas relativas al frontend, si el frontend implementado en el microservicio es parte del frontend común (ver más adelante), las características avanzadas relativas al frontend se valorarán únicamente si la parte del frontend común que ha implementado la pareja incluye estos aspectos específicamente: **REALIZADO**.
+  - El frontend es común para todos los microservicios, y se encuentra en [https://github.com/SocialBeats/frontend](https://github.com/SocialBeats/frontend).
 
 ### APLICACIÓN BASADA EN MICROSERVICIOS BÁSICA
 
@@ -70,7 +70,8 @@ En concreto, se garantizan aspectos fundamentales como:
 - Hacer uso de un API Gateway con funcionalidad avanzada como un mecanismo de throttling o de autenticación: **REALIZADO**.
   - El api-gateway está disponible en [https://github.com/SocialBeats/api-gateway](https://github.com/SocialBeats/api-gateway). La autenticación se puede encontrar en `src/services/aggregationService.js` y `src/services/tokenValidationService.js`. El throttling en `src/middleware/rateLimiter.js`.
 - Hacer uso de un sistema de comunicación asíncrono mediante un sistema de cola de mensajes para todos
-  los microservicios. Si no es para todos, debe justificarse de forma razonada: **REALIZADO**. - Se ha usado Kafka para la gestión de eventos en los microservicios. Todos los microservicios consumen o crean eventos. Recomendamos consultar individualmente el uso de kafka en cada microservicio. Un ejemplo se puede ver el archivo `src/services/kafkaConsumer.js` del microservicio de beats-interaction.
+  los microservicios. Si no es para todos, debe justificarse de forma razonada: **REALIZADO**.
+  - Se ha usado Kafka para la gestión de eventos en los microservicios. Todos los microservicios consumen o crean eventos. Recomendamos consultar individualmente el uso de kafka en cada microservicio. Un ejemplo se puede ver el archivo `src/services/kafkaConsumer.js` del microservicio de beats-interaction.
 - Implementación de un mecanismo para poder deshacer transacciones distribuidas: **NO REALIZADO**.
 - Cualquier otra extensión a la aplicación basada en microservicios básica acordada previamente con el profesor: **REALIZADO**.
   - Se ha hecho un repositorio .github de la organización (accesible en [https://github.com/SocialBeats/.github](https://github.com/SocialBeats/.github)) desde donde se heredan configuraciones comunes, como workflows, el CONTRIBUTING.md, el SECURITY.md o el CODE_OF_CONDUCT.md y donde se le da un aspecto más amigable a la organización del Github. Además, se ha hecho una plantilla de microservicio (disponible en [https://github.com/SocialBeats/microservice-template](https://github.com/SocialBeats/microservice-template)), de la cual todas las parejas han partido para un desarrollo más cómodo y con un flujo de trabajo ya integrado (entorno de pruebas, metodología de commits, conexión a base de datos, etc). Por último, el despliegue se ha hecho en Kubernetes, teniendo un repositorio de infraestructura para el mismo, disponible en [https://github.com/SocialBeats/infrastructure](https://github.com/SocialBeats/infrastructure). El repositorio de la plantilla ha sido realizado por Daniel Galván y Jaime Linares, y el .github así como la infraestructura por Daniel Galván.
