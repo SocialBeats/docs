@@ -9,15 +9,27 @@ El proyecto consiste en hacer una red social parecida a Spotify o SoundCloud par
 Existen varios microservicios, siendo estos los siguientes:
 
 - user-auth:
-- beats-upload:
+- beats-upload: Se encarga de la lógica de la gestión de los beats, tanto en el almacenamiento de la información de los mismos en la BBDD, como en su almacenamiento y reproducción a través de los servicios ofrecidos por AWS. Desarrollado por Daniel Vela y Miguel Encina.
 - beats-interactions: Se encarga de la lógica de las playlists, los comentarios, los ratings y la moderación de los mismos. Desarrollado por Daniel Galván y Jaime Linares.
 - analytics-and-dashboards: Se encarga de la lógica de cálculo de métricas de un beat, creación de dashboards y visualización de estas métricas mediante widgets. Desarrollado por Daniel Ruiz y Rafael Pulido.
-- social:
+- social: Se encarga de la lógica de las amistades entre usuarios, el feed y las conversaciones y mensajes. Desarrollado por Andrés Martínez y Sergio Álvarez.
 - payments-and-suscriptions: Se encarga de gestionar los pagos y los cambios en el plan de precios
 
 ## Customer Agreement
 
-El customer Agreement se encuentra definido [aquí](https://github.com/SocialBeats/docs/blob/main/legal/agreement.md). Tras haber analizado el documento en busca de cláusulas abusivas, encontramos que...
+El customer Agreement se encuentra definido [aquí](https://github.com/SocialBeats/docs/blob/main/legal/agreement.md). Tras haber analizado el documento en busca de cláusulas abusivas, encontramos que el contrato es equilibrado y protege los derechos del usuario, evitando prácticas desleales.
+
+En concreto, se garantizan aspectos fundamentales como:
+
+- Protección ante cambios de precio (Cláusula 2.5 y 2.6): La compañía está obligada a notificar con 30 días de antelación cualquier subida, otorgando al cliente el derecho a cancelar sin penalización antes de que se aplique.
+
+- Política de Terminación Justa (Cláusula 5.2): Si la compañía decide terminar el contrato por conveniencia, se garantiza la devolución prorrateada del dinero por el tiempo de servicio no disfrutado.
+
+- Responsabilidad (Cláusula 3.2): SocialBeats no se exime de responsabilidad en casos de negligencia grave, fraude o conducta intencional, cumpliendo con la normativa legal vigente.
+
+- Propiedad Intelectual (Cláusula 6.2): Se especifica claramente que el contenido subido sigue siendo propiedad del usuario, otorgando a la plataforma únicamente la licencia necesaria para operar el servicio.
+
+- Cumplimiento Normativo (Cláusula 7): Adhesión explícita al GDPR y la LOPD española para la protección de datos.
 
 ## 2. Nivel de acabado
 
@@ -47,9 +59,10 @@ El customer Agreement se encuentra definido [aquí](https://github.com/SocialBea
 ### APLICACIÓN BASADA EN MICROSERVICIOS AVANZADA
 
 - Incluir add-ons al plan de precios y adaptar automáticamente la funcionalidad de la aplicación según los
-  add-ons utilizados: **REALIZADO**. - Donde se ha hecho.
+  add-ons utilizados: **REALIZADO**. 
+  - Se ha integrado Space en los microservicios que tienen add-ons del pricing asociados. El plan de precios en formato YAML se puede encontrar en [https://sphere.score.us.es/pricings/collections/69527907641bc8e6c0f7397d/FIS-2526-Socialbeats](https://sphere.score.us.es/pricings/collections/69527907641bc8e6c0f7397d/FIS-2526-Socialbeats). En beats-upload se puede ver la adaptación de los add-ons usando space en el archivo `src/utils/spaceConnection.js` y en el métodos _togglePromotion_ del archivo `src/services/beatService.js`. En el frontend, se limita este add-on en el archivo `src/pages/app/beats/BeatDetailPage.jsx`, en las lineas de la 284 a la 322.
 - Incluir en el plan de precios límites de uso y aplicarlos automáticamente según la suscripción del usuario: **REALIZADO**.
-  - Se ha integrado Space en los microservicios que tienen limitaciones del pricing asociadas. El plan de precios en formato YAML se puede encontrar en [https://sphere.score.us.es/pricings/collections/69527907641bc8e6c0f7397d/FIS-2526-Socialbeats](https://sphere.score.us.es/pricings/collections/69527907641bc8e6c0f7397d/FIS-2526-Socialbeats) En beats-interactions se puede ver la adaptación a los límites del pricing usando space en el archivo `src/utils/spaceConnection.js` y en los métodos _createPlaylist_ y _deletePlaylist_ del archivo `src/services/playlistService.js`. En el frontend, se limita esta característica en el archivo `src/pages/app/beats-interaction/playlist/CreatePlaylist.jsx` en las lineas de la 237 a la 251.
+  - Se ha integrado Space en los microservicios que tienen limitaciones del pricing asociadas. El plan de precios en formato YAML se puede encontrar en [https://sphere.score.us.es/pricings/collections/69527907641bc8e6c0f7397d/FIS-2526-Socialbeats](https://sphere.score.us.es/pricings/collections/69527907641bc8e6c0f7397d/FIS-2526-Socialbeats) En beats-interactions se puede ver la adaptación a los límites del pricing usando space en el archivo `src/utils/spaceConnection.js` y en los métodos _createPlaylist_ y _deletePlaylist_ del archivo `src/services/playlistService.js`. En el frontend, se limita esta característica en el archivo `src/pages/app/beats-interaction/playlist/CreatePlaylist.jsx` en las lineas de la 237 a la 251. En beats-upload se puede ver la adaptación a los límites del pricing usando space en el archivo `src/utils/spaceConnection.js` y en los métodos _generatePresignedUploadUrl_, _incrementDownloads_ y _deleteBeatPermanently_ del archivo `src/services/beatService.js`. En el frontend, se limitan estas características en los archivos `src/pages/app/beats/BeatDetailPage.jsx`, en las lineas de la 234 a la 263; `src/components/forms/BeatForm.jsx`, en las lineas de la 229 a la 276; `src/pages/beats/MyBeatsListPage.jsx`, en las lineas de la 59 a la 80; y en `src/components/features/player/BeatDetailPlayer.jsx`, en las lineas de la 291 a la 298.
 - Realizar pruebas de integración automatizadas con los otros microservicios utilizando el sistema de
   integración continua: **NO REALIZADO**.
 - Hacer uso de un API Gateway con funcionalidad avanzada como un mecanismo de throttling o de autenticación: **REALIZADO**.
