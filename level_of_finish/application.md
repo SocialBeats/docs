@@ -31,6 +31,8 @@ En concreto, se garantizan aspectos fundamentales como:
 
 - Cumplimiento Normativo (Cláusula 7): Adhesión explícita al GDPR y la LOPD española para la protección de datos.
 
+### Cláusulas abusivas detectadas por iCan
+
 ## 2. Nivel de acabado
 
 ### MICROSERVICIO BÁSICO (REQUISITOS GRUPALES)
