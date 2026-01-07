@@ -313,11 +313,7 @@ Referencias de implementación:
 - `app/endpoints/beat_metrics.py`
 - `app/services/beat_metrics_service.py`
 
-## 5. Análisis de esfuerzo
-
-- Hablar de clockify
-
-## 6. Arquitectura del microservicio
+## 5. Arquitectura del microservicio
 
 Este microservicio se distingue del resto de la arquitectura (construida mayoritariamente en Node.js) por estar desarrollado en **Python** utilizando el framework **FastAPI**. Esta decisión arquitectónica se fundamenta en la amplia disponibilidad de librerías para el procesamiento de datos y análisis de audio (como `librosa` y `numpy`), lo que lo hace idóneo para el dominio de "Analytics".
 
