@@ -84,7 +84,8 @@ El customer Agreement se encuentra definido [aquí](https://github.com/SocialBea
   2. Video demo de user-auth: []()
   3. Video demo de beats-upload: []()
   4. Video demo de beats-interaction: [https://youtu.be/-L0-ZMILihI](https://youtu.be/-L0-ZMILihI)
-  5. Video demo de social: []()
+  5. Video demo de analytics-and-dashboards: [https://youtu.be/tHK0gTlxv10](https://youtu.be/tHK0gTlxv10)
+  6. Video demo de social: []()
 
 - Presentación preparada para ser presentada en 30 minutos por cada equipo de 8/10 personas. **REALIZADO**.
 
