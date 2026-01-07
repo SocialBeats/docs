@@ -12,12 +12,24 @@ Existen varios microservicios, siendo estos los siguientes:
 - beats-upload:
 - beats-interactions: Se encarga de la lógica de las playlists, los comentarios, los ratings y la moderación de los mismos. Desarrollado por Daniel Galván y Jaime Linares.
 - analytics-and-dashboards: Se encarga de la lógica de cálculo de métricas de un beat, creación de dashboards y visualización de estas métricas mediante widgets. Desarrollado por Daniel Ruiz y Rafael Pulido.
-- social:
+- social: Se encarga de la lógica de las amistades entre usuarios, el feed y las conversaciones y mensajes. Desarrollado por Andrés Martínez y Sergio Álvarez.
 - payments-and-suscriptions: Se encarga de gestionar los pagos y los cambios en el plan de precios
 
 ## Customer Agreement
 
-El customer Agreement se encuentra definido [aquí](https://github.com/SocialBeats/docs/blob/main/legal/agreement.md). Tras haber analizado el documento en busca de cláusulas abusivas, encontramos que...
+El customer Agreement se encuentra definido [aquí](https://github.com/SocialBeats/docs/blob/main/legal/agreement.md). Tras haber analizado el documento en busca de cláusulas abusivas, encontramos que el contrato es equilibrado y protege los derechos del usuario, evitando prácticas desleales.
+
+En concreto, se garantizan aspectos fundamentales como:
+
+- Protección ante cambios de precio (Cláusula 2.5 y 2.6): La compañía está obligada a notificar con 30 días de antelación cualquier subida, otorgando al cliente el derecho a cancelar sin penalización antes de que se aplique.
+
+- Política de Terminación Justa (Cláusula 5.2): Si la compañía decide terminar el contrato por conveniencia, se garantiza la devolución prorrateada del dinero por el tiempo de servicio no disfrutado.
+
+- Responsabilidad (Cláusula 3.2): SocialBeats no se exime de responsabilidad en casos de negligencia grave, fraude o conducta intencional, cumpliendo con la normativa legal vigente.
+
+- Propiedad Intelectual (Cláusula 6.2): Se especifica claramente que el contenido subido sigue siendo propiedad del usuario, otorgando a la plataforma únicamente la licencia necesaria para operar el servicio.
+
+- Cumplimiento Normativo (Cláusula 7): Adhesión explícita al GDPR y la LOPD española para la protección de datos.
 
 ## 2. Nivel de acabado
 
