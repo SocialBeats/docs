@@ -8,8 +8,6 @@ En este documento se recogen los análisis justificativos de la suscripciones ó
 
 ### User Auth
 
-#### Persona
-
 #### Resend
 
 La API de **Resend** se utiliza dentro del microservicio **User Auth** para enviar correos electrónicos de confirmación de registro, verificación de email y restablecimiento de contraseña.
