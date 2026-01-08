@@ -2,24 +2,39 @@
 
 La siguiente tabla muestra una comparación completa de los planes disponibles en SocialBeats, incluyendo precios, límites, características sociales y beneficios adicionales.
 
-| **Características**           | **Free**                                             | **Pro**                                                        | **Studio**                                                               |
-|-------------------------------|-------------------------------------------------------|----------------------------------------------------------------|---------------------------------------------------------------------------|
-| **Precio**                    | Gratis                                                | €4.99/mes                                                      | €14.99/mes                                                                |
-| **Beats subidos**             | Hasta 5 beats                                         | Hasta 50 beats                                                 | Ilimitados                                                                |
-| **Almacenamiento**            | 100MB                                                 | 1GB                                                            | 10GB                                                                      |
-| **Playlists**                 | No disponible                                         | Hasta 5 playlists                                              | Hasta 20 playlists                                                        |
-| **Interacción Social**        | Comentar y recibir comentarios                        | Comentar, recibir comentarios, y crear grupos                 | Todas las funciones de Pro + Networking avanzado                          |
-| **Estadísticas**              | Básicas (ej. reproducciones)                          | Detalladas (BPM, género, bailabilidad)                        | Panel avanzado (gráficos, comparaciones)                                  |
-| **Soporte**                   | Básico (por correo electrónico)                       | Correo electrónico y chat en vivo                             | Prioritario (correo, chat y teléfono)                                     |
-| **Características adicionales**| Verificación de identidad básica                      | Certificación profesional en perfil                           | Crear eventos/promociones, feedback avanzado                              |
+| **Características**            | **FREE**                                   | **PRO**                                      | **STUDIO**                                     |
+|-------------------------------|--------------------------------------------|----------------------------------------------|-----------------------------------------------|
+| **Precio**                    | Gratis                                     | €9.99 / mes                                  | €29.99 / mes                                  |
+| **Beats subidos**             | Hasta 3 beats                              | Hasta 30 beats                               | Ilimitados                                    |
+| **Tamaño del beat**           | 10 MB                                      | 25 MB                                        | 50 MB                                         |
+| **Almacenamiento total**      | 30 MB                                      | 750 MB                                       | 1 GB                                          |
+| **Playlists**                 | 1 playlist                                 | Hasta 3 playlists                            | Hasta 30 playlists                            |
+| **Dashboards**                | Hasta 3 dashboards                         | Hasta 30 dashboards                          | Ilimitados                                    |
+| **Certificados de perfil**    | Hasta 5                                    | Hasta 10                                     | Ilimitados                                    |
+| **Perfil avanzado**           | Sí                                         | Sí                                           | Sí                                            |
+| **Banner de perfil**          | No                                         | Sí                                           | Sí                                            |
+| **Decorativos (PFP)**         | No                                         | No                                           | Sí                                            |
+| **Creación de portadas**      | No                                         | Sí                                           | Sí                                            |
+| **Descarga de beats**         | No                                         | No                                           | Sí                                            |
 
+---
+
+## Add-ons disponibles
+
+Los siguientes complementos pueden contratarse según el plan activo:
+
+| **Add-on**            | **Precio**     | **Planes disponibles** | **Descripción**                                  |
+|------------------------|---------------|------------------------|--------------------------------------------------|
+| Decorativos de perfil  | €0.99 / mes   | FREE, PRO              | Acceso a decorativos para la foto de perfil      |
+| Beat promocionado      | €2.99 / mes   | PRO, STUDIO            | Promoción destacada de un beat                   |
+| Dashboard extra        | €1.49 / mes   | FREE, PRO              | Añade un dashboard adicional                    |
 
 ---
 
 ## Condiciones Generales de Suscripción
 
 ### 1. Ciclo de Facturación y Renovación Automática
-Los planes de pago (**Pro** y **Studio**) funcionan bajo un modelo de suscripción recurrente. El cobro se realizará automáticamente al inicio de cada ciclo de facturación (mensual) utilizando el método de pago proporcionado en el Acuerdo de Cliente.
+Los planes de pago (**PRO** y **STUDIO**) funcionan bajo un modelo de suscripción recurrente. El cobro se realizará automáticamente al inicio de cada ciclo de facturación (mensual) utilizando el método de pago proporcionado en el Acuerdo de Cliente.
 
 ### 2. Modificaciones de Precio
 SocialBeats se reserva el derecho de modificar las tarifas de suscripción. De acuerdo con las normativas de protección al consumidor y buenas prácticas:
@@ -32,8 +47,9 @@ SocialBeats se reserva el derecho de modificar las tarifas de suscripción. De a
 ## Política de Uso y Cancelación
 
 ### 3. Política de Uso Justo (Fair Use)
-El almacenamiento y subida "Ilimitada" del plan **Studio** está diseñado para el uso normal de un productor musical individual. SocialBeats se reserva el derecho de limitar o suspender cuentas que realicen un uso abusivo que comprometa la estabilidad de la plataforma (ej. usar el almacenamiento para backups masivos de archivos no musicales o compartir la cuenta entre múltiples usuarios).
+El almacenamiento y subida "Ilimitada" del plan **STUDIO** está diseñado para el uso normal de un productor musical individual. SocialBeats se reserva el derecho de limitar o suspender cuentas que realicen un uso abusivo que comprometa la estabilidad de la plataforma (ej. usar el almacenamiento para backups masivos de archivos no musicales o compartir la cuenta entre múltiples usuarios).
 
 ### 4. Cancelación y Reembolsos
 - **Cancelación:** El Cliente puede cancelar su suscripción en cualquier momento desde su panel de control. El servicio permanecerá activo hasta el final del periodo ya pagado.
 - **Reembolsos:** Salvo obligación legal en contrario, no se ofrecen reembolsos por periodos parciales no utilizados.
+
