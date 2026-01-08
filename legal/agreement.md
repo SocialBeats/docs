@@ -40,6 +40,9 @@ Este Acuerdo de Cliente ("Acuerdo") es celebrado entre **SocialBeats** ("Compañ
 
 **3.3** El Cliente será el único responsable de cualquier reclamo derivado del uso de los Servicios, incluida, pero no limitada a, el uso indebido de los Servicios o la violación de leyes aplicables, de lo que SocialBeats no será responsable. Sin embargo, dicha indemnización no exime a SocialBeats de responsabilidad por su propia negligencia grave, fraude o conducta intencional.
 
+**3.4 Remedio por Incumplimiento del Nivel de Servicio:**  
+Salvo disposición legal imperativa en contrario, los créditos de servicio definidos en el SLA constituirán el único remedio económico del Cliente frente a incumplimientos de los niveles de servicio comprometidos.
+
 ---
 
 ## 4. Uso Aceptable y Conductas Prohibidas
@@ -136,10 +139,11 @@ SocialBeats podrá suspender, limitar o eliminar cuentas que violen estas normas
 
 ## 11. Modificaciones y Provisiones Adicionales
 
-**11.1** Cualquier modificación a este Acuerdo debe ser acordada por ambas partes por escrito.
+**11.1** Salvo en los supuestos expresamente previstos en este Acuerdo, cualquier modificación a los términos aquí establecidos deberá realizarse por escrito y con el consentimiento de ambas partes.
 
 **11.2** Si alguna disposición de este Acuerdo es declarada no aplicable, las disposiciones restantes seguirán siendo válidas y vinculantes.
 
 
 **11.3** Este Acuerdo, incluidas sus anexos y formularios de pedido, constituye el entendimiento completo entre las partes.
+
 
