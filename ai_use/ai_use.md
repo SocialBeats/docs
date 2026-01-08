@@ -387,7 +387,19 @@ Durante el desarrollo del microservicio **social** se han utilizado principalmen
 - **ChatGPT**, como herramienta principal para la generación inicial de tests, vistas frontend y consultas técnicas.
 - **Gemini**, de forma puntual para contrastar soluciones técnicas.
 
-## 3. Conclusión
+## 3. Uso de IA en documentación legal y revisión de cláusulas
+
+Además del apoyo técnico en el desarrollo, se utilizaron herramientas de IA como asistencia en la elaboración y verificación de documentación contractual del proyecto.
+
+- **Traducción del Customer Agreement a inglés (ChatGPT):**  
+  Se generó una versión en inglés del *Customer Agreement* con el único objetivo de poder evaluarlo con iCan, ya que la herramienta realiza el análisis principalmente sobre textos en inglés. La versión oficial y vinculante del contrato se mantiene en español; la traducción se utilizó únicamente como entrada para el análisis automático.
+
+- **Detección automática de posibles cláusulas abusivas (iCan):**  
+  Se utilizó iCan como herramienta de apoyo para identificar cláusulas potencialmente problemáticas (p. ej., aceptación por uso, suspensión/terminación, cambios unilaterales o jurisdicción). Los resultados se interpretaron como indicativos y se revisaron manualmente, incorporando en la documentación del proyecto una justificación de los casos marcados como falsos positivos.
+
+En todos los casos, la IA se empleó como soporte para acelerar tareas de redacción y revisión, manteniendo el criterio del equipo como referencia final.
+
+## 4. Conclusión
 
 La Inteligencia Artificial ha sido utilizada en este proyecto como una **herramienta de apoyo responsable**, alineada con buenas prácticas de desarrollo software. Su uso ha permitido:
 
