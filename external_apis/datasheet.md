@@ -69,11 +69,21 @@ También nos centraremos en el apartado de Transactional e-mails, no marketing e
 - **Segmentation**:
   - **Account Level** (Authenticated), múltiples API Keys aplicarían sobre el mismo límite global de cuenta.
 
-- **Curva de carga y descarga:**
+- **Curva de Oportunidad (sobre Cuota diaria):**
+Observamos como en la cuota diaria tenemos una ventana de oportunidad muy amplia, lo que nos permite tener margen para poder consumirlo a lo largo de dicha ventana.
+
+![Curva de Oportunidad (sobre Cuota diaria)](../images/oportunidad-diaria.png)
+
+- **Curva de Oportunidad (sobre Cuota mensual):** El panorama cambia en la cuota mensual, aunque es cierto que el tiempo está en días, lo cual tenemos un margen "amplio" la ventana de oportunidad es practicamente mínima, en el momento en el que un día no consumimos toda nuestra cuota contraemos pérdida de capacidad.
+
+![Curva de Oportunidad (sobre Cuota mensual)](../images/oportunidad-mensual.png)
 
 
 
-- **Curva de Oportunidad:**
+
+- **Curva de Capacidad**:
+
+![Curva de Capacidad - Resend](../images/capacity-resend.png)
 
 
 ## Payments and Subscriptions

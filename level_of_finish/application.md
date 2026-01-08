@@ -8,12 +8,12 @@ El proyecto consiste en hacer una red social parecida a Spotify o SoundCloud par
 
 Existen varios microservicios, siendo estos los siguientes:
 
-- user-auth:
+- user-auth: Gestiona toda la lógica de autenticación vía JWT, apoyándose en Redis para la validación y seguridad de tokens. Además de la administración de usuarios y perfiles con personalización avanzada, integra mecanismos de seguridad 2FA y verificación de identidad externa. Desarrollado por Ramón Gavira y Benjamín Flores
 - beats-upload:
 - beats-interactions: Se encarga de la lógica de las playlists, los comentarios, los ratings y la moderación de los mismos. Desarrollado por Daniel Galván y Jaime Linares.
 - analytics-and-dashboards: Se encarga de la lógica de cálculo de métricas de un beat, creación de dashboards y visualización de estas métricas mediante widgets. Desarrollado por Daniel Ruiz y Rafael Pulido.
 - social:
-- payments-and-suscriptions: Se encarga de gestionar los pagos y los cambios en el plan de precios
+- payments-and-suscriptions: Se encarga de gestionar los pagos y los cambios en el plan de precios. Desarrollado por Miguel Encina y Ramón Gavira
 
 ## Customer Agreement
 
@@ -24,7 +24,7 @@ El customer Agreement se encuentra definido [aquí](https://github.com/SocialBea
 ### MICROSERVICIO BÁSICO (REQUISITOS GRUPALES)
 
 - Debe estar desplegado y ser accesible desde la nube (ya sea de forma individual o como parte de la
-  aplicación): **REALIZADO**. - El frontend está accesible en [https://socialbeats.es/socialbeats/](https://socialbeats.es/socialbeats/) y la API en [https://api.socialbeats.es/socialbeats-api/health](https://api.socialbeats.es/socialbeats-api/health). Se ha usado _Digital Ocean_ como proveedor Cloud, donde tenemos un cluster de Kubernetes, y se ha usado IONOS para el DNS.
+  aplicación): **REALIZADO**. - El frontend está accesible en [https://socialbeats.es/socialbeats/](https://socialbeats.es/socialbeats/) y la API en [https://api.socialbeats.es/socialbeats-api/health](https://api.socialbeats.es/socialbeats-api/health). Se ha usado _Digital Ocean_ como proveedor Cloud, donde tenemos un cluster de Kubernetes, y se ha usado IONOS para el DNS y la gestión del dominio. 
 
 - Integración continua: El código debe compilarse, probarse y generar la imagen de Docker automáticamente usando GitHub Actions u otro sistema de integración continua en cada commit: **REALIZADO**.
   - Para la parte de CI/CD revisar el documento de nivel de acabado de cada microservicio (pero se cumple en todos). Las releases se generan a partir de un push a la rama main de cada repositorio, y se suben a Dockerhub. El repositorio con todas las imagenes del proyecto es [https://hub.docker.com/repositories/socialbeats](https://hub.docker.com/repositories/socialbeats).
@@ -43,22 +43,30 @@ El customer Agreement se encuentra definido [aquí](https://github.com/SocialBea
   - Está especificado en los detalles del nivel de acabado de cada microservicio, pero el frontend común puede encontrarse en [https://github.com/SocialBeats/frontend](https://github.com/SocialBeats/frontend).
 - Permitir la suscripción del usuario a un plan de precios y adaptar automáticamente la funcionalidad de la aplicación según el plan de precios seleccionado: **REALIZADO**.
   - Se ha usado Space para la gestión de planes de precio en nuestros microservicios. Además, existe un microservicio dedicado a los planes de precios y suscripciones, que está disponible en [https://github.com/SocialBeats/payments-and-suscriptions](https://github.com/SocialBeats/payments-and-suscriptions).
+  - La gestión y división de tareas en este aspecto ha sido la siguiente:
+    - En el diseño del YAML y subida a SPHERE del pricing ha sido realizado por Rafael Pulido [disponible aquí](https://sphere.score.us.es/pricings/collections/69527907641bc8e6c0f7397d/FIS-2526-Socialbeats).
+    - La integración de SPACE con la API Gateway y gestión del Pricing Token para poder evaluar tanto en back como en front ha sido realizado por Ramón Gavira
+    - Miguel Encina se ha encargado de crear las suscripciones directamente en SPACE de los planes y controlar upgrades/downgrades y contrataciones de add-ons.
 
 ### APLICACIÓN BASADA EN MICROSERVICIOS AVANZADA
 
 - Incluir add-ons al plan de precios y adaptar automáticamente la funcionalidad de la aplicación según los
-  add-ons utilizados: **REALIZADO**. - Donde se ha hecho.
+  add-ons utilizados: **REALIZADO**. 
+  - En el microservicio de user-auth se ha incluido un add-on que permite personalizar la foto de perfil del usuario con decorativos. Esto ha sido limitado tanto en frontend usando el SDK `react-space-client` como en backend usando el SDK `space-node-client`. El código de esta evaluación se aprecia en el archivo [`src/components/profile/ProfileHero.jsx`](https://github.com/SocialBeats/frontend/blob/develop/src/components/profile/ProfileHero.jsx) en las líneas 111 a 132. También se bloquea en el backend en el archivo [`src/controllers/profileController.js`](https://github.com/SocialBeats/user-auth/blob/main/src/controllers/profileController.js) evaluando dicha feature a la hora de editar un perfil.   
 - Incluir en el plan de precios límites de uso y aplicarlos automáticamente según la suscripción del usuario: **REALIZADO**.
-  - Se ha integrado Space en los microservicios que tienen limitaciones del pricing asociadas. El plan de precios en formato YAML se puede encontrar en [https://sphere.score.us.es/pricings/collections/69527907641bc8e6c0f7397d/FIS-2526-Socialbeats](https://sphere.score.us.es/pricings/collections/69527907641bc8e6c0f7397d/FIS-2526-Socialbeats) En beats-interactions se puede ver la adaptación a los límites del pricing usando space en el archivo `src/utils/spaceConnection.js` y en los métodos _createPlaylist_ y _deletePlaylist_ del archivo `src/services/playlistService.js`. En el frontend, se limita esta característica en el archivo `src/pages/app/beats-interaction/playlist/CreatePlaylist.jsx` en las lineas de la 237 a la 251.
+  - Se ha integrado Space en los microservicios que tienen limitaciones del pricing asociadas. El plan de precios en formato YAML se puede encontrar en [https://sphere.score.us.es/pricings/collections/69527907641bc8e6c0f7397d/FIS-2526-Socialbeats](https://sphere.score.us.es/pricings/collections/69527907641bc8e6c0f7397d/FIS-2526-Socialbeats) 
+    - En beats-interactions se puede ver la adaptación a los límites del pricing usando space en el archivo `src/utils/spaceConnection.js` y en los métodos _createPlaylist_ y _deletePlaylist_ del archivo `src/services/playlistService.js`. En el frontend, se limita esta característica en el archivo `src/pages/app/beats-interaction/playlist/CreatePlaylist.jsx` en las lineas de la 237 a la 251.
+    - En user-auth se ha impuesto un límite sobre el número de certificados que un usuario puede subir a su perfil. Esto se realiza usando el SDK de node `space-node-client` y se puede comprobar en el archivo [`src/controllers/uploadControllers.js`](https://github.com/SocialBeats/user-auth/blob/main/src/controllers/uploadController.js).
 - Realizar pruebas de integración automatizadas con los otros microservicios utilizando el sistema de
   integración continua: **NO REALIZADO**.
 - Hacer uso de un API Gateway con funcionalidad avanzada como un mecanismo de throttling o de autenticación: **REALIZADO**.
-  - El api-gateway está disponible en [https://github.com/SocialBeats/api-gateway](https://github.com/SocialBeats/api-gateway). La autenticación se puede encontrar en `src/services/aggregationService.js` y `src/services/tokenValidationService.js`. El throttling en `src/middleware/rateLimiter.js`.
+  - El api-gateway está disponible en [https://github.com/SocialBeats/api-gateway](https://github.com/SocialBeats/api-gateway). La autenticación se puede encontrar en `src/services/aggregationService.js` y `src/services/tokenValidationService.js`. El throttling en `src/middleware/rateLimiter.js`. Realizado por Daniel Vela
 - Hacer uso de un sistema de comunicación asíncrono mediante un sistema de cola de mensajes para todos
-  los microservicios. Si no es para todos, debe justificarse de forma razonada: **REALIZADO**. - Se ha usado Kafka para la gestión de eventos en los microservicios. Todos los microservicios consumen o crean eventos. Recomendamos consultar individualmente el uso de kafka en cada microservicio. Un ejemplo se puede ver el archivo `src/services/kafkaConsumer.js` del microservicio de beats-interaction.
+  los microservicios. Si no es para todos, debe justificarse de forma razonada: **REALIZADO**. 
+  - Se ha usado Kafka para la gestión de eventos en los microservicios. Todos los microservicios consumen o crean eventos. Recomendamos consultar individualmente el uso de kafka en cada microservicio. Un ejemplo se puede ver el archivo `src/services/kafkaConsumer.js` del microservicio de beats-interaction.
 - Implementación de un mecanismo para poder deshacer transacciones distribuidas: **NO REALIZADO**.
 - Cualquier otra extensión a la aplicación basada en microservicios básica acordada previamente con el profesor: **REALIZADO**.
-  - Se ha hecho un repositorio .github de la organización (accesible en [https://github.com/SocialBeats/.github](https://github.com/SocialBeats/.github)) desde donde se heredan configuraciones comunes, como workflows, el CONTRIBUTING.md, el SECURITY.md o el CODE_OF_CONDUCT.md y donde se le da un aspecto más amigable a la organización del Github. Además, se ha hecho una plantilla de microservicio (disponible en [https://github.com/SocialBeats/microservice-template](https://github.com/SocialBeats/microservice-template)), de la cual todas las parejas han partido para un desarrollo más cómodo y con un flujo de trabajo ya integrado (entorno de pruebas, metodología de commits, conexión a base de datos, etc). Por último, el despliegue se ha hecho en Kubernetes, teniendo un repositorio de infraestructura para el mismo, disponible en [https://github.com/SocialBeats/infrastructure](https://github.com/SocialBeats/infrastructure). El repositorio de la plantilla ha sido realizado por Daniel Galván y Jaime Linares, y el .github así como la infraestructura por Daniel Galván.
+  - Se ha hecho un repositorio .github de la organización (accesible en [https://github.com/SocialBeats/.github](https://github.com/SocialBeats/.github)) desde donde se heredan configuraciones comunes, como workflows, el CONTRIBUTING.md, el SECURITY.md o el CODE_OF_CONDUCT.md y donde se le da un aspecto más amigable a la organización del Github. Además, se ha hecho una plantilla de microservicio (disponible en [https://github.com/SocialBeats/microservice-template](https://github.com/SocialBeats/microservice-template)), de la cual todas las parejas han partido para un desarrollo más cómodo y con un flujo de trabajo ya integrado (entorno de pruebas, metodología de commits, conexión a base de datos, etc). Por último, el despliegue se ha hecho en Kubernetes, teniendo un repositorio de infraestructura para el mismo, disponible en [https://github.com/SocialBeats/infrastructure](https://github.com/SocialBeats/infrastructure). El repositorio de la plantilla ha sido realizado por Daniel Galván y Jaime Linares, y el .github así como la infraestructura por Daniel Galván con el apoyo de Ramón Gavira, gestionando el despliegue en Digital Ocean y realizando los cambios pertinentes en la infraestructura.
 
 ### NIVEL HASTA 5 PUNTOS
 
