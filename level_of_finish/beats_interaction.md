@@ -20,10 +20,10 @@
     - El frontend se encuentra integrado con el resto de microservicios en un repositorio de frontend común. Las carpetas que contienen todos los archivos referido con nuestro microservicio son: `src/pages/app/beats-interaction/*` y `src/services/beats-interaction/`. Además, en algunos componentes como `src/pages/app/beats/BeatDetailPage.jsx` podemos encontrar la insercción de componentes desarrollados por nosotros, o algunos botones como el de `ver playlists del usuario` de la vista de perfil de usuario.
 
 - Debe estar desplegado y ser accesible desde la nube (ya sea de forma individual o como parte de la aplicación): **REALIZADO**.
-    - Se ha desplegado el microservicio en un clusted de Kubernetes de Digital Ocean y se ha usado Ionos para el DNS. Está explicado en el documento de nivel de acabado de la aplicación.
+    - Se ha desplegado el microservicio en un clusted de Kubernetes de Digital Ocean y se ha usado Ionos para el DNS. Está explicado en el documento de nivel de acabado de la aplicación. 
 
 - La API que gestione el recurso también debe ser accesible en una dirección bien versionada: **REALIZADO**.
-    - Todos nuestros endpoints están disponibles a través de la api-gateway de nuestra aplicación, y están correctamente versionados bajo el prefijo de `/api/v1`. El prefijo se puede ver en todos los archivos de la carpeta `src/routes`.
+    - Todos nuestros endpoints están disponibles a través de la api-gateway de nuestra aplicación, y están correctamente versionados bajo el prefijo de `/api/v1`. El prefijo se puede ver en todos los archivos de la carpeta `src/routes`. La documentación de la API esta disponible en [https://api.socialbeats.es/socialbeats-api/api/v1/docs/](https://api.socialbeats.es/socialbeats-api/api/v1/docs/), sólo basta con seleccionar el microservicio de beats-interactions. El OAS también está disponible en [https://api.socialbeats.es/socialbeats-api/api/v1/oas/beats-interaction.yaml](https://api.socialbeats.es/socialbeats-api/api/v1/oas/beats-interaction.yaml)
 
 - Se debe tener una documentación de todas las operaciones de la API incluyendo las posibles peticiones y las respuestas recibidas: **REALIZADO**.
     - Tenemos el archivo `spec/oas.yaml` donde aparece completamente definida todas las operaciones del microservicio peticiones y todas las posibles respuestas que pueden darse.

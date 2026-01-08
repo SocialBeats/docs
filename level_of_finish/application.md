@@ -12,28 +12,61 @@ Existen varios microservicios, siendo estos los siguientes:
 - beats-upload:
 - beats-interactions: Se encarga de la lógica de las playlists, los comentarios, los ratings y la moderación de los mismos. Desarrollado por Daniel Galván y Jaime Linares.
 - analytics-and-dashboards: Se encarga de la lógica de cálculo de métricas de un beat, creación de dashboards y visualización de estas métricas mediante widgets. Desarrollado por Daniel Ruiz y Rafael Pulido.
-- social:
+- social: Se encarga de la lógica de las amistades entre usuarios, el feed y las conversaciones y mensajes. Desarrollado por Andrés Martínez y Sergio Álvarez.
 - payments-and-suscriptions: Se encarga de gestionar los pagos y los cambios en el plan de precios. Desarrollado por Miguel Encina y Ramón Gavira
 
 ## Customer Agreement
 
-El customer Agreement se encuentra definido [aquí](https://github.com/SocialBeats/docs/blob/main/legal/agreement.md). Tras haber analizado el documento en busca de cláusulas abusivas, encontramos que...
+El customer Agreement se encuentra definido [aquí](https://github.com/SocialBeats/docs/blob/main/legal/agreement.md). Tras haber analizado el documento en busca de cláusulas abusivas, encontramos que el contrato es equilibrado y protege los derechos del usuario, evitando prácticas desleales.
+
+En concreto, se garantizan aspectos fundamentales como:
+
+- Protección ante cambios de precio (Cláusula 2.5 y 2.6): La compañía está obligada a notificar con 30 días de antelación cualquier subida, otorgando al cliente el derecho a cancelar sin penalización antes de que se aplique.
+
+- Política de Terminación Justa (Cláusula 5.2): Si la compañía decide terminar el contrato por conveniencia, se garantiza la devolución prorrateada del dinero por el tiempo de servicio no disfrutado.
+
+- Responsabilidad (Cláusula 3.2): SocialBeats no se exime de responsabilidad en casos de negligencia grave, fraude o conducta intencional, cumpliendo con la normativa legal vigente.
+
+- Propiedad Intelectual (Cláusula 6.2): Se especifica claramente que el contenido subido sigue siendo propiedad del usuario, otorgando a la plataforma únicamente la licencia necesaria para operar el servicio.
+
+- Cumplimiento Normativo (Cláusula 7): Adhesión explícita al GDPR y la LOPD española para la protección de datos.
+
+### Cláusulas abusivas detectadas por iCan
+
+Tras analizar el *Customer Agreement* con iCan, la herramienta identificó ciertas cláusulas como potencialmente abusivas. No obstante, consideramos que estos resultados corresponden a **falsos positivos**, por los siguientes motivos:
+
+- **Cláusula 1.2 (Aceptación del Acuerdo por uso del servicio):**  
+  iCan la clasifica como *contract by using*. Consideramos que no es abusiva, ya que el Cliente acepta explícitamente el Acuerdo, el SLA y la Política de Privacidad durante el proceso de registro antes de poder utilizar el servicio.
+
+- **Cláusula 2.4 (Suspensión del servicio por impago):**  
+  Identificada como posible terminación unilateral. Se mantiene porque la suspensión solo se produce ante un incumplimiento objetivo del Cliente (impago) y después de un plazo de 30 días, lo que constituye una medida proporcionada.
+
+- **Cláusula 2.6 (Aceptación de cambios de tarifas):**  
+  Marcada por aceptación tácita. No se considera abusiva, ya que cualquier cambio de precio se comunica con al menos 30 días de antelación y el Cliente puede cancelar el contrato sin penalización antes de que el cambio entre en vigor.
+
+- **Cláusula 4 (Suspensión o eliminación de cuentas):**  
+  iCan la señala como eliminación unilateral de contenido. Se mantiene porque solo es aplicable en caso de incumplimiento de las normas de uso y es necesaria para garantizar la seguridad y el correcto funcionamiento del servicio.
+
+- **Cláusula 5.3 (Aceptación tácita tras notificación de cambios):**  
+  iCan identifica esta cláusula como *contract by using*, al considerar que la aceptación se produce por el uso continuado del servicio. Consideramos que se trata de un falso positivo, ya que la aceptación solo tiene lugar tras una notificación previa clara y con un plazo de 30 días, durante el cual el Cliente puede cancelar el contrato sin penalización si no está de acuerdo con los cambios.
+
+- **Cláusula 10 (Ley aplicable y resolución de disputas):**  
+  Identificada como potencialmente problemática. Sin embargo, no impone arbitraje obligatorio ni limita el acceso a la vía judicial, permitiendo al Cliente recurrir a los mecanismos legales disponibles en su jurisdicción.
 
 ## 2. Nivel de acabado
 
 ### MICROSERVICIO BÁSICO (REQUISITOS GRUPALES)
 
-- Debe estar desplegado y ser accesible desde la nube (ya sea de forma individual o como parte de la
-  aplicación): **REALIZADO**. - El frontend está accesible en [https://socialbeats.es/socialbeats/](https://socialbeats.es/socialbeats/) y la API en [https://api.socialbeats.es/socialbeats-api/health](https://api.socialbeats.es/socialbeats-api/health). Se ha usado _Digital Ocean_ como proveedor Cloud, donde tenemos un cluster de Kubernetes, y se ha usado IONOS para el DNS y la gestión del dominio. 
+- Debe estar desplegado y ser accesible desde la nube (ya sea de forma individual o como parte de la aplicación): **REALIZADO**. 
+ - El frontend está accesible en [https://socialbeats.es/socialbeats/](https://socialbeats.es/socialbeats/) y la API en [https://api.socialbeats.es/socialbeats-api/health](https://api.socialbeats.es/socialbeats-api/health). Se ha usado _Digital Ocean_ como proveedor Cloud, donde tenemos un cluster de Kubernetes, y se ha usado IONOS para el DNS y la gestión del dominio. La documentación de la API esta disponible en [https://api.socialbeats.es/socialbeats-api/api/v1/docs/](https://api.socialbeats.es/socialbeats-api/api/v1/docs/)
 
 - Integración continua: El código debe compilarse, probarse y generar la imagen de Docker automáticamente usando GitHub Actions u otro sistema de integración continua en cada commit: **REALIZADO**.
   - Para la parte de CI/CD revisar el documento de nivel de acabado de cada microservicio (pero se cumple en todos). Las releases se generan a partir de un push a la rama main de cada repositorio, y se suben a Dockerhub. El repositorio con todas las imagenes del proyecto es [https://hub.docker.com/repositories/socialbeats](https://hub.docker.com/repositories/socialbeats).
 
 ### MICROSERVICIO AVANZADO (REQUISITOS GRUPALES)
 
-- Para las características avanzadas relativas al frontend, si el frontend implementado en el microservicio es parte del
-  frontend común (ver más adelante), las características avanzadas relativas al frontend se valorarán únicamente si la
-  parte del frontend común que ha implementado la pareja incluye estos aspectos específicamente: **REALIZADO**. - El frontend es común para todos los microservicios, y se encuentra en [https://github.com/SocialBeats/frontend](https://github.com/SocialBeats/frontend).
+- Para las características avanzadas relativas al frontend, si el frontend implementado en el microservicio es parte del frontend común (ver más adelante), las características avanzadas relativas al frontend se valorarán únicamente si la parte del frontend común que ha implementado la pareja incluye estos aspectos específicamente: **REALIZADO**.
+  - El frontend es común para todos los microservicios, y se encuentra en [https://github.com/SocialBeats/frontend](https://github.com/SocialBeats/frontend).
 
 ### APLICACIÓN BASADA EN MICROSERVICIOS BÁSICA
 
@@ -61,8 +94,7 @@ El customer Agreement se encuentra definido [aquí](https://github.com/SocialBea
   integración continua: **NO REALIZADO**.
 - Hacer uso de un API Gateway con funcionalidad avanzada como un mecanismo de throttling o de autenticación: **REALIZADO**.
   - El api-gateway está disponible en [https://github.com/SocialBeats/api-gateway](https://github.com/SocialBeats/api-gateway). La autenticación se puede encontrar en `src/services/aggregationService.js` y `src/services/tokenValidationService.js`. El throttling en `src/middleware/rateLimiter.js`. Realizado por Daniel Vela
-- Hacer uso de un sistema de comunicación asíncrono mediante un sistema de cola de mensajes para todos
-  los microservicios. Si no es para todos, debe justificarse de forma razonada: **REALIZADO**. 
+- Hacer uso de un sistema de comunicación asíncrono mediante un sistema de cola de mensajes para todos los microservicios. Si no es para todos, debe justificarse de forma razonada: **REALIZADO**. 
   - Se ha usado Kafka para la gestión de eventos en los microservicios. Todos los microservicios consumen o crean eventos. Recomendamos consultar individualmente el uso de kafka en cada microservicio. Un ejemplo se puede ver el archivo `src/services/kafkaConsumer.js` del microservicio de beats-interaction.
 - Implementación de un mecanismo para poder deshacer transacciones distribuidas: **NO REALIZADO**.
 - Cualquier otra extensión a la aplicación basada en microservicios básica acordada previamente con el profesor: **REALIZADO**.
@@ -92,7 +124,8 @@ El customer Agreement se encuentra definido [aquí](https://github.com/SocialBea
   2. Video demo de user-auth: []()
   3. Video demo de beats-upload: []()
   4. Video demo de beats-interaction: [https://youtu.be/-L0-ZMILihI](https://youtu.be/-L0-ZMILihI)
-  5. Video demo de social: []()
+  5. Video demo de analytics-and-dashboards: [https://youtu.be/tHK0gTlxv10](https://youtu.be/tHK0gTlxv10)
+  6. Video demo de social: []()
 
 - Presentación preparada para ser presentada en 30 minutos por cada equipo de 8/10 personas. **REALIZADO**.
 

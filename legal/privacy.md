@@ -33,6 +33,7 @@ De acuerdo con las leyes de protección de datos aplicables, los Clientes y Usua
 - **Derecho a la Portabilidad de los Datos:** Obtener sus datos en un formato estructurado y legible por máquina, o solicitar su transferencia a otro responsable de tratamiento.  
 - **Derecho a Oponerse:** Oponerse al tratamiento de sus datos, especialmente para fines de marketing directo.  
 - **Protección contra la Toma de Decisiones Automatizada:** No ser objeto de decisiones basadas únicamente en tratamientos automatizados, incluida la elaboración de perfiles, que produzcan efectos jurídicos o afecten significativamente al usuario.
+- **Derecho a Retirar el Consentimiento:** Retirar en cualquier momento el consentimiento otorgado para tratamientos basados en el mismo, sin que ello afecte a la licitud del tratamiento previo.
 
 SocialBeats respeta y garantiza todos estos derechos en el marco de sus operaciones.
 
@@ -76,4 +77,12 @@ Cumpliendo con los principios de limitación del propósito y minimización de d
 ### **Facilitar el Ejercicio de Derechos**
 
 Proporcionando mecanismos claros y accesibles para que Clientes y Usuarios puedan ejercer sus derechos conforme a la legislación aplicable.
+
+---
+
+## 7. Contacto para Ejercicio de Derechos
+
+Los Clientes y Usuarios podrán ejercer sus derechos de protección de datos o realizar consultas relacionadas con esta Declaración escribiendo a la dirección de contacto indicada por SocialBeats en su sitio web oficial.
+
+
 

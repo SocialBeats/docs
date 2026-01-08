@@ -77,11 +77,80 @@ Aquí está mi configuración de docker-compose y el archivo de workflow de GitH
 ```
 
 #### 2.1.4. Herramientas de IA utilizadas
- 
-Principalmente hemos utilizado el nuevo IDE desarrollado por Google, **Antigravity**, aprovechándonos de su funcionalidad estrella, el modo agente, que nos ha permitido usar **Claude** para la generación de código y tests, y **Gemini** para consultas más específicas sobre seguridad y arquitectura de microservicios. Al igual que en otros módulos, todas las sugerencias han sido validadas por el equipo de desarrollo, comprobando exhustivamente el codigo generado y modificando manualmente aquellas partes que no cumplían con nuestras necesidades. 
 
+Principalmente hemos utilizado el nuevo IDE desarrollado por Google, **Antigravity**, aprovechándonos de su funcionalidad estrella, el modo agente, que nos ha permitido usar **Claude** para la generación de código y tests, y **Gemini** para consultas más específicas sobre seguridad y arquitectura de microservicios. Al igual que en otros módulos, todas las sugerencias han sido validadas por el equipo de desarrollo, comprobando exhustivamente el codigo generado y modificando manualmente aquellas partes que no cumplían con nuestras necesidades.
 
 ### 2.2. Beats-upload
+
+En el microservicio **beats-upload** la Inteligencia Artificial se ha utilizado como **herramienta de apoyo** durante el desarrollo. A continuación se detallan los casos de uso y herramientas empleadas.
+
+#### 2.2.1. Generación de tests unitarios y de integración
+
+La IA se ha empleado para **generar y refinar tests unitarios y de integración** utilizando **Vitest**, con especial foco en:
+
+- Cobertura de los **servicios principales** (beatService, waveformService, kafkaConsumer).
+- Tests para los **middlewares de autenticación y autorización** (authMiddlewares, authorizationMiddleware, validationMiddleware).
+- Validación de la lógica de **subida de archivos a S3** con URLs prefirmadas.
+- Escenarios de error como archivos con extensiones/MIME types inválidos, límites de tamaño excedidos y usuarios sin permisos.
+
+**Ejemplo de prompt utilizado:**
+
+```text
+Genera tests unitarios con Vitest para el servicio beatService.js cubriendo:
+- Generación de URLs prefirmadas para subida a S3
+- Validación de extensiones de archivo (mp3, wav, flac, aac)
+- Validación de tipos MIME
+- Límite de tamaño de archivo
+- Usuario sin permisos suficientes
+- Casos de error de conexión con S3
+Mockea las dependencias externas como S3, toobusy-js y el cliente de Space.
+```
+
+#### 2.2.2. Generación y mejora de vistas del frontend
+
+La IA se utilizó como asistente en el desarrollo de las interfaces relacionadas con la subida de beats:
+
+- Creación de componentes para el **formulario de subida de beats** con drag & drop.
+- Implementación de **barras de progreso** para la subida directa a S3.
+- Visualización de **formas de onda** (waveforms) de los archivos de audio.
+- Estilos y feedback visual para estados de carga, éxito y error.
+
+Todo el código generado fue revisado y adaptado al sistema de diseño de la aplicación.
+
+**Ejemplo de prompt utilizado:**
+
+```text
+Crea un componente React para subir archivos de audio con drag & drop.
+Debe mostrar una barra de progreso durante la subida y validar que el archivo sea de tipo audio (mp3, wav, flac) antes de enviarlo.
+Usa estilos acordes a una aplicación tipo SoundCloud.
+```
+
+#### 2.2.3. Resolución de bugs y problemas técnicos
+
+La IA se utilizó como herramienta de consulta para resolver incidencias técnicas durante el desarrollo:
+
+- Depuración de errores de **CORS con S3** y URLs prefirmadas.
+- Problemas de configuración de **CloudFront** para la distribución de archivos.
+- Análisis de condiciones de carrera en la **subida de archivos grandes**.
+- Configuración del **cliente de Kafka** para la publicación de eventos.
+
+**Ejemplo de prompt utilizado:**
+
+```text
+Tengo un error de CORS al intentar subir un archivo directamente a S3 usando una URL prefirmada generada desde el backend.
+El error dice "No 'Access-Control-Allow-Origin' header is present".
+Aquí está mi configuración de bucket S3 y el código que genera la URL prefirmada.
+¿Qué configuración de CORS necesito en el bucket?
+```
+
+#### 2.2.4. Herramientas de IA utilizadas
+
+Durante el desarrollo del microservicio **beats-upload** se han utilizado las siguientes herramientas:
+
+- **GitHub Copilot**, integrado en el Visual Studio Code para autocompletado y sugerencias de código. Especialmente los modelos de Claude Sonnet 4.5, Claude Opus 4.5 y Gemini 3 Pro.
+- **Antigravity IDE**,
+
+En todos los casos, las respuestas generadas por la IA han sido revisadas críticamente y validadas antes de su integración en el proyecto.
 
 ### 2.3. Beats-interaction
 
@@ -318,7 +387,19 @@ Durante el desarrollo del microservicio **social** se han utilizado principalmen
 - **ChatGPT**, como herramienta principal para la generación inicial de tests, vistas frontend y consultas técnicas.
 - **Gemini**, de forma puntual para contrastar soluciones técnicas.
 
-## 3. Conclusión
+## 3. Uso de IA en documentación legal y revisión de cláusulas
+
+Además del apoyo técnico en el desarrollo, se utilizaron herramientas de IA como asistencia en la elaboración y verificación de documentación contractual del proyecto.
+
+- **Traducción del Customer Agreement a inglés (ChatGPT):**  
+  Se generó una versión en inglés del *Customer Agreement* con el único objetivo de poder evaluarlo con iCan, ya que la herramienta realiza el análisis principalmente sobre textos en inglés. La versión oficial y vinculante del contrato se mantiene en español; la traducción se utilizó únicamente como entrada para el análisis automático.
+
+- **Detección automática de posibles cláusulas abusivas (iCan):**  
+  Se utilizó iCan como herramienta de apoyo para identificar cláusulas potencialmente problemáticas (p. ej., aceptación por uso, suspensión/terminación, cambios unilaterales o jurisdicción). Los resultados se interpretaron como indicativos y se revisaron manualmente, incorporando en la documentación del proyecto una justificación de los casos marcados como falsos positivos.
+
+En todos los casos, la IA se empleó como soporte para acelerar tareas de redacción y revisión, manteniendo el criterio del equipo como referencia final.
+
+## 4. Conclusión
 
 La Inteligencia Artificial ha sido utilizada en este proyecto como una **herramienta de apoyo responsable**, alineada con buenas prácticas de desarrollo software. Su uso ha permitido:
 
