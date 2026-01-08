@@ -75,13 +75,13 @@ Una de las ventajas clave de Resend es la posibilidad de **añadir un dominio pr
 
 ###### Funcionalidades que generan emails
 
-| Evento | Emails estimados/día |
-|--------|---------------------|
-| Registros nuevos | 10-30 |
-| Verificaciones de email | 10-30 |
-| Recuperación de contraseña | 5-15 |
-| Cambios de contraseña | 2-15 |
-| **Total diario estimado** | **27-90 emails** |
+| Evento                     | Emails estimados/día |
+| -------------------------- | -------------------- |
+| Registros nuevos           | 10-30                |
+| Verificaciones de email    | 10-30                |
+| Recuperación de contraseña | 5-15                 |
+| Cambios de contraseña      | 2-15                 |
+| **Total diario estimado**  | **27-90 emails**     |
 
 ###### Proyección mensual
 
@@ -90,12 +90,12 @@ Una de las ventajas clave de Resend es la posibilidad de **añadir un dominio pr
 
 ##### Análisis de costes
 
-| Escenario | Emails/mes | Plan recomendado | Coste |
-|-----------|------------|------------------|-------|
-| Desarrollo/Beta | <1.000 | Free | $0 |
-| Lanzamiento inicial | 1.000-3.000 | Free | $0 |
-| Crecimiento moderado | 3.000-50.000 | Pro | $20/mes |
-| Escala | 50.000-100.000 | Scale | $90/mes |
+| Escenario            | Emails/mes     | Plan recomendado | Coste   |
+| -------------------- | -------------- | ---------------- | ------- |
+| Desarrollo/Beta      | <1.000         | Free             | $0      |
+| Lanzamiento inicial  | 1.000-3.000    | Free             | $0      |
+| Crecimiento moderado | 3.000-50.000   | Pro              | $20/mes |
+| Escala               | 50.000-100.000 | Scale            | $90/mes |
 
 ##### Suscripción óptima: **Plan Free**
 
@@ -145,7 +145,6 @@ El **Plan Free de Resend** es la opción óptima para el microservicio **user-au
 
 La configuración del dominio `socialbeats.es` con los registros DNS apropiados garantiza que los correos transaccionales lleguen a la bandeja de entrada de los usuarios y no sean filtrados como spam.
 
-
 ### Beats Upload
 
 #### AWS S3 (Amazon Simple Storage Service)
@@ -186,45 +185,45 @@ Actualmente operamos con **créditos promocionales de AWS** adicionales al Free 
 
 ###### Funcionalidades que generan operaciones S3
 
-| Operación | Tipo de Request |
-|-----------|-----------------|
-| Subir beat (audio) | PUT |
-| Subir portada (imagen) | PUT |
-| Streaming de audio | GET (via CloudFront) |
-| Descarga de beat | GET |
-| Eliminar beat | DELETE (gratis) |
-| Generar waveform | GET (se recupera el fichero de audio y se genera el waveform) |
+| Operación              | Tipo de Request                                               |
+| ---------------------- | ------------------------------------------------------------- |
+| Subir beat (audio)     | PUT                                                           |
+| Subir portada (imagen) | PUT                                                           |
+| Streaming de audio     | GET (via CloudFront)                                          |
+| Descarga de beat       | GET                                                           |
+| Eliminar beat          | DELETE (gratis)                                               |
+| Generar waveform       | GET (se recupera el fichero de audio y se genera el waveform) |
 
 ###### Escenario conservador (Desarrollo/Beta)
 
-| Métrica | Estimación |
-|---------|------------|
-| Usuarios activos | 100-500 |
-| Beats subidos/día | 5-20 |
-| Tamaño promedio beat | ~5 MB |
-| Streams/descargas/día | 50-200 |
-| **PUT requests/mes** | **~150-600** |
-| **GET requests/mes** | **~1.500-6.000** |
+| Métrica                | Estimación         |
+| ---------------------- | ------------------ |
+| Usuarios activos       | 100-500            |
+| Beats subidos/día      | 5-20               |
+| Tamaño promedio beat   | ~5 MB              |
+| Streams/descargas/día  | 50-200             |
+| **PUT requests/mes**   | **~150-600**       |
+| **GET requests/mes**   | **~1.500-6.000**   |
 | **Almacenamiento/mes** | **~750 MB - 3 GB** |
 
 ###### Escenario de crecimiento (Lanzamiento público)
 
-| Métrica | Estimación |
-|---------|------------|
-| Usuarios activos | 500-2.000 |
-| Beats subidos/día | 50-200 |
-| Tamaño promedio beat | ~5 MB |
-| Streams/descargas/día | 500-2.000 |
-| **PUT requests/mes** | **~1.500-6.000** |
-| **GET requests/mes** | **~15.000-60.000** |
+| Métrica                | Estimación          |
+| ---------------------- | ------------------- |
+| Usuarios activos       | 500-2.000           |
+| Beats subidos/día      | 50-200              |
+| Tamaño promedio beat   | ~5 MB               |
+| Streams/descargas/día  | 500-2.000           |
+| **PUT requests/mes**   | **~1.500-6.000**    |
+| **GET requests/mes**   | **~15.000-60.000**  |
 | **Almacenamiento/mes** | **~7.5 GB - 30 GB** |
 
 ##### Análisis de costes
 
-| Escenario | Almacenamiento | PUT requests | GET requests | Coste mensual |
-|-----------|---------------|--------------|--------------|---------------|
-| Conservador (Free Tier) | 750 MB - 3 GB | 150-600 | 1.500-6.000 | **$0** |
-| Crecimiento (Post Free Tier) | 7.5-30 GB | 1.500-6.000 | 15.000-60.000 | **$0.17 - $0.72** |
+| Escenario                    | Almacenamiento | PUT requests | GET requests  | Coste mensual     |
+| ---------------------------- | -------------- | ------------ | ------------- | ----------------- |
+| Conservador (Free Tier)      | 750 MB - 3 GB  | 150-600      | 1.500-6.000   | **$0**            |
+| Crecimiento (Post Free Tier) | 7.5-30 GB      | 1.500-6.000  | 15.000-60.000 | **$0.17 - $0.72** |
 
 **Nota:** Los costes del escenario de crecimiento asumen que se ha agotado el Free Tier. Mientras los créditos promocionales estén activos, el coste real es $0.
 
@@ -283,7 +282,7 @@ El **Free Tier de AWS S3 + Créditos Promocionales** es la opción óptima para 
 
 La API de **OpenRouter** se utiliza dentro del microservicio **Beats-interactions** para habilitar funcionalidades de inteligencia artificial orientadas al análisis, clasificación y moderación de contenido (comentarios, descripciones, metadatos, etc.).
 
-OpenRouter actúa como un *gateway* unificado que da acceso a **más de 400 modelos** (número que se actualiza constantemente), permitiendo seleccionar dinámicamente el modelo más adecuado según coste, latencia y calidad.
+OpenRouter actúa como un _gateway_ unificado que da acceso a **más de 400 modelos** (número que se actualiza constantemente), permitiendo seleccionar dinámicamente el modelo más adecuado según coste, latencia y calidad.
 
 ##### Planes de suscripción disponibles
 
@@ -301,7 +300,6 @@ OpenRouter ofrece tres planes principales adaptados a distintos niveles de uso y
   - Validación inicial del flujo de IA
 - **Coste:** $0
 - **Nota:** El uso gratuito de modelos populares puede estar sujeto a limitaciones adicionales por parte del proveedor durante horas pico
-
 
 ###### 2. Plan Pay-as-you-go (Pago por uso)
 
@@ -330,7 +328,7 @@ OpenRouter ofrece tres planes principales adaptados a distintos niveles de uso y
 - Descuentos por volumen
 - Créditos prepagados con compromiso anual
 - Facturación empresarial (PO, invoices, etc.)
-- Enrutamiento regional y *failover* automático
+- Enrutamiento regional y _failover_ automático
 - Políticas avanzadas de retención de datos (incluido **Zero Data Retention**)
 - Soporte técnico dedicado
 - Ideal para:
@@ -354,26 +352,26 @@ OpenRouter ofrece tres planes principales adaptados a distintos niveles de uso y
 - Solicitudes diarias estimadas: **500–10.000**
 - Tokens promedio por solicitud: **500–2.000** (entrada + salida)
 
-
 ###### Modelos candidatos
 
 - **Modelos ligeros / medianos**
+
   - GPT-3.5
   - Claude Haiku
   - Llama 3  
-  → Clasificación, análisis simple y tareas repetitivas
+    → Clasificación, análisis simple y tareas repetitivas
 
 - **Modelos avanzados**
   - GPT-4
   - Claude Sonnet  
-  → Recomendaciones complejas, análisis profundo y generación de contenido de mayor calidad
+    → Recomendaciones complejas, análisis profundo y generación de contenido de mayor calidad
 
 ##### Análisis de costes
 
 ###### Escenario conservador (500 solicitudes/día)
 
-- Uso mensual: ~15.000 solicitudes  
-- Tokens mensuales estimados: 15M – 30M  
+- Uso mensual: ~15.000 solicitudes
+- Tokens mensuales estimados: 15M – 30M
 - Coste con modelos económicos (ej. GPT-3.5 a $0.50 / $1.50 por 1M tokens):  
   → **$7.50 – $45 / mes**
 - Tarifa de plataforma (5.5%):  
@@ -384,19 +382,19 @@ OpenRouter ofrece tres planes principales adaptados a distintos niveles de uso y
 
 ###### Escenario de crecimiento (5.000 solicitudes/día)
 
-- Uso mensual: ~150.000 solicitudes  
-- Tokens mensuales estimados: 150M – 300M  
-- Coste estimado: $75 – $450 / mes  
-- Tarifa de plataforma: $4.13 – $24.75  
+- Uso mensual: ~150.000 solicitudes
+- Tokens mensuales estimados: 150M – 300M
+- Coste estimado: $75 – $450 / mes
+- Tarifa de plataforma: $4.13 – $24.75
 
 **Total estimado:**  
 **$79.13 – $474.75 / mes**
 
 ###### Escenario de alto volumen (10.000+ solicitudes/día)
 
-- Uso mensual: 300.000+ solicitudes  
-- Tokens mensuales: 300M+  
-- Coste estimado: $150 – $900+ / mes  
+- Uso mensual: 300.000+ solicitudes
+- Tokens mensuales: 300M+
+- Coste estimado: $150 – $900+ / mes
 
 En este punto, el **Plan Enterprise** suele resultar más rentable gracias a los descuentos por volumen y acuerdos personalizados.
 
@@ -429,6 +427,7 @@ En este punto, el **Plan Enterprise** suele resultar más rentable gracias a los
 ##### Plan de acción propuesto
 
 ###### Fase 1 — Desarrollo (Mes 1–3)
+
 - Uso del **Plan Gratuito**
 - Validación técnica y pruebas funcionales
 - Ajuste de prompts y flujos de IA
@@ -456,10 +455,10 @@ En este punto, el **Plan Enterprise** suele resultar más rentable gracias a los
 
 El **Plan Pay-as-you-go de OpenRouter** es la opción más equilibrada para el microservicio **Beats-interactions**, ofreciendo:
 
-- Flexibilidad total  
-- Costes controlados  
-- Escalabilidad progresiva  
-- Acceso a modelos de última generación  
+- Flexibilidad total
+- Costes controlados
+- Escalabilidad progresiva
+- Acceso a modelos de última generación
 
 Esta estrategia permite crecer de forma sostenible, minimizando riesgos financieros y manteniendo un alto nivel técnico desde el inicio.
 
@@ -469,61 +468,67 @@ Esta estrategia permite crecer de forma sostenible, minimizando riesgos financie
 
 #### Estudio de Viabilidad Técnica y Económica: Integración de Azure Translator API en Ecosistema de Producción Musical
 
-Esta sección analiza la viabilidad de integrar el servicio de traducción de Microsoft Azure en nuestra plataforma social de *beats*. Se evalúa el impacto del uso de una caché en Redis y la eficiencia de costes bajo distintos escenarios de consumo y planes de usuario.
+Esta sección analiza la viabilidad de integrar el servicio de traducción de Microsoft Azure en nuestra plataforma social de _beats_. Se evalúa el impacto del uso de una caché en Redis y la eficiencia de costes bajo distintos escenarios de consumo y planes de usuario.
 
 ##### Introducción y Contexto
+
 En este ecosistema, la API de Azure se utiliza para traducir frases inspiracionales relacionadas con el mundo de la música. Debido a que el proyecto se encuentra en una fase académica, este estudio es fundamental para determinar la suscripción óptima y asegurar que la arquitectura de la aplicación sea escalable antes de enfrentarse a datos reales de tráfico.
 
 ##### Definición de Asunciones del Modelo
+
 Para proyectar el consumo de recursos, he establecido las siguientes asunciones basadas en el diseño técnico del sistema:
 
-* **Estrategia de Caché Asimétrica:** Se ha implementado una capa de persistencia con Redis. La API de origen de las frases actualiza el contenido cada 1 hora, mientras que nuestra caché de traducción en Redis tiene una persistencia de 24 horas.
-* **Carga Operativa Base:** Se estima que el sistema procesará una frase nueva cada hora, resultando en 24 frases únicas al día.
-* **Métrica de Caracteres:** Se estima una longitud media de 150 caracteres por frase.
-* **Direccionalidad Lingüística:** El sistema traduce bidireccionalmente entre inglés y español ($D=2$).
-* **Distribución de Usuarios:** Se contemplan tres planes (FREE, PRO, STUDIO), aunque en el modelo actual el contenido traducido es global y compartido.
+- **Estrategia de Caché Asimétrica:** Se ha implementado una capa de persistencia con Redis. La API de origen de las frases actualiza el contenido cada 1 hora, mientras que nuestra caché de traducción en Redis tiene una persistencia de 24 horas.
+- **Carga Operativa Base:** Se estima que el sistema procesará una frase nueva cada hora, resultando en 24 frases únicas al día.
+- **Métrica de Caracteres:** Se estima una longitud media de 150 caracteres por frase.
+- **Direccionalidad Lingüística:** El sistema traduce bidireccionalmente entre inglés y español ($D=2$).
+- **Distribución de Usuarios:** Se contemplan tres planes (FREE, PRO, STUDIO), aunque en el modelo actual el contenido traducido es global y compartido.
 
 ##### Análisis de Datos y Resultados
 
-###### Cálculo del Volumen Mensual
-Basado en la configuración de la caché de Redis, el volumen mensual de caracteres ($V_m$) que la API de Azure debe procesar es independiente del número de usuarios, calculándose mediante la siguiente fórmula:
+###### Cálculo del Volumen Horario
 
-$$V_m = (F \times C \times D) \times T$$
+Basado en la configuración de la caché de Redis, el volumen de caracteres ($V_h$) que la API de Azure debe procesar es independiente del número de usuarios (debido al caché global), y se calcula por hora:
+
+$$V_h = (F_h \times C \times D)$$
 
 Donde:
-* $F$ (Frases por día) = 24
-* $C$ (Caracteres promedio) = 150
-* $D$ (Direcciones de traducción) = 2
-* $T$ (Días del mes) = 30
+
+- $F_h$ (Frases por hora) = 1 (Nueva frase cada hora)
+- $C$ (Caracteres promedio) = 150
+- $D$ (Direcciones de traducción) = 2
 
 Sustituyendo los valores:
-$$V_m = (24 \times 150 \times 2) \times 30 = 216.000 \text{ caracteres/mes}$$
+$$V_h = (1 \times 150 \times 2) = 300 \text{ caracteres/hora}$$
 
 ###### Análisis de Sensibilidad: Escenario de Aleatoriedad
-Adicionalmente, se ha considerado un escenario crítico donde la frase inspiracional es aleatoria para cada usuario. Bajo esta premisa, aunque Redis sigue compartiendo traducciones para frases idénticas, la probabilidad de *Cache Miss* aumenta significativamente.
 
-Si suponemos un pool de 5.000 frases y una base de 1.000 usuarios consultando frases distintas, el volumen podría escalar a 1.500 frases únicas diarias:
-$$V_{m(\text{estrés})} = (1.500 \times 150 \times 2) \times 30 = 13.500.000 \text{ caracteres/mes}$$
+En un escenario crítico donde la frase fuese aleatoria por usuario (mayor tasa de _Cache Miss_), suponiendo un pico de 1.500 frases únicas al día (~63 frases/hora):
 
-Este escenario de riesgo demuestra que la arquitectura actual de ''frase global'' es el principal motor de ahorro, manteniendo el consumo dentro de los límites gratuitos.
+$$V_{h(\text{estrés})} = (63 \times 150 \times 2) = 18.900 \text{ caracteres/hora}$$
+
+Incluso bajo estrés, el consumo se mantiene lejos del límite.
 
 ###### Suscripción Óptima
-A continuación, se compara el consumo estimado con los límites de Azure:
 
-| Plan Azure | Límite Gratuito (F0) | Consumo Estimado |
-| :--- | :--- | :--- |
-| Caracteres / Mes | 2.000.000 | 216.000 |
-| Coste Económico | 0,00 € | 0,00 € |
-| Margen de Seguridad | - | 89,2% |
+Comparativa con el límite horario de Azure:
+
+| Plan Azure          | Límite Gratuito (F0) | Consumo Estimado |
+| :------------------ | :------------------- | :--------------- |
+| Caracteres / Hora   | 2.000.000            | 300              |
+| Coste Económico     | 0,00 €               | 0,00 €           |
+| Margen de Seguridad | -                    | >99,9%           |
 
 ##### Planes de precios y Evolución del Modelo
+
 En el estado actual de la aplicación, los planes FREE, PRO y STUDIO no afectan la viabilidad, ya que la traducción es un recurso compartido. Sin embargo, se plantean los siguientes escenarios futuros para ajustar la API a los planes de precios:
 
-1. **Traducción de Usuario (PRO/STUDIO):** Permitir la traducción de perfiles o descripciones de *beats* personales, lo que vincularía el coste al crecimiento de usuarios.
+1. **Traducción de Usuario (PRO/STUDIO):** Permitir la traducción de perfiles o descripciones de _beats_ personales, lo que vincularía el coste al crecimiento de usuarios.
 2. **Personalización de Idiomas (STUDIO):** Acceso a más de dos idiomas de forma simultánea.
 3. **Prioridad de Refresco:** Los usuarios STUDIO podrían forzar la actualización de la frase, saltándose la caché horaria de la API de frases.
 
 ##### Conclusiones Finales
+
 El estudio concluye que la **suscripción óptima es el Plan F0 (Gratuito)**. La implementación de Redis como puente entre la API de frases y la API de traducción permite que el proyecto sea económicamente viable a coste cero. La arquitectura asimétrica diseñada no solo garantiza la gratuidad del servicio en su fase académica, sino que establece una base sólida para escalar a planes de pago (S1) solo cuando se introduzcan funcionalidades de traducción personalizada por usuario.
 
 ---
