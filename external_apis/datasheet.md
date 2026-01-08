@@ -48,15 +48,15 @@ Proveer una plantilla estandarizada que todos los miembros del grupo puedan usar
 
 ### Resend (API de envío de correos)
 
-Hemos implementado a nivel de aplicación una API de envío de correos, el proveedor que mejor se ajustaba a nuestras condiciones ha sido *Resend*. Al hablar de las configuraciones me centraré en todos los planes de precios que ofrece Resend, pero en el resto de la ficha técnica de la API (capacity, rate limit, etc.) me centraré en el plan contratado en nuestra aplicación (**Free**).
+Hemos implementado a nivel de aplicación una API de envío de correos, el proveedor que mejor se ajustaba a nuestras condiciones ha sido _Resend_. Al hablar de las configuraciones me centraré en todos los planes de precios que ofrece Resend, pero en el resto de la ficha técnica de la API (capacity, rate limit, etc.) me centraré en el plan contratado en nuestra aplicación (**Free**).
 
 También nos centraremos en el apartado de Transactional e-mails, no marketing e-mails. En ese aspecto comentar que las **cuotas** engloban tanto correos enviados como recibidos.
 
 - **Associated SaaS**
   - Type: Partial SaaS (Email Service)
   - Pricing Configurations: **5** (Free, Pro, Scale, Scale + Dedicated IP Add-on, Enterprise )
-- **Capacity (Quota)**: 
-  - Value: 100 emails / day 
+- **Capacity (Quota)**:
+  - Value: 100 emails / day
     - Auto-recharge: daily
     - Extra charge: None
   - Value: 3000 emails / month
@@ -67,10 +67,11 @@ También nos centraremos en el apartado de Transactional e-mails, no marketing e
   - Value: 2 requests / second
 - **Cooling Period:** TBD (Sin embargo se incluye la cabecera **x-retry-after** en la respuesta, pero no se indica cual es el tiempo)
 - **Segmentation**:
+
   - **Account Level** (Authenticated), múltiples API Keys aplicarían sobre el mismo límite global de cuenta.
 
 - **Curva de Oportunidad (sobre Cuota diaria):**
-Observamos como en la cuota diaria tenemos una ventana de oportunidad muy amplia, lo que nos permite tener margen para poder consumirlo a lo largo de dicha ventana.
+  Observamos como en la cuota diaria tenemos una ventana de oportunidad muy amplia, lo que nos permite tener margen para poder consumirlo a lo largo de dicha ventana.
 
 ![Curva de Oportunidad (sobre Cuota diaria)](../images/oportunidad-diaria.png)
 
@@ -78,13 +79,9 @@ Observamos como en la cuota diaria tenemos una ventana de oportunidad muy amplia
 
 ![Curva de Oportunidad (sobre Cuota mensual)](../images/oportunidad-mensual.png)
 
-
-
-
 - **Curva de Capacidad**:
 
 ![Curva de Capacidad - Resend](../images/capacity-resend.png)
-
 
 ## Payments and Subscriptions
 
@@ -93,8 +90,8 @@ Observamos como en la cuota diaria tenemos una ventana de oportunidad muy amplia
 Hemos integrado Stripe como el núcleo de nuestro módulo de pagos y suscripciones. Al igual que con otros proveedores, nos centramos en las configuraciones globale a nivel de Pricing, pero para los límites técnicos de la Datasheet nos basamos en el **Test Mode (Sandbox)**, que es el entorno que estamos usando para nuestra aplicación.
 
 - **Associated Saas**
-  - Type: Full SaaS 
-  - Pricing Configurations: **2** (Integrated/Custom), que se deben diferenciar de las dos *formas* de usar la API (**Test Mode y Modo Live**).
+  - Type: Full SaaS
+  - Pricing Configurations: **2** (Integrated/Custom), que se deben diferenciar de las dos _formas_ de usar la API (**Test Mode y Modo Live**).
 - **Capacity (Quota)**:
   - Value: Ilimitado (no existe una cuota máxima)
 - **Max Power (Rate Limit)**:
@@ -103,7 +100,6 @@ Hemos integrado Stripe como el núcleo de nuestro módulo de pagos y suscripcion
 
 - **Segmentation**:
   - **Account Level (Authenticated)**: Todas las claves de API vinculadas a una cuenta comparten el mismo límite de 25 req/s
-
 
 ## Analytics and Dashboards
 
@@ -139,21 +135,21 @@ Esta ficha muestra únicamente las características del plan F0 (plan gratuito).
 
 - **Associated SaaS**
   - Type: Partial SaaS (Cloud API)
-  - (\*) Pricing Configurations: Multiple (Free F0, S1, etc.) — https://azure.microsoft.com/en-us/pricing/details/cognitive-services/translator/
+  - (\*) Pricing Configurations: Multiple (Free F0, S1, etc.) — https://learn.microsoft.com/en-us/azure/ai-services/translator/service-limits
 - **Segmentation:**
   - Authenticated: Yes (API Key required)
 - **Capacity (Quota):**
-  - Value: 2,000,000 characters / month (Tier F0 sample quota)
-  - Window: Monthly
+  - Value: 2,000,000 characters / hour (Tier F0)
+  - Window: Hourly
 - **Auto-Recharge / Extra charge:**
-  - Auto-Recharge: Monthly
-  - Extra charge: None for F0 (service stops on F0 when limit is reached; paid plans incur overage charges)
+  - Auto-Recharge: Hourly
+  - Extra charge: None (service stops when limit is reached)
 - **Max Power (Rate Limit):**
   - Value: ~33,300 characters / minute
-  - Throttling: Sliding Window (1 min)
+  - Throttling: Sliding Window (2M chars / 60 min)
 - **Per-Request cost:** Variable (depends on the number of characters per request and the chosen SKU)
 - **Cooling period:**
-  - 1 Month (if monthly quota exceeded — wait for next cycle) / 1 Minute (if rate limit exceeded in sliding window)
+  - 1 Hour (if hourly quota exceeded — wait for next cycle)
 - **Shared limits:** Subscription scope (limits and quota apply per subscription/resource)
 
 ---
@@ -161,9 +157,10 @@ Esta ficha muestra únicamente las características del plan F0 (plan gratuito).
 ## Referencias
 
 - Quotable (GitHub): https://github.com/lukePeavey/quotable
-- Azure Translator pricing: https://azure.microsoft.com/en-us/pricing/details/cognitive-services/translator/
+- Azure Translator pricing: https://learn.microsoft.com/en-us/azure/ai-services/translator/service-limits
 
 ---
+
 ## Beats upload
 
 ### AWS S3 (Amazon Simple Storage Service)
@@ -174,7 +171,7 @@ Actualmente operamos bajo el **AWS Free Tier + créditos promocionales de AWS**,
 
 - **Associated SaaS**
   - Type: Full SaaS (Cloud Storage)
-  - (*) Pricing Configurations: 1 (Free Tier + AWS Promotional Credits)
+  - (\*) Pricing Configurations: 1 (Free Tier + AWS Promotional Credits)
 - **Segmentation:**
   - Authenticated: Yes (IAM API Key for uploads, CloudFront for reads)
   - Bucket Policy: Private — only CloudFront distribution can read objects (`s3:GetObject`)
@@ -214,9 +211,10 @@ Actualmente operamos bajo el **AWS Free Tier + créditos promocionales de AWS**,
 - **CDN Integration:** CloudFront distributes content with signed URLs (2-hour expiration for streaming)
 - **Compensation Pattern:** Orphaned S3 files are deleted if database operations fail
 
---- 
+---
 
 ## Referencias
+
 - AWS S3 Pricing: https://aws.amazon.com/s3/pricing/
 
 ---
