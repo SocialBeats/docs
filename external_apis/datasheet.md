@@ -164,6 +164,62 @@ Esta ficha muestra únicamente las características del plan F0 (plan gratuito).
 - Azure Translator pricing: https://azure.microsoft.com/en-us/pricing/details/cognitive-services/translator/
 
 ---
+## Beats upload
+
+### AWS S3 (Amazon Simple Storage Service)
+
+El microservicio `beats-upload` utiliza AWS S3 para almacenar archivos de audio (beats) e imágenes de portada. Los usuarios suben archivos mediante URLs presignadas (Presigned POST), y el contenido se distribuye a través de CloudFront (CDN) con URLs firmadas para un streaming seguro.
+
+Actualmente operamos bajo el **AWS Free Tier + créditos promocionales de AWS**, por lo que no se han definido cuotas de almacenamiento adicionales.
+
+- **Associated SaaS**
+  - Type: Full SaaS (Cloud Storage)
+  - (*) Pricing Configurations: 1 (Free Tier + AWS Promotional Credits)
+- **Segmentation:**
+  - Authenticated: Yes (IAM API Key for uploads, CloudFront for reads)
+  - Bucket Policy: Private — only CloudFront distribution can read objects (`s3:GetObject`)
+  - Bucket: `social-beats-storage`
+  - Access Pattern: Uploads via IAM credentials + Presigned URLs, Downloads via CloudFront signed URLs only
+- **Capacity (Quota):**
+  - Storage: No limit defined (covered by Free Tier + promotional credits)
+  - Max File Size: 15 MB (enforced via S3 POST policy conditions)
+  - **Free Tier Limits (S3 Standard):**
+    - Storage: 5 GB
+    - PUT, COPY, POST, LIST requests: 2,000 requests/month
+    - GET requests and other requests: 20,000 requests/month
+  - Window: Monthly
+- **Auto-Recharge / Extra charge:**
+  - Auto-Recharge: Monthly (Free Tier resets each month)
+  - Extra charge: None while within Free Tier limits + promotional credits buffer
+- **Max Power (Rate Limit):**
+  - AWS Default: 3,500 PUT/COPY/POST/DELETE requests/s per prefix, 5,500 GET/HEAD requests/s per prefix
+  - Application Limit: 5 concurrent S3 operations (bottleneck limiter)
+  - Throttling: Local concurrency control via bottleneck + toobusy-js for event loop protection
+- **Per-Request cost (S3 Standard, post Free Tier):**
+  - PUT, COPY, POST, LIST requests: $0.005 per 1,000 requests
+  - GET, SELECT and all other requests: $0.0004 per 1,000 requests
+  - DELETE requests: Free
+  - Storage (first 50 TB/month): $0.023 per GB
+  - Storage (next 450 TB/month): $0.022 per GB
+  - Storage (over 500 TB/month): $0.021 per GB
+- **Cooling period:**
+  - 5 seconds (retry-after header on 503 Service Unavailable when server is overloaded)
+- **Shared limits:** No (bucket exclusive to beats-upload microservice)
+
+**Additional Notes:**
+
+- **Operations Used:** PutObject, GetObject, DeleteObject, Presigned POST/GET URLs
+- **File Types:** Audio (mp3, wav, flac, aac) and images (jpg, png, webp)
+- **Stability Controls:** toobusy-js guards against event loop lag; Bottleneck limits concurrent operations
+- **CDN Integration:** CloudFront distributes content with signed URLs (2-hour expiration for streaming)
+- **Compensation Pattern:** Orphaned S3 files are deleted if database operations fail
+
+--- 
+
+## Referencias
+- AWS S3 Pricing: https://aws.amazon.com/s3/pricing/
+
+---
 
 ## Beats interaction
 
@@ -207,7 +263,7 @@ Hemos integrado la API de OpenRouter para moderar el contenido de la aplicación
 
 ---
 
-**References:**
+## Referencias
 
 - OpenRouter API Documentation: https://openrouter.ai/docs
 - Rate Limits Documentation: https://openrouter.ai/docs/limits
