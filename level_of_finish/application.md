@@ -33,6 +33,26 @@ En concreto, se garantizan aspectos fundamentales como:
 
 ### Cláusulas abusivas detectadas por iCan
 
+Tras analizar el *Customer Agreement* con iCan, la herramienta identificó ciertas cláusulas como potencialmente abusivas. No obstante, consideramos que estos resultados corresponden a **falsos positivos**, por los siguientes motivos:
+
+- **Cláusula 1.2 (Aceptación del Acuerdo por uso del servicio):**  
+  iCan la clasifica como *contract by using*. Consideramos que no es abusiva, ya que el Cliente acepta explícitamente el Acuerdo, el SLA y la Política de Privacidad durante el proceso de registro antes de poder utilizar el servicio.
+
+- **Cláusula 2.4 (Suspensión del servicio por impago):**  
+  Identificada como posible terminación unilateral. Se mantiene porque la suspensión solo se produce ante un incumplimiento objetivo del Cliente (impago) y después de un plazo de 30 días, lo que constituye una medida proporcionada.
+
+- **Cláusula 2.6 (Aceptación de cambios de tarifas):**  
+  Marcada por aceptación tácita. No se considera abusiva, ya que cualquier cambio de precio se comunica con al menos 30 días de antelación y el Cliente puede cancelar el contrato sin penalización antes de que el cambio entre en vigor.
+
+- **Cláusula 4 (Suspensión o eliminación de cuentas):**  
+  iCan la señala como eliminación unilateral de contenido. Se mantiene porque solo es aplicable en caso de incumplimiento de las normas de uso y es necesaria para garantizar la seguridad y el correcto funcionamiento del servicio.
+
+- **Cláusula 5.3 (Aceptación tácita tras notificación de cambios):**  
+  iCan identifica esta cláusula como *contract by using*, al considerar que la aceptación se produce por el uso continuado del servicio. Consideramos que se trata de un falso positivo, ya que la aceptación solo tiene lugar tras una notificación previa clara y con un plazo de 30 días, durante el cual el Cliente puede cancelar el contrato sin penalización si no está de acuerdo con los cambios.
+
+- **Cláusula 10 (Ley aplicable y resolución de disputas):**  
+  Identificada como potencialmente problemática. Sin embargo, no impone arbitraje obligatorio ni limita el acceso a la vía judicial, permitiendo al Cliente recurrir a los mecanismos legales disponibles en su jurisdicción.
+
 ## 2. Nivel de acabado
 
 ### MICROSERVICIO BÁSICO (REQUISITOS GRUPALES)
