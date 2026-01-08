@@ -122,7 +122,7 @@ Tras analizar el *Customer Agreement* con iCan, la herramienta identificó ciert
 
   1. Video demo de la aplicación: []()
   2. Video demo de user-auth: [https://youtu.be/RqF08LsD1wM](https://youtu.be/RqF08LsD1wM)
-  3. Video demo de beats-upload: []()
+  3. Video demo de beats-upload: [https://youtu.be/QSa-v-2zmxM](https://youtu.be/QSa-v-2zmxM)
   4. Video demo de beats-interaction: [https://youtu.be/-L0-ZMILihI](https://youtu.be/-L0-ZMILihI)
   5. Video demo de analytics-and-dashboards: [https://youtu.be/tHK0gTlxv10](https://youtu.be/tHK0gTlxv10)
   6. Video demo de social: []()
