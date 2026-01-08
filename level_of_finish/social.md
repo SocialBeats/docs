@@ -84,7 +84,7 @@
     - Tarea grupal, explicado en el documento de nivel de acabado de la aplicación.
   
 - Ficha técnica normalizada del modelo de consumo de las APIs externas utilizadas en la aplicación y que debe incluir al menos algún servicio externo de envío de correos electrónicos con un plan de precios múltiple como SendGrid. REALIZADO.
-    - Tarea grupal, explicado en el documento de nivel de acabado de la aplicación. Nuestra parte de la ficha técnica es la de OpenRouter.
+    - Tarea grupal, explicado en el documento de nivel de acabado de la aplicación.
     
 - Documento incluido en el repositorio del microservicio (o en el wiki del repositorio en Github) por cada pareja REALIZADO.
     - Es este mismo documento. Además está explicado en el documento de nivel de acabado de la aplicación.
