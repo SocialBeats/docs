@@ -148,7 +148,134 @@ La configuración del dominio `socialbeats.es` con los registros DNS apropiados 
 
 ### Beats Upload
 
-### Beats-interactions
+#### AWS S3 (Amazon Simple Storage Service)
+
+##### Contexto y propósito
+
+La API de **AWS S3** se utiliza dentro del microservicio **Beats Upload** para almacenar archivos de audio (beats) e imágenes de portada. Los usuarios suben archivos mediante URLs presignadas (Presigned POST), y el contenido se distribuye a través de CloudFront (CDN) con URLs firmadas para streaming seguro.
+
+##### Planes de suscripción disponibles
+
+AWS S3 ofrece diferentes clases de almacenamiento. Para nuestro caso de uso (acceso frecuente a archivos de audio), utilizamos **S3 Standard**.
+
+###### 1. Free Tier (Gratuito - 12 meses)
+
+- **Almacenamiento:** 5 GB
+- **PUT, COPY, POST, LIST requests:** 2.000/mes
+- **GET requests y otras:** 20.000/mes
+- **Transferencia de datos:** 100 GB salida/mes (compartido con otros servicios AWS)
+- **Coste:** $0
+- **Duración:** 12 meses desde la creación de la cuenta AWS
+
+###### 2. S3 Standard (Post Free Tier)
+
+- **Almacenamiento:**
+  - Primeros 50 TB/mes: $0.023/GB
+  - Siguientes 450 TB/mes: $0.022/GB
+  - Más de 500 TB/mes: $0.021/GB
+- **PUT, COPY, POST, LIST requests:** $0.005 por 1.000 requests
+- **GET, SELECT y otras requests:** $0.0004 por 1.000 requests
+- **DELETE requests:** Gratis
+- **Sin límites de almacenamiento ni requests**
+
+##### Créditos promocionales
+
+Actualmente operamos con **créditos promocionales de AWS** adicionales al Free Tier, lo que nos permite operar sin coste durante la fase de desarrollo y beta.
+
+##### Estimación de uso del proyecto
+
+###### Funcionalidades que generan operaciones S3
+
+| Operación | Tipo de Request |
+|-----------|-----------------|
+| Subir beat (audio) | PUT |
+| Subir portada (imagen) | PUT |
+| Streaming de audio | GET (via CloudFront) |
+| Descarga de beat | GET |
+| Eliminar beat | DELETE (gratis) |
+| Generar waveform | GET (se recupera el fichero de audio y se genera el waveform) |
+
+###### Escenario conservador (Desarrollo/Beta)
+
+| Métrica | Estimación |
+|---------|------------|
+| Usuarios activos | 100-500 |
+| Beats subidos/día | 5-20 |
+| Tamaño promedio beat | ~5 MB |
+| Streams/descargas/día | 50-200 |
+| **PUT requests/mes** | **~150-600** |
+| **GET requests/mes** | **~1.500-6.000** |
+| **Almacenamiento/mes** | **~750 MB - 3 GB** |
+
+###### Escenario de crecimiento (Lanzamiento público)
+
+| Métrica | Estimación |
+|---------|------------|
+| Usuarios activos | 500-2.000 |
+| Beats subidos/día | 50-200 |
+| Tamaño promedio beat | ~5 MB |
+| Streams/descargas/día | 500-2.000 |
+| **PUT requests/mes** | **~1.500-6.000** |
+| **GET requests/mes** | **~15.000-60.000** |
+| **Almacenamiento/mes** | **~7.5 GB - 30 GB** |
+
+##### Análisis de costes
+
+| Escenario | Almacenamiento | PUT requests | GET requests | Coste mensual |
+|-----------|---------------|--------------|--------------|---------------|
+| Conservador (Free Tier) | 750 MB - 3 GB | 150-600 | 1.500-6.000 | **$0** |
+| Crecimiento (Post Free Tier) | 7.5-30 GB | 1.500-6.000 | 15.000-60.000 | **$0.17 - $0.72** |
+
+**Nota:** Los costes del escenario de crecimiento asumen que se ha agotado el Free Tier. Mientras los créditos promocionales estén activos, el coste real es $0.
+
+##### Suscripción óptima: **Free Tier + Créditos Promocionales**
+
+###### Justificación
+
+1. **Cobertura total en fase actual**
+   El Free Tier (5 GB storage, 2.000 PUT, 20.000 GET) cubre holgadamente el escenario conservador.
+
+2. **Créditos promocionales como buffer**
+   Los créditos de AWS proporcionan un margen de seguridad adicional para picos de uso o crecimiento inesperado.
+
+3. **Costes mínimos post Free Tier**
+   Incluso en el escenario de crecimiento, el coste es inferior a $1/mes, haciendo S3 extremadamente económico.
+
+4. **Sin compromisos ni contratos**
+   S3 es pay-as-you-go puro, sin costes fijos ni mínimos.
+
+5. **Controles de estabilidad implementados**
+   El código incluye Bottleneck (5 operaciones concurrentes) y toobusy-js para proteger contra sobrecarga.
+
+##### Plan de acción propuesto
+
+###### Fase 1 — Desarrollo y beta
+
+- Uso del **Free Tier + Créditos Promocionales**
+- Monitorización de uso en AWS Console
+
+###### Fase 2 — Lanzamiento público
+
+- Evaluación del consumo real vs estimaciones
+- Si se supera el Free Tier → transición automática a S3 Standard (pay-as-you-go)
+- Coste esperado: < $1/mes
+
+###### Fase 3 — Escalado
+
+- Si almacenamiento > 50 GB → considerar S3 Intelligent-Tiering para optimizar costes
+- Si tráfico > 100.000 requests/mes → evaluar Reserved Capacity
+
+##### Conclusión
+
+El **Free Tier de AWS S3 + Créditos Promocionales** es la opción óptima para el microservicio, ofreciendo:
+
+- Coste cero en la fase actual
+- Límites suficientes para desarrollo y beta
+- Costes mínimos en escalado (< $1/mes)
+- Escalabilidad transparente sin cambios de código
+- Controles de estabilidad implementados (Bottleneck + toobusy-js)
+
+### Beats interaction
 
 #### OpenRouter API
 
