@@ -44,6 +44,67 @@ Proveer una plantilla estandarizada que todos los miembros del grupo puedan usar
 
 ---
 
+## User and Profile Microservice
+
+### Resend (API de envío de correos)
+
+Hemos implementado a nivel de aplicación una API de envío de correos, el proveedor que mejor se ajustaba a nuestras condiciones ha sido *Resend*. Al hablar de las configuraciones me centraré en todos los planes de precios que ofrece Resend, pero en el resto de la ficha técnica de la API (capacity, rate limit, etc.) me centraré en el plan contratado en nuestra aplicación (**Free**).
+
+También nos centraremos en el apartado de Transactional e-mails, no marketing e-mails. En ese aspecto comentar que las **cuotas** engloban tanto correos enviados como recibidos.
+
+- **Associated SaaS**
+  - Type: Partial SaaS (Email Service)
+  - Pricing Configurations: **5** (Free, Pro, Scale, Scale + Dedicated IP Add-on, Enterprise )
+- **Capacity (Quota)**: 
+  - Value: 100 emails / day 
+    - Auto-recharge: daily
+    - Extra charge: None
+  - Value: 3000 emails / month
+    - Auto-recharge: monthly
+    - Extra charge: None
+  - Aplica tanto a enviados como recibidos
+- **Max Power (Rate Limit):**
+  - Value: 2 requests / second
+- **Cooling Period:** TBD (Sin embargo se incluye la cabecera **x-retry-after** en la respuesta, pero no se indica cual es el tiempo)
+- **Segmentation**:
+  - **Account Level** (Authenticated), múltiples API Keys aplicarían sobre el mismo límite global de cuenta.
+
+- **Curva de Oportunidad (sobre Cuota diaria):**
+Observamos como en la cuota diaria tenemos una ventana de oportunidad muy amplia, lo que nos permite tener margen para poder consumirlo a lo largo de dicha ventana.
+
+![Curva de Oportunidad (sobre Cuota diaria)](../images/oportunidad-diaria.png)
+
+- **Curva de Oportunidad (sobre Cuota mensual):** El panorama cambia en la cuota mensual, aunque es cierto que el tiempo está en días, lo cual tenemos un margen "amplio" la ventana de oportunidad es practicamente mínima, en el momento en el que un día no consumimos toda nuestra cuota contraemos pérdida de capacidad.
+
+![Curva de Oportunidad (sobre Cuota mensual)](../images/oportunidad-mensual.png)
+
+
+
+
+- **Curva de Capacidad**:
+
+![Curva de Capacidad - Resend](../images/capacity-resend.png)
+
+
+## Payments and Subscriptions
+
+### Stripe (API de pagos)
+
+Hemos integrado Stripe como el núcleo de nuestro módulo de pagos y suscripciones. Al igual que con otros proveedores, nos centramos en las configuraciones globale a nivel de Pricing, pero para los límites técnicos de la Datasheet nos basamos en el **Test Mode (Sandbox)**, que es el entorno que estamos usando para nuestra aplicación.
+
+- **Associated Saas**
+  - Type: Full SaaS 
+  - Pricing Configurations: **2** (Integrated/Custom), que se deben diferenciar de las dos *formas* de usar la API (**Test Mode y Modo Live**).
+- **Capacity (Quota)**:
+  - Value: Ilimitado (no existe una cuota máxima)
+- **Max Power (Rate Limit)**:
+  - Value: 25 requests/segundo (Modo de prueba), este valor sube a 100 req/s en Modo Live
+- **Cooling Period:** TBD (La documentación no indica un tiempo exacto, pero exige implementar un **Exponential Backoff** ante errores 429).
+
+- **Segmentation**:
+  - **Account Level (Authenticated)**: Todas las claves de API vinculadas a una cuenta comparten el mismo límite de 25 req/s
+
+
 ## Analytics and Dashboards
 
 ### Quotable (Open Source)
