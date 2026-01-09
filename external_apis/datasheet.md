@@ -83,6 +83,12 @@ También nos centraremos en el apartado de Transactional e-mails, no marketing e
 
 ![Curva de Capacidad - Resend](../images/capacity-resend.png)
 
+---
+
+## Referencias
+
+- **Resend:** https://resend.com/pricing
+
 ## Payments and Subscriptions
 
 ### Stripe (API de pagos)
