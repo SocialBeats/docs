@@ -23,7 +23,18 @@ El tiempo dedicado al trabajo así como los informes detallados de las tareas re
 
 ## Presentación
 
-La presentación con las diapositivas expuestas en clase está disponible en la carpeta *presentation*, en formato pptx así como en pdf. También está disponible en el siguiente enlace: [https://docs.google.com/presentation/d/1ks0M5fWkYYrDGw-t2npcgh1q5nsMuCrU/edit?usp=sharing&ouid=104769228190022807550&rtpof=true&sd=true](https://docs.google.com/presentation/d/1ks0M5fWkYYrDGw-t2npcgh1q5nsMuCrU/edit?usp=sharing&ouid=104769228190022807550&rtpof=true&sd=true). **NOTA:** La versión con la que se expuso la presentación es la que está nombrada como `VERSIÓN DEFINITIVA`.
+La presentación con las diapositivas expuestas en clase está disponible en la carpeta *presentation*, en formato pptx así como en pdf. También está disponible en el siguiente enlace: [https://docs.google.com/presentation/d/1ks0M5fWkYYrDGw-t2npcgh1q5nsMuCrU/edit?usp=sharing&ouid=104769228190022807550&rtpof=true&sd=true](https://docs.google.com/presentation/d/1ks0M5fWkYYrDGw-t2npcgh1q5nsMuCrU/edit?usp=sharing&ouid=104769228190022807550&rtpof=true&sd=true). **NOTA:** La versión con la que se expuso la presentación es la que está nombrada como `VERSIÓN DEFINITIVA`, del 9 de enero de 2026 a las 13:01.
+
+## Videos
+
+Los videos de la demostración funcional de la aplicación y de los microservicios están en youtube, accesibles desde el application.md/application.pdf. De todos modos, los enlaces a los mismos son los siguientes:
+
+  1. Video demo de la aplicación: [https://youtu.be/gb9y5TR-ftw](https://youtu.be/gb9y5TR-ftw)
+  2. Video demo de user-auth: [https://youtu.be/RqF08LsD1wM](https://youtu.be/RqF08LsD1wM)
+  3. Video demo de beats-upload: [https://youtu.be/QSa-v-2zmxM](https://youtu.be/QSa-v-2zmxM)
+  4. Video demo de beats-interaction: [https://youtu.be/-L0-ZMILihI](https://youtu.be/-L0-ZMILihI)
+  5. Video demo de analytics-and-dashboards: [https://youtu.be/tHK0gTlxv10](https://youtu.be/tHK0gTlxv10)
+  6. Video demo de social: [https://www.youtube.com/watch?v=nhaZ3wjRNCM](https://www.youtube.com/watch?v=nhaZ3wjRNCM)
 
 ## Uso de IA
 

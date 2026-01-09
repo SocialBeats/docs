@@ -129,11 +129,11 @@ Tras analizar el _Customer Agreement_ con iCan, la herramienta identificó ciert
   3. Video demo de beats-upload: [https://youtu.be/QSa-v-2zmxM](https://youtu.be/QSa-v-2zmxM)
   4. Video demo de beats-interaction: [https://youtu.be/-L0-ZMILihI](https://youtu.be/-L0-ZMILihI)
   5. Video demo de analytics-and-dashboards: [https://youtu.be/tHK0gTlxv10](https://youtu.be/tHK0gTlxv10)
-  6. Video demo de social: []()
+  6. Video demo de social: [https://www.youtube.com/watch?v=nhaZ3wjRNCM](https://www.youtube.com/watch?v=nhaZ3wjRNCM)
 
 - Presentación preparada para ser presentada en 30 minutos por cada equipo de 8/10 personas. **REALIZADO**.
 
-  - La presentación está disponible en [https://docs.google.com/presentation/d/1ks0M5fWkYYrDGw-t2npcgh1q5nsMuCrU/edit?usp=sharing&ouid=104769228190022807550&rtpof=true&sd=true](https://docs.google.com/presentation/d/1ks0M5fWkYYrDGw-t2npcgh1q5nsMuCrU/edit?usp=sharing&ouid=104769228190022807550&rtpof=true&sd=true) así como en [https://github.com/SocialBeats/docs/tree/main/presentation](https://github.com/SocialBeats/docs/tree/main/presentation) en pptx y en pdf.
+  - La presentación está disponible en [https://docs.google.com/presentation/d/1ks0M5fWkYYrDGw-t2npcgh1q5nsMuCrU/edit?usp=sharing&ouid=104769228190022807550&rtpof=true&sd=true](https://docs.google.com/presentation/d/1ks0M5fWkYYrDGw-t2npcgh1q5nsMuCrU/edit?usp=sharing&ouid=104769228190022807550&rtpof=true&sd=true) así como en [https://github.com/SocialBeats/docs/tree/main/presentation](https://github.com/SocialBeats/docs/tree/main/presentation) en pptx y en pdf. **NOTA:** La versión con la que se expuso la presentación es la que está nombrada como `VERSIÓN DEFINITIVA`, del 9 de enero de 2026 a las 13:01.
 
 - Análisis de los esfuerzos (en horas) dedicadas por cada uno. Para esto se recomienda utilizar una herramienta de time tracking como Clockify o Toggl: **REALIZADO**
   - Están disponibles en [https://github.com/SocialBeats/docs/tree/main/time_efforts](https://github.com/SocialBeats/docs/tree/main/time_efforts). La herramienta utilizada ha sido Clockify.
