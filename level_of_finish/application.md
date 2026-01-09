@@ -9,7 +9,7 @@ El proyecto consiste en hacer una red social parecida a Spotify o SoundCloud par
 Existen varios microservicios, siendo estos los siguientes:
 
 - user-auth: Gestiona toda la lógica de autenticación vía JWT, apoyándose en Redis para la validación y seguridad de tokens. Además de la administración de usuarios y perfiles con personalización avanzada, integra mecanismos de seguridad 2FA y verificación de identidad externa. Desarrollado por Ramón Gavira y Benjamín Flores
-- beats-upload:
+- beats-upload: Es el microservicio encargado de gestionar la subida de beats. Desarolado por Daniel Vela y Miguel Encina
 - beats-interactions: Se encarga de la lógica de las playlists, los comentarios, los ratings y la moderación de los mismos. Desarrollado por Daniel Galván y Jaime Linares.
 - analytics-and-dashboards: Se encarga de la lógica de cálculo de métricas de un beat, creación de dashboards y visualización de estas métricas mediante widgets. Desarrollado por Daniel Ruiz y Rafael Pulido.
 - social: Se encarga de la lógica de las amistades entre usuarios, el feed y las conversaciones y mensajes. Desarrollado por Andrés Martínez y Sergio Álvarez.
@@ -73,12 +73,12 @@ Tras analizar el *Customer Agreement* con iCan, la herramienta identificó ciert
 - Interacción completa entre todos los microservicios de la aplicación integrando información. La integración debe realizarse a través del backend: **REALIZADO**.
   - Se puede observar por la existencia de commands, la gestión de eventos de kafka y el frontend en común.
 - Tener un frontend común que integre los frontends de cada uno de los microservicios. Cada pareja debe ocuparse, al menos, de la parte específica de su microservicio en el frontend común: **REALIZADO**.
-  - Está especificado en los detalles del nivel de acabado de cada microservicio, pero el frontend común puede encontrarse en [https://github.com/SocialBeats/frontend](https://github.com/SocialBeats/frontend).
+  - Está especificado en los detalles del nivel de acabado de cada microservicio, pero el frontend común puede encontrarse en [https://github.com/SocialBeats/frontend](https://github.com/SocialBeats/frontend). La plantilla básica del frontend fue realizada por Rafael Pulido y Daniel Ruíz.
 - Permitir la suscripción del usuario a un plan de precios y adaptar automáticamente la funcionalidad de la aplicación según el plan de precios seleccionado: **REALIZADO**.
   - Se ha usado Space para la gestión de planes de precio en nuestros microservicios. Además, existe un microservicio dedicado a los planes de precios y suscripciones, que está disponible en [https://github.com/SocialBeats/payments-and-suscriptions](https://github.com/SocialBeats/payments-and-suscriptions).
   - La gestión y división de tareas en este aspecto ha sido la siguiente:
     - En el diseño del YAML y subida a SPHERE del pricing ha sido realizado por Rafael Pulido [disponible aquí](https://sphere.score.us.es/pricings/collections/69527907641bc8e6c0f7397d/FIS-2526-Socialbeats).
-    - La integración de SPACE con la API Gateway y gestión del Pricing Token para poder evaluar tanto en back como en front ha sido realizado por Ramón Gavira
+    - La integración de SPACE con la API Gateway y gestión del Pricing Token para poder evaluar tanto en back como en front ha sido realizado por Ramón Gavira. **NOTA:** La implementación concreta del pricing en cada microservicio tanto en backend como en frontend ha sido realizada por los miembros del microservicio en cuestión (explicado más adelante).
     - Miguel Encina se ha encargado de crear las suscripciones directamente en SPACE de los planes y controlar upgrades/downgrades y contrataciones de add-ons.
 
 ### APLICACIÓN BASADA EN MICROSERVICIOS AVANZADA
