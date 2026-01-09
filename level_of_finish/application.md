@@ -84,7 +84,7 @@ Tras analizar el *Customer Agreement* con iCan, la herramienta identificó ciert
 ### APLICACIÓN BASADA EN MICROSERVICIOS AVANZADA
 
 - Incluir add-ons al plan de precios y adaptar automáticamente la funcionalidad de la aplicación según los
-  add-ons utilizados: **REALIZADO**. 
+  add-ons utilizados: **REALIZADO**.
   - En el microservicio de user-auth se ha incluido un add-on que permite personalizar la foto de perfil del usuario con decorativos. Esto ha sido limitado tanto en frontend usando el SDK `react-space-client` como en backend usando el SDK `space-node-client`. El código de esta evaluación se aprecia en el archivo [`src/components/profile/ProfileHero.jsx`](https://github.com/SocialBeats/frontend/blob/develop/src/components/profile/ProfileHero.jsx) en las líneas 111 a 132. También se bloquea en el backend en el archivo [`src/controllers/profileController.js`](https://github.com/SocialBeats/user-auth/blob/main/src/controllers/profileController.js) evaluando dicha feature a la hora de editar un perfil.   
 - Incluir en el plan de precios límites de uso y aplicarlos automáticamente según la suscripción del usuario: **REALIZADO**.
   - Se ha integrado Space en los microservicios que tienen limitaciones del pricing asociadas. El plan de precios en formato YAML se puede encontrar en [https://sphere.score.us.es/pricings/collections/69527907641bc8e6c0f7397d/FIS-2526-Socialbeats](https://sphere.score.us.es/pricings/collections/69527907641bc8e6c0f7397d/FIS-2526-Socialbeats) 
@@ -120,7 +120,7 @@ Tras analizar el *Customer Agreement* con iCan, la herramienta identificó ciert
 
 - Vídeo de demostración del microservicio o aplicación funcionando. **REALIZADO**.
 
-  1. Video demo de la aplicación: []()
+  1. Video demo de la aplicación: [https://youtu.be/gb9y5TR-ftw](https://youtu.be/gb9y5TR-ftw)
   2. Video demo de user-auth: [https://youtu.be/RqF08LsD1wM](https://youtu.be/RqF08LsD1wM)
   3. Video demo de beats-upload: [https://youtu.be/QSa-v-2zmxM](https://youtu.be/QSa-v-2zmxM)
   4. Video demo de beats-interaction: [https://youtu.be/-L0-ZMILihI](https://youtu.be/-L0-ZMILihI)
