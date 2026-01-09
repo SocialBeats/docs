@@ -17,9 +17,9 @@ Existen varios microservicios, siendo estos los siguientes:
 
 ## Customer Agreement
 
-El customer Agreement se encuentra definido [aquí](https://github.com/SocialBeats/docs/blob/main/legal/agreement.md). Tras haber analizado el documento en busca de cláusulas abusivas, encontramos que el contrato es equilibrado y protege los derechos del usuario, evitando prácticas desleales.
+El Customer Agreement se encuentra definido [aquí](https://github.com/SocialBeats/docs/blob/main/legal/agreement.md). Este documento establece el marco contractual que regula los derechos y obligaciones entre SocialBeats y el Cliente, definiendo de forma clara aspectos clave del servicio como las condiciones económicas, la terminación del contrato, la responsabilidad de las partes, la propiedad intelectual y la protección de datos personales.
 
-En concreto, se garantizan aspectos fundamentales como:
+En particular, el acuerdo contempla garantías relevantes para el Cliente, entre las que destacan:
 
 - Protección ante cambios de precio (Cláusula 2.5 y 2.6): La compañía está obligada a notificar con 30 días de antelación cualquier subida, otorgando al cliente el derecho a cancelar sin penalización antes de que se aplique.
 
