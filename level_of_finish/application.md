@@ -136,7 +136,7 @@ Tras analizar el _Customer Agreement_ con iCan, la herramienta identificó ciert
   - La presentación está disponible en [https://docs.google.com/presentation/d/1ks0M5fWkYYrDGw-t2npcgh1q5nsMuCrU/edit?usp=sharing&ouid=104769228190022807550&rtpof=true&sd=true](https://docs.google.com/presentation/d/1ks0M5fWkYYrDGw-t2npcgh1q5nsMuCrU/edit?usp=sharing&ouid=104769228190022807550&rtpof=true&sd=true) así como en [https://github.com/SocialBeats/docs/tree/main/presentation](https://github.com/SocialBeats/docs/tree/main/presentation) en pptx y en pdf.
 
 - Análisis de los esfuerzos (en horas) dedicadas por cada uno. Para esto se recomienda utilizar una herramienta de time tracking como Clockify o Toggl: **REALIZADO**
-  - Están disponibles en [https://github.com/SocialBeats/docs/tree/main/time_efforts](https://github.com/SocialBeats/docs/tree/main/time_efforts)
+  - Están disponibles en [https://github.com/SocialBeats/docs/tree/main/time_efforts](https://github.com/SocialBeats/docs/tree/main/time_efforts). La herramienta utilizada ha sido Clockify.
 
 ### NIVEL HASTA 7 PUNTOS
 
