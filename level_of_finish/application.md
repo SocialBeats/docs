@@ -33,10 +33,10 @@ En particular, el acuerdo contempla garantías relevantes para el Cliente, entre
 
 ### Cláusulas abusivas detectadas por iCan
 
-Tras analizar el *Customer Agreement* con iCan, la herramienta identificó ciertas cláusulas como potencialmente abusivas. No obstante, consideramos que estos resultados corresponden a **falsos positivos**, por los siguientes motivos:
+Tras analizar el _Customer Agreement_ con iCan, la herramienta identificó ciertas cláusulas como potencialmente abusivas. No obstante, consideramos que estos resultados corresponden a **falsos positivos**, por los siguientes motivos:
 
 - **Cláusula 1.2 (Aceptación del Acuerdo por uso del servicio):**  
-  iCan la clasifica como *contract by using*. Consideramos que no es abusiva, ya que el Cliente acepta explícitamente el Acuerdo, el SLA y la Política de Privacidad durante el proceso de registro antes de poder utilizar el servicio.
+  iCan la clasifica como _contract by using_. Consideramos que no es abusiva, ya que el Cliente acepta explícitamente el Acuerdo, el SLA y la Política de Privacidad durante el proceso de registro antes de poder utilizar el servicio.
 
 - **Cláusula 2.4 (Suspensión del servicio por impago):**  
   Identificada como posible terminación unilateral. Se mantiene porque la suspensión solo se produce ante un incumplimiento objetivo del Cliente (impago) y después de un plazo de 30 días, lo que constituye una medida proporcionada.
@@ -48,7 +48,7 @@ Tras analizar el *Customer Agreement* con iCan, la herramienta identificó ciert
   iCan la señala como eliminación unilateral de contenido. Se mantiene porque solo es aplicable en caso de incumplimiento de las normas de uso y es necesaria para garantizar la seguridad y el correcto funcionamiento del servicio.
 
 - **Cláusula 5.3 (Aceptación tácita tras notificación de cambios):**  
-  iCan identifica esta cláusula como *contract by using*, al considerar que la aceptación se produce por el uso continuado del servicio. Consideramos que se trata de un falso positivo, ya que la aceptación solo tiene lugar tras una notificación previa clara y con un plazo de 30 días, durante el cual el Cliente puede cancelar el contrato sin penalización si no está de acuerdo con los cambios.
+  iCan identifica esta cláusula como _contract by using_, al considerar que la aceptación se produce por el uso continuado del servicio. Consideramos que se trata de un falso positivo, ya que la aceptación solo tiene lugar tras una notificación previa clara y con un plazo de 30 días, durante el cual el Cliente puede cancelar el contrato sin penalización si no está de acuerdo con los cambios.
 
 - **Cláusula 10 (Ley aplicable y resolución de disputas):**  
   Identificada como potencialmente problemática. Sin embargo, no impone arbitraje obligatorio ni limita el acceso a la vía judicial, permitiendo al Cliente recurrir a los mecanismos legales disponibles en su jurisdicción.
@@ -57,7 +57,8 @@ Tras analizar el *Customer Agreement* con iCan, la herramienta identificó ciert
 
 ### MICROSERVICIO BÁSICO (REQUISITOS GRUPALES)
 
-- Debe estar desplegado y ser accesible desde la nube (ya sea de forma individual o como parte de la aplicación): **REALIZADO**. 
+- Debe estar desplegado y ser accesible desde la nube (ya sea de forma individual o como parte de la aplicación): **REALIZADO**.
+
   - El frontend está accesible en [https://socialbeats.es/socialbeats/](https://socialbeats.es/socialbeats/) y la API en [https://api.socialbeats.es/socialbeats-api/health](https://api.socialbeats.es/socialbeats-api/health). Se ha usado _Digital Ocean_ como proveedor Cloud, donde tenemos un cluster de Kubernetes, y se ha usado IONOS para el DNS y la gestión del dominio. La documentación de la API esta disponible en [https://api.socialbeats.es/socialbeats-api/api/v1/docs/](https://api.socialbeats.es/socialbeats-api/api/v1/docs/)
 
 - Integración continua: El código debe compilarse, probarse y generar la imagen de Docker automáticamente usando GitHub Actions u otro sistema de integración continua en cada commit: **REALIZADO**.
@@ -73,7 +74,7 @@ Tras analizar el *Customer Agreement* con iCan, la herramienta identificó ciert
 - Interacción completa entre todos los microservicios de la aplicación integrando información. La integración debe realizarse a través del backend: **REALIZADO**.
   - Se puede observar por la existencia de commands, la gestión de eventos de kafka y el frontend en común.
 - Tener un frontend común que integre los frontends de cada uno de los microservicios. Cada pareja debe ocuparse, al menos, de la parte específica de su microservicio en el frontend común: **REALIZADO**.
-  - Está especificado en los detalles del nivel de acabado de cada microservicio, pero el frontend común puede encontrarse en [https://github.com/SocialBeats/frontend](https://github.com/SocialBeats/frontend). La plantilla básica del frontend fue realizada por Rafael Pulido y Daniel Ruíz.
+  - Está especificado en los detalles del nivel de acabado de cada microservicio, pero el frontend común puede encontrarse en [https://github.com/SocialBeats/frontend](https://github.com/SocialBeats/frontend). La plantilla básica del frontend fue realizada por Rafael Pulido y Daniel Ruiz.
 - Permitir la suscripción del usuario a un plan de precios y adaptar automáticamente la funcionalidad de la aplicación según el plan de precios seleccionado: **REALIZADO**.
   - Se ha usado Space para la gestión de planes de precio en nuestros microservicios. Además, existe un microservicio dedicado a los planes de precios y suscripciones, que está disponible en [https://github.com/SocialBeats/payments-and-suscriptions](https://github.com/SocialBeats/payments-and-suscriptions).
   - La gestión y división de tareas en este aspecto ha sido la siguiente:
@@ -88,15 +89,16 @@ Tras analizar el *Customer Agreement* con iCan, la herramienta identificó ciert
   - En el microservicio de user-auth se ha incluido un add-on que permite personalizar la foto de perfil del usuario con decorativos. Esto ha sido limitado tanto en frontend usando el SDK `react-space-client` como en backend usando el SDK `space-node-client`. El código de esta evaluación se aprecia en el archivo [`src/components/profile/ProfileHero.jsx`](https://github.com/SocialBeats/frontend/blob/develop/src/components/profile/ProfileHero.jsx) en las líneas 111 a 132. También se bloquea en el backend en el archivo [`src/controllers/profileController.js`](https://github.com/SocialBeats/user-auth/blob/main/src/controllers/profileController.js) evaluando dicha feature a la hora de editar un perfil.
   - En beats-upload se ha añadido un add-on que consiste en promocionar un beat para que aparezca primero en los criterios de búsqueda de la vista de explorar. Se puede ver la adaptación del add-on usando space en el archivo `src/utils/spaceConnection.js` y en el métodos _togglePromotion_ del archivo `src/services/beatService.js`. En el frontend, se limita este add-on en el archivo `src/pages/app/beats/BeatDetailPage.jsx`, en las lineas de la 284 a la 322.
 - Incluir en el plan de precios límites de uso y aplicarlos automáticamente según la suscripción del usuario: **REALIZADO**.
-  - Se ha integrado Space en los microservicios que tienen limitaciones del pricing asociadas. El plan de precios en formato YAML se puede encontrar en [https://sphere.score.us.es/pricings/collections/69527907641bc8e6c0f7397d/FIS-2526-Socialbeats](https://sphere.score.us.es/pricings/collections/69527907641bc8e6c0f7397d/FIS-2526-Socialbeats) 
+  - Se ha integrado Space en los microservicios que tienen limitaciones del pricing asociadas. El plan de precios en formato YAML se puede encontrar en [https://sphere.score.us.es/pricings/collections/69527907641bc8e6c0f7397d/FIS-2526-Socialbeats](https://sphere.score.us.es/pricings/collections/69527907641bc8e6c0f7397d/FIS-2526-Socialbeats)
     - En beats-interactions se puede ver la adaptación a los límites del pricing usando space en el archivo `src/utils/spaceConnection.js` y en los métodos _createPlaylist_ y _deletePlaylist_ del archivo `src/services/playlistService.js`. En el frontend, se limita esta característica en el archivo `src/pages/app/beats-interaction/playlist/CreatePlaylist.jsx` en las lineas de la 237 a la 251.
     - En user-auth se ha impuesto un límite sobre el número de certificados que un usuario puede subir a su perfil. Esto se realiza usando el SDK de node `space-node-client` y se puede comprobar en el archivo [`src/controllers/uploadControllers.js`](https://github.com/SocialBeats/user-auth/blob/main/src/controllers/uploadController.js).
     - En beats-upload se puede ver la adaptación a los límites del pricing usando space en el archivo `src/utils/spaceConnection.js` y en los métodos _generatePresignedUploadUrl_, _incrementDownloads_ y _deleteBeatPermanently_ del archivo `src/services/beatService.js`. En el frontend, se limitan estas características en los archivos `src/pages/app/beats/BeatDetailPage.jsx`, en las lineas de la 234 a la 263; `src/components/forms/BeatForm.jsx`, en las lineas de la 229 a la 276; `src/pages/beats/MyBeatsListPage.jsx`, en las lineas de la 59 a la 80; y en `src/components/features/player/BeatDetailPlayer.jsx`, en las lineas de la 291 a la 298.
+    - En analytics-and-dashboards se puede ver la adaptación a los límites del pricing usando space en el archivo `app/utils/space_connection.py` y en los métodos _create_ y _delete_ del archivo `app/services/dashboard_service.py`. En el frontend, se limita esta característica en el archivo `src/pages/app/dashboards/DashboardsPage.jsx` en las lineas de la 181 a la 194. Además, se ha diseñado la clase `SpaceClient` (facade) para abstraer la comunicación con la API, con el propósito de servir como biblioteca estándar de Python para la autoadaptación de aplicaciones. El coordinador técnico de Space ha validado esta implementación y ha solicitado un Pull Request para integrarla en su repositorio oficial.
 - Realizar pruebas de integración automatizadas con los otros microservicios utilizando el sistema de
   integración continua: **NO REALIZADO**.
 - Hacer uso de un API Gateway con funcionalidad avanzada como un mecanismo de throttling o de autenticación: **REALIZADO**.
   - El api-gateway está disponible en [https://github.com/SocialBeats/api-gateway](https://github.com/SocialBeats/api-gateway). La autenticación se puede encontrar en `src/services/aggregationService.js` y `src/services/tokenValidationService.js`. El throttling en `src/middleware/rateLimiter.js`. Realizado por Daniel Vela
-- Hacer uso de un sistema de comunicación asíncrono mediante un sistema de cola de mensajes para todos los microservicios. Si no es para todos, debe justificarse de forma razonada: **REALIZADO**. 
+- Hacer uso de un sistema de comunicación asíncrono mediante un sistema de cola de mensajes para todos los microservicios. Si no es para todos, debe justificarse de forma razonada: **REALIZADO**.
   - Se ha usado Kafka para la gestión de eventos en los microservicios. Todos los microservicios consumen o crean eventos. Recomendamos consultar individualmente el uso de kafka en cada microservicio. Un ejemplo se puede ver el archivo `src/services/kafkaConsumer.js` del microservicio de beats-interaction.
 - Implementación de un mecanismo para poder deshacer transacciones distribuidas: **NO REALIZADO**.
 - Cualquier otra extensión a la aplicación basada en microservicios básica acordada previamente con el profesor: **REALIZADO**.
