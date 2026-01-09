@@ -112,7 +112,7 @@ Tras analizar el *Customer Agreement* con iCan, la herramienta identificó ciert
 
 - Ficha técnica normalizada del modelo de consumo de las APIs externas utilizadas en la aplicación y que debe incluir al menos algún servicio externo de envío de correos electrónicos con un plan de precios múltiple como SendGrid. **REALIZADO**.
 
-  - Sí. Esta disponible en [https://github.com/SocialBeats/docs/blob/main/external_apis/datasheet.md](https://github.com/SocialBeats/docs/blob/main/external_apis/datasheet.md). Cada pareja ha aportado la información de las APIs externas consumidas. Naturalmente la API de SendGrid está incluida en ese documento.
+  - Sí. Esta disponible en [https://github.com/SocialBeats/docs/blob/main/external_apis/datasheet.md](https://github.com/SocialBeats/docs/blob/main/external_apis/datasheet.md). Cada pareja ha aportado la información de las APIs externas consumidas. La API de SendGrid no está incluida en ese documento, pero porque usamos la API de Resend, que es equivalente, bajo aprobación del profesor.
 
 - Documento incluido en el repositorio del microservicio (o en el wiki del repositorio en Github) por cada pareja **REALIZADO**.
 
